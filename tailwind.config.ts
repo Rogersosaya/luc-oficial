@@ -1,10 +1,13 @@
 import type { Config } from "tailwindcss";
+import {nextui} from "@nextui-org/react";
 
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    
   ],
   theme: {
     extend: {
@@ -36,6 +39,7 @@ const config: Config = {
         "primary-text": "#b4bcd0",
         primary: "#0187FF",
         secondary: "#00D292",
+        tertiary: 'rgb(21 16 48)'
         
       },
       spacing: {
@@ -59,6 +63,7 @@ const config: Config = {
         "navigation-height": "var(--navigation-height)",
       },
       backgroundImage: {
+        "green-pink-gradient": "linear-gradient(90deg, green 2%, pink 98%)",
         "primary-gradient":
           "linear-gradient(92.88deg, #0187FF 9.16%, #3FA5FF 43.89%, #00D292 74.72%)",
         "page-gradient":
@@ -150,6 +155,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  darkMode: "class",
+  plugins: [nextui()],
 };
 export default config;

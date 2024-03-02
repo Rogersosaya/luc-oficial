@@ -83,9 +83,9 @@ function NavBar() {
 
         <div className="ml-auto flex h-full items-center">
           <Link className="mr-6 text-sm" href="#">
-            Log in
+            Iniciar sesión
           </Link>
-          <Button href="#">Sign up</Button>
+          <Button href="#">Registrarse</Button>
         </div>
 
         <button

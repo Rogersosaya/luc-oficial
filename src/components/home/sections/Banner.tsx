@@ -18,8 +18,8 @@ function Banner() {
         <Highlight>→</Highlight>
       </Button>
       <BannerTitle className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms]">
-        Potenciando decisiones
-        <br className="hidden md:block" />con la sabiduría estudiantil
+        LUC brinda un espacio
+        <br className="hidden md:block" />al estudiante para expresarse con libertad
       </BannerTitle>
       <BannerSubtitle className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:400ms]">
         Ayúdanos a crear una comunidad educativa donde los estudiantes 
@@ -31,8 +31,8 @@ function Banner() {
         variant="primary"
         size="large"
       >
-        <span>Get Started </span>
-        <Highlight>a</Highlight>
+        <span>Empezar </span>
+        <Highlight>{"->"}</Highlight>
       </Button>
       {/* <BannerImage /> */}
     </BannerElement>
