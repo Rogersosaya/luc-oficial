@@ -11,6 +11,9 @@ import Valuation from "../components/Valuation";
 import Tags from "../components/Tags";
 import { IoIosContact } from "react-icons/io";
 import { CiCircleMore } from "react-icons/ci";
+import { Button as ButtonValoration } from "../../ui/button/Button";
+import { IoIosAddCircle } from "react-icons/io";
+import ButtonAddValoration from '../components/ButtonAddValoration';
 
 function GridPerfil() {
   return (
@@ -25,6 +28,9 @@ function GridPerfil() {
               alt="foto"
               className="rounded-lg"
             />
+          </div>
+          <div className="border-slate-500 border px-4 py-3 rounded-lg my-2 text-center ">
+            <ButtonAddValoration/>
           </div>
           <div className="border-slate-500 border px-4 py-3 rounded-lg my-2">
             <div className="text-md font-bold mb-2 flex items-center">

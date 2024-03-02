@@ -14,24 +14,8 @@ import {
 import { IoIosMore } from "react-icons/io";
 import ModalComponent from "./ModalComponent";
 import DropdownDetailsAuth from "./DropdownDetailsAuth";
+import DropdownDetailsNotAuth from "./DropdownDetailsNotAuth";
 
-const DropdownDetailsNotAuth = ({ onOpen }: any) => (
-  <Dropdown>
-    <DropdownTrigger>
-      <Button className="rounded-lg" isIconOnly variant="bordered">
-        <IoIosMore className="text-md" />
-      </Button>
-    </DropdownTrigger>
-    <DropdownMenu aria-label="Static Actions">
-      <DropdownItem key="details" onPress={onOpen}>
-        Detalles
-      </DropdownItem>
-      <DropdownItem key="delete" className="text-warning" color="warning">
-        Denunciar
-      </DropdownItem>
-    </DropdownMenu>
-  </Dropdown>
-);
 function DropdownDetails() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
