@@ -1,45 +1,42 @@
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react'
-import React from 'react'
+import {
+    Avatar,
+  Button,
+  Card,
+  CardBody,
+  Chip,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Tab,
+  Tabs,
+} from "@nextui-org/react";
+import React from "react";
+import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
+import BodyModal from './BodyModal';
 
-function ModalComponent({isOpen, onOpenChange}: any) {
+function ModalComponent({ isOpen, onOpenChange }: any) {
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent>
-          {(onClose) => (
+    <Modal size="lg" isOpen={isOpen} onOpenChange={onOpenChange} scrollBehavior="inside"
+    placement="center"
+    >
+      <ModalContent>
+        {(onClose) => {
+          return (
             <>
-              <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
               <ModalBody>
-                <p> 
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit
-                  dolor adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis. 
-                  Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod. 
-                  Et mollit incididunt nisi consectetur esse laborum eiusmod pariatur 
-                  proident Lorem eiusmod et. Culpa deserunt nostrud ad veniam.
-                </p>
+                <div className="flex w-full flex-col">
+                  <BodyModal/>
+                </div>
               </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
-                </Button>
-              </ModalFooter>
+              
             </>
-          )}
-        </ModalContent>
-      </Modal>
-  )
+          );
+        }}
+      </ModalContent>
+    </Modal>
+  );
 }
 
-export default ModalComponent
+export default ModalComponent;

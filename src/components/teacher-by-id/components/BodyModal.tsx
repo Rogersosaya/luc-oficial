@@ -1,0 +1,75 @@
+import {
+  Avatar,
+  Card,
+  CardBody,
+  ModalBody,
+  Tab,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+  Tabs,
+  User,
+} from "@nextui-org/react";
+import React from "react";
+import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
+import { FaBorderAll } from "react-icons/fa6";
+import UserLike from './UserLike';
+import UserDislike from './UserDislike';
+
+function BodyModal() {
+  return (
+    <Tabs
+      aria-label="Options"
+      color="primary"
+      variant="underlined"
+      classNames={{
+        tabList:
+          "gap-6 w-full relative rounded-none p-0 border-b border-divider",
+        cursor: "w-full bg-[#22d3ee]",
+        tab: "max-w-fit px-0 h-12",
+        tabContent: "group-data-[selected=true]:text-[#06b6d4]",
+      }}
+    >
+      <Tab
+        key="all"
+        title={
+          <div className="flex items-center space-x-2">
+            <FaBorderAll />
+
+            <span>Todos</span>
+          </div>
+        }
+      >
+        <UserLike/>
+        <UserLike/>
+        <UserDislike/>
+        
+        
+      </Tab>
+      <Tab key="like" title={
+          <div className="flex items-center space-x-2">
+            <AiOutlineLike/>
+
+            <span>Estoy de acuerdo</span>
+          </div>
+        }>
+        <UserLike/>
+        <UserLike/>
+      </Tab>
+      <Tab key="dislike" title={
+          <div className="flex items-center space-x-2">
+            <AiOutlineDislike/>
+
+            <span>No estoy de acuerdo</span>
+          </div>
+        }>
+        <UserDislike/>
+      </Tab>
+    </Tabs>
+  );
+}
+
+export default BodyModal;

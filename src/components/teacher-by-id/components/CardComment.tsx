@@ -16,7 +16,7 @@ function CardComment() {
   const [isFollowed, setIsFollowed] = React.useState(false);
 
   return (
-    <Card className="w-full bg-transparent border border-slate-600">
+    <Card className="w-full bg-transparent border border-slate-600 mb-2">
       <CardHeader className="justify-between">
         <div className="flex gap-5">
           <Avatar isBordered radius="full" size="md" src="/img/jordan.jpg" />

@@ -39,6 +39,7 @@ const config: Config = {
         "primary-text": "#b4bcd0",
         primary: "#0187FF",
         secondary: "#00D292",
+        third: "#9D174D",
         tertiary: 'rgb(21 16 48)'
         
       },
