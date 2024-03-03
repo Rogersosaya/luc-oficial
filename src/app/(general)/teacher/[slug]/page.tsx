@@ -3,16 +3,20 @@ import Banner from "@/components/home/sections/Banner";
 import React from "react";
 import GridPerfil from '../../../../components/teacher-by-id/sections/GridPerfil';
 import CommentsAndOthers from '../../../../components/teacher-by-id/sections/CommentsAndOthers';
+import { getTeacherBySlug } from "@/actions/teacher/get-teacher-by-slug";
 
 interface Props {
-  params: { id: string };
+  params: { slug: string };
 }
 
-function TeacherPageId({ params }: Props) {
+async function TeacherPageId({ params }: Props) {
+  
+  const teacher = await getTeacherBySlug(params.slug) 
+  
   return (
     <>
       <Container className="pt-[6.4rem]">
-        <GridPerfil/>
+        <GridPerfil teacher={teacher}/>
       </Container>
       <Container className="pt-[6.4rem]">
         <CommentsAndOthers/>

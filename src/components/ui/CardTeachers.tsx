@@ -11,11 +11,16 @@ import { FaRepeat } from "react-icons/fa6";
 import { FaFireAlt } from "react-icons/fa";
 import { IoBook, IoBookOutline } from "react-icons/io5";
 import Link from "next/link";
+import { Teacher } from "@/interfaces/teacher.interface";
+import clsx from "clsx";
 
-const CardDisplayTrue = () => (
+interface Props{
+  teacher: Teacher
+}
+const CardDisplayTrue = ({teacher}:Props) => (
   <div className="bg-gray-900 rounded-[20px] p-2 px-2 min-h-[260px] md:min-h-[280px] flex justify items-center flex-col">
     <Image
-      src={"/img/glen.jpg"}
+      src={`/teachers/${teacher.url}` }
       width={150}
       height={150}
       alt="web-development"
@@ -23,7 +28,7 @@ const CardDisplayTrue = () => (
     />
 
     <h3 className="text-white text-xs md:text-sm font-bold text-center mt-2">
-      RODRIGUEZ-RAFAEL-GLEN DARIO
+      {teacher.name}
     </h3>
 
     <div className="flex mt-2 flex-wrap justify-center">
@@ -36,7 +41,7 @@ const CardDisplayTrue = () => (
     </div>
   </div>
 );
-const CardDisplayFalse = () => (
+const CardDisplayFalse = ({teacher}: Props) => (
   <div className="bg-gray-900 rounded-[20px] p-2 px-2 min-h-[260px] md:min-h-[280px] flex justify-center items-center flex-col" >
     <div className="flex justify-center items-center">
       <FaStar size={20} />
@@ -68,7 +73,7 @@ const CardDisplayFalse = () => (
       <span className="ml-2 text-lg">60%</span>
     </div>
     <div className="flex justify-center items-center my-1">
-      <Link href ="/teacher/2">
+      <Link href ={`/teacher/${teacher.slug}`}>
       <Button size="lg" variant="shadow" className="bg-gradient-to-tr from-primary to-secondary text-white shadow-lg text-md font-bold">
         Ver más
       </Button>
@@ -79,7 +84,7 @@ const CardDisplayFalse = () => (
   </div>
 );
 
-function CardTeachers() {
+function CardTeachers({teacher}:Props) {
   const [displayDiv, setDisplayDiv] = useState(true);
 
   return (
@@ -90,7 +95,7 @@ function CardTeachers() {
           onMouseLeave={() => setDisplayDiv(true)}
           className="w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card"
         >
-          {displayDiv ? <CardDisplayTrue /> : <CardDisplayFalse />}
+          {displayDiv ? <CardDisplayTrue teacher={teacher} /> : <CardDisplayFalse teacher={teacher} />}
         </div>
       </Tilt>
     </>

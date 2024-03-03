@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import CardTeachers from "../components/CardTeachers";
+import CardTeachers from "../../ui/CardTeachers";
 import {
   Navigation,
   Pagination,
@@ -17,34 +17,12 @@ import "swiper/css/autoplay";
 
 import { Button } from '@nextui-org/react';
 import Link from "next/link";
-const teachers = [
-  {
-    url: "/img/glen.jpg",
-  },
-  {
-    url: "/img/glen.jpg",
-  },
-  {
-    url: "/img/glen.jpg",
-  },
-  {
-    url: "/img/glen.jpg",
-  },
-  {
-    url: "/img/glen.jpg",
-  },
-  {
-    url: "/img/glen.jpg",
-  },
-  {
-    url: "/img/glen.jpg",
-  },
-  {
-    url: "/img/glen.jpg",
-  },
-];
+import { Teacher } from "@/interfaces/teacher.interface";
+interface Props {
+  teachers: Teacher[]
+}
 
-function TeachersSwiper() {
+function TeachersSwiper({teachers}: Props) {
   return (
 
     <div className="my-96">
@@ -96,7 +74,7 @@ function TeachersSwiper() {
       >
         {teachers.map((teacher, index) => (
           <SwiperSlide className="px-4 py-10" key={index}>
-            <CardTeachers />
+            <CardTeachers teacher={teacher} />
           </SwiperSlide>
         ))}
       </Swiper>

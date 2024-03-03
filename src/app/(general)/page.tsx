@@ -6,8 +6,10 @@ import CommentsFast from "../../components/home/sections/CommentsFast";
 import Podium from "../../components/home/sections/Podium";
 import TeachersSwiper from "@/components/home/sections/TeachersSwiper";
 import Filters from "../../components/teachers/sections/Filters";
+import { getTeachers } from "@/actions/teacher/get-teachers";
 
-function GeneralPage() {
+async function GeneralPage() {
+  const teachers = await getTeachers() 
   return (
     <>
       <div className="overflow-hidden pb-[16.4rem] md:pb-[25.6rem]">
@@ -24,7 +26,7 @@ function GeneralPage() {
       <Podium />
 
       <Container>
-        <TeachersSwiper />
+        <TeachersSwiper teachers={teachers} />
       </Container>
     </>
   );

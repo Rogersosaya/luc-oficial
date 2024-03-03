@@ -14,19 +14,21 @@ import { CiCircleMore } from "react-icons/ci";
 import { Button as ButtonValoration } from "../../ui/button/Button";
 import { IoIosAddCircle } from "react-icons/io";
 import ButtonAddValoration from '../components/ButtonAddValoration';
+import { Teacher } from "@/interfaces/teacher.interface";
 
-function GridPerfil() {
+function GridPerfil({teacher}:{teacher: Teacher | null}) {
+  console.log(teacher!.url)
   return (
     <>
       <div className="grid grid-cols-12    text-white gap-4 px-1 md:px-11 translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms]">
         <div className="col-span-12 md:col-span-3 flex flex-col rounded-lg">
           <div className="border-slate-500 border px-2 py-3 flex justify-center rounded-lg">
             <Image
-              src="/img/glen.jpg"
+              src={`/teachers/${teacher?.url}`}
               width={280}
               height={280}
               alt="foto"
-              className="rounded-lg"
+              className="rounded-lg border"
             />
           </div>
           <div className="border-slate-500 border px-4 py-3 rounded-lg my-2 text-center ">
