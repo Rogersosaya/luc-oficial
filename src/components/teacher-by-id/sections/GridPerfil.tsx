@@ -18,7 +18,7 @@ import ButtonAddValoration from '../components/ButtonAddValoration';
 function GridPerfil() {
   return (
     <>
-      <div className="grid grid-cols-12    text-white gap-4 px-1 md:px-11">
+      <div className="grid grid-cols-12    text-white gap-4 px-1 md:px-11 translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms]">
         <div className="col-span-12 md:col-span-3 flex flex-col rounded-lg">
           <div className="border-slate-500 border px-2 py-3 flex justify-center rounded-lg">
             <Image

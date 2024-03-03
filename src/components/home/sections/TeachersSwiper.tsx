@@ -14,6 +14,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
+
+import { Button } from '@nextui-org/react';
+import Link from "next/link";
 const teachers = [
   {
     url: "/img/glen.jpg",
@@ -43,10 +46,29 @@ const teachers = [
 
 function TeachersSwiper() {
   return (
-    <div className="my-36 ">
+
+    <div className="my-96">
+      <div className="text-center">
+        <h2 className="mb-4 text-4xl md:mb-7 md:text-7xl">
+          Profesores
+          <br className="hidden md:inline-block" /> 
+        </h2>
+        <p className="mx-auto mb-12 max-w-[68rem] text-lg text-primary-text md:mb-7 md:text-xl">
+          Por el momento se han registrado un total de 340 profesores de la Facultad de Ingeniería Industrial, Sistemas y Software.  
+        </p>
+      </div>
+      <div className="text-center">
+      <Link href="/teachers" >
+      <Button color="primary" size="lg" className=" mx-auto text-xl font-bold py-6">Ver todos</Button>
+      </Link>
+      </div>
       <Swiper 
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
         spaceBetween={70}
+        autoplay={{
+          delay: 1500,
+          disableOnInteraction: false
+        }}
         slidesPerView={4}
         navigation
         pagination={{ clickable: true }}

@@ -13,8 +13,7 @@ import { useRef } from "react";
 import { RxCrossCircled } from "react-icons/rx";
 
 function BannerTeachers() {
-  // const inputRef = useRef<HTMLInputElement>(null);
-  // useSlashFocus(inputRef);
+  
 
   
   return (
@@ -29,7 +28,7 @@ function BannerTeachers() {
         <br className="hidden md:block" />
       </BannerSubtitle>
 
-      <div className="translate-y-[-1rem] animate-fade-in opacity-0 px-4 [--animation-delay:600ms] h-12 w-[50rem] mx-auto rounded-full bg-slate-800 text-sm pl-8 ">
+      <div className="translate-y-[-1rem] animate-fade-in opacity-0 px-4 [--animation-delay:600ms] h-12 w-[50rem] mx-auto rounded-full bg-gray-900 text-sm pl-8 ">
         <button
           type="button"
           className="absolute top-1/2 -translate-y-1/2 left-0 text-xl p-3"
@@ -44,25 +43,13 @@ function BannerTeachers() {
         <button
           type="button"
           className="absolute top-1/2 -translate-y-1/2 right-1 text-xl p-3"
-          // onClick={() => setShowPassword(!showPassword)}
+          
         >
           <RxCrossCircled />
         </button>
       </div>
       
-      {/* <div className="bg-zinc-300  rounded-full  mt-13">
-        <Select label="Select an animal" className="max-w-xs">
-          
-        {animals.map((animal) => (
-          <SelectItem key={animal.value} value={animal.value}>
-            {animal.label}
-          </SelectItem>
-        ))}
-          
-        </Select>
-      </div> */}
-
-      {/* <BannerImage /> */}
+      
     </BannerElement>
   );
 }

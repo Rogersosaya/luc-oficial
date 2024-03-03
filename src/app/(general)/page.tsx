@@ -5,7 +5,7 @@ import Achievements from "@/components/home/sections/Achievements";
 import CommentsFast from "../../components/home/sections/CommentsFast";
 import Podium from "../../components/home/sections/Podium";
 import TeachersSwiper from "@/components/home/sections/TeachersSwiper";
-import Filters from '../../components/teachers/sections/Filters';
+import Filters from "../../components/teachers/sections/Filters";
 
 function GeneralPage() {
   return (
@@ -18,17 +18,14 @@ function GeneralPage() {
       <Container>
         <Achievements />
       </Container>
-      <Container>
-        <CommentsFast />
-      </Container>
-      <Container>
-        <Podium />
-      </Container>
+
+      <CommentsFast />
+
+      <Podium />
+
       <Container>
         <TeachersSwiper />
       </Container>
-      
-      <div className="h-12 bg-blue-600">ultimo</div>
     </>
   );
 }

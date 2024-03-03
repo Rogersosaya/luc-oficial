@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Select, SelectItem } from "@nextui-org/react";
 import React from "react";
 
@@ -19,33 +19,49 @@ function Filters() {
   ];
   return (
     <>
-      <div className="flex mx-9 flex-wrap md:flex-nowrap gap-4 bg-slate-800 py-3 px-3 justify-center mt-5 rounded-full">
-        <Select size={"sm"} color={"primary"}
- label="FACULTAD" className="max-w-xs ">
+      <div className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:600ms] flex mx-9 flex-wrap md:flex-nowrap gap-4 bg-gray-900 py-3 px-3 justify-center mt-5 rounded-lg md:rounded-full">
+        <Select
+          size={"sm"}
+          color={"primary"}
+          label="FACULTAD"
+          className="w-full  md:max-w-xs "
+        >
           {animals.map((animal, index) => (
-            <SelectItem  color={"primary"} key={index} value={animal.value}>
+            <SelectItem className="text-2xl"  key={index} value={animal.value}>
               {animal.label}
             </SelectItem>
           ))}
         </Select>
-        <Select size={"sm"} color={"primary"}
- label="CARRERA" className="max-w-xs ">
+        <Select
+          size={"sm"}
+          color={"primary"}
+          label="CARRERA"
+          className="w-full  md:max-w-xs "
+        >
           {animals.map((animal, index) => (
             <SelectItem color={"primary"} key={index} value={animal.value}>
               {animal.label}
             </SelectItem>
           ))}
         </Select>
-        <Select size={"sm"} color={"primary"}
- label="CICLO" className="max-w-xs ">
+        <Select
+          size={"sm"}
+          color={"primary"}
+          label="CICLO"
+          className="w-full  md:max-w-xs "
+        >
           {animals.map((animal, index) => (
             <SelectItem color={"primary"} key={index} value={animal.value}>
               {animal.label}
             </SelectItem>
           ))}
         </Select>
-        <Select size={"sm"} color={"primary"}
- label="CURSO" className="max-w-xs ">
+        <Select
+          size={"sm"}
+          color={"primary"}
+          label="CURSO"
+          className="w-full  md:max-w-xs"
+        >
           {animals.map((animal, index) => (
             <SelectItem color={"primary"} key={index} value={animal.value}>
               {animal.label}

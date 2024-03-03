@@ -5,10 +5,13 @@ import { FaRegStarHalfStroke } from "react-icons/fa6";
 import { FaStar } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
 import { FaCrown } from "react-icons/fa";
+import FeatureCommentFast from '../components/FeatureCommentFast';
 
 function Podium() {
   return (
-    <div className="mb-12 mt-24 ">
+    <>
+    <FeatureCommentFast/>
+    <div className="mb-12 ">
       <FaCrown size={80} className="mx-auto text-yellow-400" />
       <div className="flex justify-center">
         <div className="text-center mt-16 -mr-5">
@@ -103,6 +106,7 @@ function Podium() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

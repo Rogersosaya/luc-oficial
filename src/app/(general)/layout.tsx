@@ -1,5 +1,5 @@
 import NavBar from "@/components/ui/navbar/NavBar";
-import Footer from "../../components/ui/footer/Footer";
+import {Footer} from "../../components/ui/footer/Footer";
 
 export default function GeneralLayout({
   children,

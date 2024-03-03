@@ -13,21 +13,21 @@ import { IoBook, IoBookOutline } from "react-icons/io5";
 import Link from "next/link";
 
 const CardDisplayTrue = () => (
-  <div className="bg-tertiary rounded-[20px] p-2 px-2 min-h-[280px] flex justify items-center flex-col">
+  <div className="bg-gray-900 rounded-[20px] p-2 px-2 min-h-[260px] md:min-h-[280px] flex justify items-center flex-col">
     <Image
       src={"/img/glen.jpg"}
       width={150}
       height={150}
       alt="web-development"
-      className="object-contain rounded-lg"
+      className="object-contain rounded-lg w-48 h-48 md:w-60 md:h-60"
     />
 
-    <h3 className="text-white text-sm font-bold text-center mt-2">
+    <h3 className="text-white text-xs md:text-sm font-bold text-center mt-2">
       RODRIGUEZ-RAFAEL-GLEN DARIO
     </h3>
 
     <div className="flex mt-2 flex-wrap justify-center">
-      <Chip color="primary" variant="solid" className="mr-1 mb-1">
+      <Chip color="primary" variant="solid" className="mr-1 mb-1 ">
         POO
       </Chip>
       <Chip color="primary" variant="solid" className="mr-1 mb-1">
@@ -37,7 +37,7 @@ const CardDisplayTrue = () => (
   </div>
 );
 const CardDisplayFalse = () => (
-  <div className="bg-tertiary rounded-[20px] p-2 px-2 min-h-[280px] flex justify-center items-center flex-col" >
+  <div className="bg-gray-900 rounded-[20px] p-2 px-2 min-h-[260px] md:min-h-[280px] flex justify-center items-center flex-col" >
     <div className="flex justify-center items-center">
       <FaStar size={20} />
       <FaStar size={20} />

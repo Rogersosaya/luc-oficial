@@ -12,7 +12,7 @@ function ButtonAddValoration() {
         onClick={onOpen}
         startContent={<IoIosAddCircle className="text-xl" />}
         size="lg"
-        className="bg-gradient-to-tr from-primary to-secondary text-white shadow-sm text-xs lg:text-sm py-2 font-bold my-1"
+        className="bg-gradient-to-tr from-primary to-secondary text-white shadow-sm text-xs lg:text-sm py-5 font-bold my-1"
       >
         Agregar Valoración
       </Button>
