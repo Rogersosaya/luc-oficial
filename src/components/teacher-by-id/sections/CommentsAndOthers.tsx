@@ -1,6 +1,5 @@
 import React from "react";
-import { FaTags } from "react-icons/fa6";
-import Comments from '../components/CommentsContainer';
+
 import Others from '../components/Others';
 import CommentsContainer from "../components/CommentsContainer";
 import { getTeachers } from "@/actions/teacher/get-teachers";

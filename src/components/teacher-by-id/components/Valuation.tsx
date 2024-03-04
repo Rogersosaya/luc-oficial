@@ -1,12 +1,13 @@
+import { Teacher } from "@/interfaces/teacher.interface";
 import { Progress } from "@nextui-org/react";
 import React from "react";
 import { FaRegStar, FaStar, FaUser } from "react-icons/fa6";
 
-function Valuation() {
+function Valuation({teacher}: {teacher:Teacher | null}) {
   const value = 50;
   return (
     <>
-      <div className="text-lg font-bold">RODRIGUEZ-RAFAEL-GLEN DARIO</div>
+      <div className="text-lg font-bold">{teacher?.name}</div>
       <div className="grid grid-cols-12 w-full">
         <div className="p-3 flex flex-col items-center justify-center col-span-5">
           <div className="text-lg ">Valoración</div>

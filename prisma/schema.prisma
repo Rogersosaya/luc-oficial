@@ -14,8 +14,64 @@ datasource db {
 }
 
 model Teacher {
-  id String @id @default(uuid())
-  name String
-  slug String @unique
-  url String
+  id      String            @id @default(uuid())
+  name    String
+  slug    String            @unique
+  url     String
+  contact Contact?
+  courses TeacherOnCourse[]
+}
+
+model Contact {
+  id          String  @id @default(uuid())
+  urlLinkedin String
+  urlGmail    String
+  teacher     Teacher @relation(fields: [teacherId], references: [id])
+  teacherId   String  @unique
+}
+
+model Course {
+  id       String            @id @default(uuid())
+  name     String 
+  teachers TeacherOnCourse[]
+  filters  Filter[]
+}
+
+model Cycle {
+  id      String   @id @default(uuid())
+  name    String
+  filters Filter[]
+}
+
+model Faculty {
+  id      String   @id @default(uuid())
+  name    String
+  careers Career[]
+}
+
+model Career {
+  id        String   @id @default(uuid())
+  name      String
+  faculty   Faculty  @relation(fields: [facultyId], references: [id])
+  facultyId String
+  filters   Filter[]
+}
+
+model TeacherOnCourse {
+  teacher   Teacher @relation(fields: [teacherId], references: [id])
+  teacherId String
+  course    Course  @relation(fields: [courseId], references: [id])
+  courseId  String
+
+  @@id([teacherId, courseId])
+}
+
+model Filter {
+  id       String @id @default(uuid())
+  course   Course @relation(fields: [courseId], references: [id])
+  courseId String
+  career   Career @relation(fields: [careerId], references: [id])
+  careerId String
+  cycle    Cycle  @relation(fields: [cycleId], references: [id])
+  cycleId  String
 }

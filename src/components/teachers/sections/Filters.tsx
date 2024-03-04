@@ -1,22 +1,47 @@
 "use client";
+import { Career } from "@/interfaces/career.interface";
+import { Course } from "@/interfaces/course.interface";
+import { Cycle } from "@/interfaces/cycle.interface";
+import { Faculty } from "@/interfaces/faculty.interface";
 import { Select, SelectItem } from "@nextui-org/react";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
+
 import React from "react";
 
-function Filters() {
-  const animals = [
-    {
-      value: "tigre",
-      label: "tigre",
-    },
-    {
-      value: "foca",
-      label: "foca",
-    },
-    {
-      value: "leon",
-      label: "leon",
-    },
-  ];
+interface Props {
+  faculties: Faculty[];
+  careers: Career[];
+  cycles: Cycle[];
+  courses: Course[];
+}
+
+function Filters({ faculties, careers, cycles, courses }: Props) {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
+  function handleSelect(term: string, nameQuery: string) {
+    const params = new URLSearchParams(searchParams);
+    if (term) {
+      params.set(`${nameQuery}`, term);
+    } else {
+      params.delete(`${nameQuery}`);
+    }
+    replace(`${pathname}?${params.toString()}`);
+  }
+  const defaultFaculty = searchParams.get("faculty")?.toString();
+  const defaultSelectedFacultyKeys = defaultFaculty
+    ? [defaultFaculty]
+    : undefined;
+
+  const defaultCareer = searchParams.get("career")?.toString();
+  const defaultSelectedCareerKeys = defaultCareer ? [defaultCareer] : undefined;
+
+  const defaultCycle = searchParams.get("cycle")?.toString();
+  const defaultSelectedCycleKeys = defaultCycle ? [defaultCycle] : undefined;
+
+  const defaultCourse = searchParams.get("course")?.toString();
+  const defaultSelectedCourseKeys = defaultCourse ? [defaultCourse] : undefined;
   return (
     <>
       <div className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:600ms] flex mx-9 flex-wrap md:flex-nowrap gap-4 bg-gray-900 py-3 px-3 justify-center mt-5 rounded-lg md:rounded-full">
@@ -25,10 +50,18 @@ function Filters() {
           color={"primary"}
           label="FACULTAD"
           className="w-full  md:max-w-xs "
+          defaultSelectedKeys={defaultSelectedFacultyKeys}
+          onChange={(e) => {
+            handleSelect(e.target.value, "faculty");
+          }}
         >
-          {animals.map((animal, index) => (
-            <SelectItem className="text-2xl"  key={index} value={animal.value}>
-              {animal.label}
+          {faculties.map((faculty) => (
+            <SelectItem
+              className="text-2xl"
+              key={faculty.name}
+              value={faculty.name}
+            >
+              {faculty.name}
             </SelectItem>
           ))}
         </Select>
@@ -37,10 +70,14 @@ function Filters() {
           color={"primary"}
           label="CARRERA"
           className="w-full  md:max-w-xs "
+          defaultSelectedKeys={defaultSelectedCareerKeys}
+          onChange={(e) => {
+            handleSelect(e.target.value, "career");
+          }}
         >
-          {animals.map((animal, index) => (
-            <SelectItem color={"primary"} key={index} value={animal.value}>
-              {animal.label}
+          {careers.map((career) => (
+            <SelectItem color={"primary"} key={career.name} value={career.name}>
+              {career.name}
             </SelectItem>
           ))}
         </Select>
@@ -49,10 +86,13 @@ function Filters() {
           color={"primary"}
           label="CICLO"
           className="w-full  md:max-w-xs "
+          onChange={(e) => {
+            handleSelect(e.target.value, "cycle");
+          }}
         >
-          {animals.map((animal, index) => (
-            <SelectItem color={"primary"} key={index} value={animal.value}>
-              {animal.label}
+          {cycles.map((cycle) => (
+            <SelectItem color={"primary"} key={cycle.name} value={cycle.name}>
+              {cycle.name}
             </SelectItem>
           ))}
         </Select>
@@ -61,10 +101,13 @@ function Filters() {
           color={"primary"}
           label="CURSO"
           className="w-full  md:max-w-xs"
+          onChange={(e) => {
+            handleSelect(e.target.value, "course");
+          }}
         >
-          {animals.map((animal, index) => (
-            <SelectItem color={"primary"} key={index} value={animal.value}>
-              {animal.label}
+          {courses.map((course) => (
+            <SelectItem color={"primary"} key={course.name} value={course.name}>
+              {course.name}
             </SelectItem>
           ))}
         </Select>

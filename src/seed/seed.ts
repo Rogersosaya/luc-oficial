@@ -1,35 +1,44 @@
 import slugify from "slugify";
+import { Contact } from '../interfaces/contact.interface';
+import {teachersData, transformGmail  } from "./seed-teacher";
+import { Career } from '../interfaces/career.interface';
+import { facultiesData } from "./seed-faculty-career";
+import { Course } from '../interfaces/course.interface';
+import { coursesData } from "./seed-course";
+import { cycleData } from "./seed-cycle";
+import { Cycle } from '../interfaces/cycle.interface';
 interface SeedTeacher {
   name: string;
   slug: string;
   url: string;
+  contact: Contact
 }
-
+interface SeedFaculty {
+  name: string;
+  careers: Career[]
+} 
 interface SeedData {
   teachers: SeedTeacher[];
+  faculties: SeedFaculty[];
+  courses: Course[];
+  cycles: Cycle[];
 }
 
+
+
+
 export const initialData: SeedData = {
-  teachers: [
-    {
-      name: "CAÑOTE-FAJARDO-PERCY VICTOR",
-      slug: slugify("CAÑOTE-FAJARDO-PERCY VICTOR"),
-      url: "CAÑOTE-FAJARDO-PERCY VICTOR.jpg",
-    },
-    {
-      name: "FISFALEN-HUERTA-MARIO HEINRICH",
-      slug: slugify("FISFALEN-HUERTA-MARIO HEINRICH"),
-      url: "FISFALEN-HUERTA-MARIO HEINRICH.jpg",
-    },
-    {
-      name: "CERNA-VALDEZ-YARKO ALVARO",
-      slug: slugify("CERNA-VALDEZ-YARKO ALVARO"),
-      url: "CERNA-VALDEZ-YARKO ALVARO.jpg",
-    },
-    {
-      name: "SALAS-COZ-ERWIN ERASMO",
-      slug: slugify("SALAS-COZ-ERWIN ERASMO"),
-      url: "SALAS-COZ-ERWIN ERASMO.jpg",
-    },
-  ],
+
+  teachers: teachersData.map(teacher => ({
+    name: teacher.name,
+    slug: slugify(teacher.name),
+    url: `${teacher.name}.jpg`,
+    contact: {
+      urlLinkedin: teacher.urlLinkedin,
+      urlGmail: transformGmail(teacher.name)
+    }
+  })),
+  faculties:facultiesData,
+  courses: coursesData,
+  cycles: cycleData,
 };

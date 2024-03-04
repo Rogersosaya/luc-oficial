@@ -17,7 +17,7 @@ import ButtonAddValoration from '../components/ButtonAddValoration';
 import { Teacher } from "@/interfaces/teacher.interface";
 
 function GridPerfil({teacher}:{teacher: Teacher | null}) {
-  console.log(teacher!.url)
+  
   return (
     <>
       <div className="grid grid-cols-12    text-white gap-4 px-1 md:px-11 translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms]">
@@ -173,7 +173,7 @@ function GridPerfil({teacher}:{teacher: Teacher | null}) {
         </div>
         <div className="col-span-12  md:col-span-9 flex flex-col">
           <div className="border-slate-500 border text-center px-2 py-3 rounded-lg">
-            <Valuation />
+            <Valuation teacher={teacher} />
           </div>
           <div className="border-slate-500 border px-4 py-3 rounded-lg my-2">
             <Resenia />

@@ -7,7 +7,8 @@ export const getTeachers = async () => {
       select: {
         name: true,
         slug: true,
-        url: true
+        url: true,
+        
       }
     });
     

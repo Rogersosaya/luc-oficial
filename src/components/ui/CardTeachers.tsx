@@ -20,7 +20,7 @@ interface Props{
 const CardDisplayTrue = ({teacher}:Props) => (
   <div className="bg-gray-900 rounded-[20px] p-2 px-2 min-h-[260px] md:min-h-[280px] flex justify items-center flex-col">
     <Image
-      src={`/teachers/${teacher.url}` }
+      src={`/teachers/${teacher.url}` ? `/teachers/${teacher.url}`: `/teachers/icono.jpg` }
       width={150}
       height={150}
       alt="web-development"
