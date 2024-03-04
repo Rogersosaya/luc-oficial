@@ -39,7 +39,7 @@ export const getCoursesByFilter = async ({ faculty, career, cycle }: Props) => {
       },
     });
 
-    console.log(courses[0].filters);
+    
     return courses;
   } catch (error) {
     console.log(error);
