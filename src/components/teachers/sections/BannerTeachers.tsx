@@ -42,7 +42,7 @@ function BannerTeachers() {
         <button
           type="button"
           className="absolute top-1/2 -translate-y-1/2 left-0 text-xl p-3"
-          // onClick={() => setShowPassword(!showPassword)}
+          
         >
           <BiSearch className="cursor-auto	" />
         </button>
