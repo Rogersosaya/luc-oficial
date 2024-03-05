@@ -5,7 +5,7 @@ import Achievements from "@/components/home/sections/Achievements";
 import CommentsFast from "../../components/home/sections/CommentsFast";
 import Podium from "../../components/home/sections/Podium";
 import TeachersSwiper from "@/components/home/sections/TeachersSwiper";
-import Filters from "../../components/teachers/sections/Filters";
+
 import { getTeachers } from "@/actions/teacher/get-teachers";
 
 async function GeneralPage() {

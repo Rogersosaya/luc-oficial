@@ -1,19 +1,11 @@
 import {
-    Avatar,
-  Button,
-  Card,
-  CardBody,
-  Chip,
+   
   Modal,
   ModalBody,
   ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Tab,
-  Tabs,
+  
 } from "@nextui-org/react";
 import React from "react";
-import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import BodyModal from './BodyModal';
 
 function ModalComponent({ isOpen, onOpenChange }: any) {

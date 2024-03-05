@@ -1,6 +1,5 @@
 "use client";
 import ReactSpeedometer from "react-d3-speedometer";
-import classNames from "classnames";
 
 function Velocimeter({}) {
   return (
@@ -37,8 +36,7 @@ function Velocimeter({}) {
             
           },
         ]}
-        // startColor will be ignored
-        // endColor will be ignored
+        
       />
     </div>
   );

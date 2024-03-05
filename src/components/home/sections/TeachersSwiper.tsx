@@ -50,9 +50,7 @@ function TeachersSwiper({teachers}: Props) {
         slidesPerView={4}
         navigation
         pagination={{ clickable: true }}
-        // autoplay={{
-        //   delay: 1500,
-        // }}
+        
 
         breakpoints={{
           // when window width is >= 320px

@@ -3,7 +3,7 @@ import { BannerElement } from "../components/BannerElement";
 import { BannerSubtitle } from "../components/BannerSubtitle";
 import { BannerTitle } from "../components/BannerTitle";
 import { Button, Highlight } from "../../ui/button/Button";
-import BannerImage from "../components/BannerImage";
+
 
 function Banner() {
   return (
@@ -34,7 +34,7 @@ function Banner() {
         <span>Empezar </span>
         <Highlight>{"->"}</Highlight>
       </Button>
-      {/* <BannerImage /> */}
+      
     </BannerElement>
   );
 }

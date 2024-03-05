@@ -14,7 +14,6 @@ function TextAreaComment() {
 
     setdisabledState(false);
     
-    // if (value === "" || value) return setValue;
   };
   return (
     <div className="mb-5">

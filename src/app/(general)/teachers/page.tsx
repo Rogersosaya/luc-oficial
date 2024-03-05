@@ -2,8 +2,7 @@ import Container from "@/components/container/Container";
 import BannerTeachers from "../../../components/teachers/sections/BannerTeachers";
 import Filters from "@/components/teachers/sections/Filters";
 import ListTeachers from "@/components/teachers/sections/ListTeachers";
-import { getTeachers } from "@/actions/teacher/get-teachers";
-import { getCourses } from "@/actions/course/get-courses";
+
 import { getFaculties } from "@/actions/faculty/get-faculties";
 import { getCareersByFaculty } from "@/actions/career/get-careers-by-faculty";
 import { getCycle } from "@/actions/cycle/get-cycle";

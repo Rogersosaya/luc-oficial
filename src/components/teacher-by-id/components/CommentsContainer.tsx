@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { FaTags } from "react-icons/fa6";
 import { FaRegComments } from "react-icons/fa";
 import CardComment from "./CardComment";
 import TextAreaComment from "./TextAreaComment";

@@ -1,5 +1,4 @@
 import React from "react";
-import { FaTags } from "react-icons/fa6";
 import { PiUsersThreeFill } from "react-icons/pi";
 import CardTeachers from "../../ui/CardTeachers";
 import { Teacher } from "@/interfaces/teacher.interface";

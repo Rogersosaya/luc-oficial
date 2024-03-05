@@ -1,4 +1,3 @@
-import React from "react";
 import { FaUser } from "react-icons/fa6";
 import { FaTags } from "react-icons/fa";
 

@@ -1,17 +1,8 @@
 import {
-  Avatar,
-  Card,
-  CardBody,
-  ModalBody,
+  
   Tab,
-  Table,
-  TableBody,
-  TableCell,
-  TableColumn,
-  TableHeader,
-  TableRow,
+  
   Tabs,
-  User,
 } from "@nextui-org/react";
 import React from "react";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";

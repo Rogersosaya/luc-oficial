@@ -1,4 +1,3 @@
-import { HeartIcon } from "@/components/icons/HeartIcon";
 import {
   Avatar,
   Button,
@@ -9,11 +8,9 @@ import {
 } from "@nextui-org/react";
 import React from "react";
 import DropdownDetails from "./DropdownDetails";
-import DropdownDetailsAuth from "./DropdownDetailsAuth";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 
 function CardComment() {
-  const [isFollowed, setIsFollowed] = React.useState(false);
 
   return (
     <Card className="w-full bg-transparent border border-slate-600 mb-2">

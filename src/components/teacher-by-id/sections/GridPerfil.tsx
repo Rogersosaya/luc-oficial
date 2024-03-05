@@ -1,18 +1,14 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { Button, Chip, Progress } from "@nextui-org/react";
-import { FaRegStar, FaStar, FaUser } from "react-icons/fa6";
+import { Button} from "@nextui-org/react";
 import { FaLinkedinIn } from "react-icons/fa";
-import Velocimeter from "../components/Velocimeter";
 
 import Resenia from "../components/Resenia";
 import Valuation from "../components/Valuation";
 import Tags from "../components/Tags";
 import { IoIosContact } from "react-icons/io";
 import { CiCircleMore } from "react-icons/ci";
-import { Button as ButtonValoration } from "../../ui/button/Button";
-import { IoIosAddCircle } from "react-icons/io";
 import ButtonAddValoration from '../components/ButtonAddValoration';
 import { Teacher } from "@/interfaces/teacher.interface";
 

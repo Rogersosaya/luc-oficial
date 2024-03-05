@@ -6,7 +6,7 @@ import {
   AiOutlineLike,
   AiOutlineDislike,
 } from "react-icons/ai";
-import { FaBorderAll, FaRegStar, FaStar } from "react-icons/fa6";
+import { FaRegStar, FaStar } from "react-icons/fa6";
 import { IoBook, IoBookOutline } from "react-icons/io5";
 function ModalValorationBody() {
   return (

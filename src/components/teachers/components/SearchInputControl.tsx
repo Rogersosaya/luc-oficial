@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import { forwardRef, useState } from "react";
 
-// import { Icon, Icons } from "../Icon";
 
 export interface TextInputControlPropsNoLabel {
   onChange?: (data: string) => void;
@@ -65,7 +64,7 @@ export const TextInputControl = forwardRef<
             className="absolute top-1/2 -translate-y-1/2 right-1 text-xl p-3"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {/* <Icon icon={showPassword ? Icons.EYE : Icons.EYE_SLASH} /> */}
+            
           </button>
         ) : null}
       </div>
