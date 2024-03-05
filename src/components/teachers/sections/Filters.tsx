@@ -22,6 +22,20 @@ function Filters({ faculties, careers, cycles, courses }: Props) {
 
   function handleSelect(term: string, nameQuery: string) {
     const params = new URLSearchParams(searchParams);
+    
+    if(nameQuery === "faculty") 
+    {params.delete(`career`);
+    params.delete(`course`);
+  }
+  if(nameQuery === "career") 
+    {
+    params.delete(`course`);
+  }
+  if(nameQuery === "cycle") 
+    {
+    params.delete(`course`);
+  }
+
     if (term) {
       params.set(`${nameQuery}`, term);
     } else {
@@ -86,6 +100,7 @@ function Filters({ faculties, careers, cycles, courses }: Props) {
           color={"primary"}
           label="CICLO"
           className="w-full  md:max-w-xs "
+          defaultSelectedKeys={defaultSelectedCycleKeys}
           onChange={(e) => {
             handleSelect(e.target.value, "cycle");
           }}
@@ -101,6 +116,7 @@ function Filters({ faculties, careers, cycles, courses }: Props) {
           color={"primary"}
           label="CURSO"
           className="w-full  md:max-w-xs"
+          defaultSelectedKeys={defaultSelectedCourseKeys}
           onChange={(e) => {
             handleSelect(e.target.value, "course");
           }}

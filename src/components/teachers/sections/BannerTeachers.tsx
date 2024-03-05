@@ -2,19 +2,29 @@
 import { BannerElement } from "@/components/home/components/BannerElement";
 import { BannerSubtitle } from "@/components/home/components/BannerSubtitle";
 import { BannerTitle } from "@/components/home/components/BannerTitle";
-import { Button, Highlight } from "@/components/ui/button/Button";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
+
+
 import { BiSearch } from "react-icons/bi";
 
-import { FaSearch } from "react-icons/fa";
-import { Select, SelectItem } from "@nextui-org/react";
-import { SearchBarInput } from "../components/Search";
-import { useSearchParams } from "next/navigation";
-import { useRef } from "react";
+
 import { RxCrossCircled } from "react-icons/rx";
 
 function BannerTeachers() {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const {replace} = useRouter();
+  function handleSearch(termSearch?: string, ){
+    const params = new URLSearchParams(searchParams);
+    if (termSearch) {
+      params.set('query', termSearch);
+    } else {
+      params.delete('query');
+    }
+    replace(`${pathname}?${params.toString()}`);
+    console.log(params);
+  }
   
-
   
   return (
     <BannerElement>
@@ -37,7 +47,9 @@ function BannerTeachers() {
           <BiSearch className="cursor-auto	" />
         </button>
         <input
-          placeholder="Buscar..."
+          placeholder="Buscar Profesor..."
+          defaultValue={searchParams.get('query')?.toString()}
+          onChange={(e) => handleSearch(e.target.value)}
           className="h-full bg-transparent w-full outline-none px-4 text-sm"
         />
         <button

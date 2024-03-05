@@ -57,6 +57,7 @@ model Career {
   filters   Filter[]
 }
 
+
 model TeacherOnCourse {
   teacher   Teacher @relation(fields: [teacherId], references: [id])
   teacherId String

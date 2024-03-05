@@ -1,9 +1,11 @@
 import { initialData } from "./seed";
 import prisma from "../lib/prisma";
 import { filters } from "./seed-filters";
+import { teachersAndCourse } from "./seed-course-teacher";
 
 async function main() {
   await prisma.filter.deleteMany()
+  await prisma.teacherOnCourse.deleteMany()
   await prisma.contact.deleteMany();
   await prisma.teacher.deleteMany();
   await prisma.course.deleteMany();
@@ -71,13 +73,14 @@ async function main() {
 
   
   filters.forEach(async ({ course, cycle, career }) => {
+    
     const courseItem = course
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "");
     const cycleItem = cycle.toLowerCase();
     const careerItem = career.toLowerCase();
-
+    // console.log(courseItem,coursesMap[courseItem], cyclesMap[cycleItem])
     await prisma.filter.create({
       data: {
         courseId: coursesMap[courseItem],
@@ -86,6 +89,25 @@ async function main() {
       },
     });
   });
+
+  teachersAndCourse.map(async({course, teacher}) => {
+    const courseItem = course
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+    const teacherItem = teacher.toLowerCase();
+    // console.log(coursesMap[courseItem], teachersMap[teacherItem])
+    
+    await prisma.teacherOnCourse.create({
+      data: {
+        courseId: coursesMap[courseItem],
+        teacherId: teachersMap[teacherItem],
+      },
+    });
+
+  })
+
+
 }
 
 (() => {
