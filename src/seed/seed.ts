@@ -8,6 +8,8 @@ import { coursesData } from "./seed-course";
 import { cycleData } from "./seed-cycle";
 import { Cycle } from '../interfaces/cycle.interface';
 import bcryptjs from 'bcryptjs';
+import { Tag } from '../interfaces/tag-interface';
+import { tagsData } from "./seed-tag";
 interface SeedTeacher {
   name: string;
   slug: string;
@@ -29,6 +31,7 @@ interface SeedData {
   faculties: SeedFaculty[];
   courses: Course[];
   cycles: Cycle[];
+  tags: Tag[];
 }
 
 
@@ -60,4 +63,5 @@ export const initialData: SeedData = {
   faculties:facultiesData,
   courses: coursesData,
   cycles: cycleData,
+  tags: tagsData,
 };

@@ -21,7 +21,6 @@ const handler = NextAuth({
       }
 
       if (user.email && user.name) {
-        console.log(user);
         const existUser = await prisma.user.findUnique({
           where: {
             email: user.email,

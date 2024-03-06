@@ -1,11 +1,23 @@
 "use client";
+import { createComment } from "@/actions/comment/create-comment";
+import { Teacher } from "@/interfaces/teacher.interface";
 import { Textarea, Avatar, Button } from "@nextui-org/react";
+import { useSession } from "next-auth/react";
 import React, { useState } from "react";
-
-function TextAreaComment() {
+interface PropsTeacher{
+  id: string;
+  name: string,
+    slug: string,
+    url: string,
+}
+interface Props{
+  teacher: PropsTeacher | null
+}
+function TextAreaComment({teacher}:Props) {
+  const { data: session } = useSession();
   const [value, setValue] = useState("");
   const [disabledState, setdisabledState] = useState(true);
-
+  
   const HandleTextArea = (value: string) => {
     setValue(value);
     if (value.trim() == "") {
@@ -13,8 +25,14 @@ function TextAreaComment() {
     }
 
     setdisabledState(false);
-    
   };
+const sendComment = () => {
+
+  createComment({teacher:teacher!.id, userEmail:session?.user?.email!, value:value })
+  setValue("")
+  setdisabledState(true);
+}
+
   return (
     <div className="mb-5">
       <div className="w-full flex items-center  mb-2">
@@ -22,7 +40,7 @@ function TextAreaComment() {
           isBordered
           radius="full"
           size="md"
-          src="/img/jordan.jpg"
+          src={session?.user?.image ?? ""}
           className="mr-3"
         />
         <Textarea
@@ -45,7 +63,7 @@ function TextAreaComment() {
         >
           Cancelar
         </Button>
-        <Button isDisabled={disabledState} color="primary" variant="solid">
+        <Button onClick={()=>sendComment() } isDisabled={disabledState} color="primary" variant="solid">
           Comentar
         </Button>
       </div>

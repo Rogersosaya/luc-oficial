@@ -22,7 +22,6 @@ function NavBar() {
     return () => clearTimeout(timer);
   }, []);
 
-  console.log(session);
 
   const [hamburgerMenuIsOpen, setHamburgerMenuIsOpen] = useState(false);
   useEffect(() => {

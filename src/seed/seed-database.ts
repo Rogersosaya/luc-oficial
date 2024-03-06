@@ -4,7 +4,7 @@ import { filters } from "./seed-filters";
 import { teachersAndCourse } from "./seed-course-teacher";
 
 async function main() {
-  await prisma.user.deleteMany()
+  await prisma.user.deleteMany();
   await prisma.filter.deleteMany();
   await prisma.teacherOnCourse.deleteMany();
   await prisma.contact.deleteMany();
@@ -13,13 +13,15 @@ async function main() {
   await prisma.cycle.deleteMany();
   await prisma.career.deleteMany();
   await prisma.faculty.deleteMany();
-
-  const { teachers, faculties, courses, cycles, users } = initialData;
+  await prisma.tag.deleteMany();
+  const { teachers, faculties, courses, cycles, users, tags } = initialData;
 
   await prisma.user.createMany({
-    data:users
-  })
-  
+    data: users,
+  });
+  await prisma.tag.createMany({
+    data: tags,
+  });
   for (const teacherData of teachers) {
     const { contact, ...rest } = teacherData;
     const teacherDB = await prisma.teacher.create({
@@ -108,7 +110,16 @@ async function main() {
       },
     });
   });
+  // const comment1 = await prisma.comment.create({
+  //   data: {
+  //     value: "as",
+  //     teacherId:"0a684a52-70b9-47b6-bf21-7a31a07eccda",
+  //     userId:"7e153aeb-a579-4335-a57e-2034cc1b3134"
+  //   }
+  // })
 }
+
+  
 
 (() => {
   if (process.env.NODE_ENV === "production") return;

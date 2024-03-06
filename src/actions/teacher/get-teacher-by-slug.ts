@@ -7,7 +7,7 @@ export const getTeacherBySlug = async (slug: string) => {
         slug: slug
       },
     });
-
+    
     return teacher;
   } catch (error) {
     console.log(error);

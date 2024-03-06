@@ -67,7 +67,6 @@ export const getTeachersByFilter = async ({
         },
       },
     });
-    console.log(teachers);
     return teachers;
   } catch (error) {
     console.log(error);
