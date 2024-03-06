@@ -12,7 +12,7 @@ async function GeneralPage() {
   const teachers = await getTeachers() 
   return (
     <>
-      <div className="overflow-hidden pb-[16.4rem] md:pb-[25.6rem]">
+      <div className="overflow-hidden pb-[16.4rem] md:pb-[19.6rem]">
         <Container className="pt-[6.4rem]">
           <Banner />
         </Container>

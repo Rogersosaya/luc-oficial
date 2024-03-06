@@ -99,10 +99,10 @@ function NavBar() {
             (session?.user ? (
               <div className="flex gap-5">
                 <div className="flex flex-col gap-1 items-start justify-center">
-                  <h4 className="text-small font-semibold leading-none text-default-600">
+                  <h4 className="hidden md:block text-small font-semibold leading-none text-default-600">
                     {session.user.name}
                   </h4>
-                  <h5 className="text-small tracking-tight text-default-400">
+                  <h5 className="hidden md:block text-small tracking-tight text-default-400">
                     {session.user.email}
                   </h5>
                 </div>
@@ -110,7 +110,7 @@ function NavBar() {
                   isBordered
                   radius="full"
                   size="sm"
-                  src={session.user.image || undefined}
+                  src={session.user.image ?? "/teachers/icono.png"}
                 />
                 {/* <img className="rounded-full size-6" src={session.user.image || undefined } alt="nada" /> */}
                 <Button

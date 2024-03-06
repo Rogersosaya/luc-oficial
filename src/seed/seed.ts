@@ -20,7 +20,6 @@ interface SeedFaculty {
 } 
 interface SeedUser {
   email: string;
-  password: string;
   name: string;
   role: 'admin'|'user'
 }
@@ -39,15 +38,13 @@ interface SeedData {
 export const initialData: SeedData = {
   users: [
     {
-      email: 'jordan.laureano.g@uni.pe',
       name:'Jordan Laureano',
-      password: bcryptjs.hashSync("123456"),
+      email: 'jordan.laureano.g@uni.pe',
       role: 'user'
     },
     {
-      email: 'roger.sosaya.q@uni.pe',
       name:'Roger Sosaya',
-      password: bcryptjs.hashSync("123456"),
+      email: 'roger.sosaya.q@uni.pe',
       role: 'admin'
     }
   ],

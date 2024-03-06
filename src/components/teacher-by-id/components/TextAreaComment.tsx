@@ -8,7 +8,7 @@ function TextAreaComment() {
 
   const HandleTextArea = (value: string) => {
     setValue(value);
-    if (value == "") {
+    if (value.trim() == "") {
       return setdisabledState(true);
     }
 

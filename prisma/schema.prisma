@@ -18,13 +18,20 @@ enum Role {
   user
 }
 
+enum ValueReaction {
+  like
+  dislike
+}
+
 model Teacher {
-  id      String            @id @default(uuid())
-  name    String
-  slug    String            @unique
-  url     String
-  contact Contact?
-  courses TeacherOnCourse[]
+  id          String            @id @default(uuid())
+  name        String
+  slug        String            @unique
+  url         String
+  contact     Contact?
+  courses     TeacherOnCourse[]
+  valorations Valoration[]
+  commnets Comment[]
 }
 
 model Contact {
@@ -82,11 +89,58 @@ model Filter {
 }
 
 model User {
-  id            String    @id @default(uuid())
-  name          String
-  email         String    @unique
-  emailVerified DateTime?
-  password      String
-  role          Role   @default(user)
-  image         String?
+  id          String       @id @default(uuid())
+  name        String
+  email       String       @unique
+  role        Role         @default(user)
+  image       String?
+  valorations Valoration[]
+  comments Comment[]
+  reactions Reaction[]
+}
+
+model Comment {
+  id    String @id @default(uuid())
+  value String
+  teacher Teacher @relation(fields: [teacherId], references: [id])
+  teacherId String
+  user User @relation(fields: [userId], references: [id])
+  userId String
+  reactions Reaction[]
+}
+
+model Reaction {
+  id    String        @id @default(uuid())
+  value ValueReaction
+  comment Comment @relation(fields: [commentId], references: [id])
+  commentId String
+  user User @relation(fields: [userId], references: [id])
+  userId String
+}
+
+model Valoration {
+  id         String            @id @default(uuid())
+  rating     Int
+  difficulty Int
+  learning   Int
+  repeat     Boolean
+  tags       ValorationOnTag[]
+  user       User              @relation(fields: [userId], references: [id])
+  userId     String
+  teacher    Teacher           @relation(fields: [teacherId], references: [id])
+  teacherId  String
+}
+
+model Tag {
+  id          String            @id @default(uuid())
+  name        String
+  valorations ValorationOnTag[]
+}
+
+model ValorationOnTag {
+  id           String     @id @default(uuid())
+  valoration   Valoration @relation(fields: [valorationId], references: [id])
+  valorationId String
+  tag          Tag        @relation(fields: [tagId], references: [id])
+  tagId        String
 }
