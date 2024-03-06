@@ -4,10 +4,26 @@ import { Logo } from "@/components/icons/logo";
 import classNames from "classnames";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { Button } from "../button/Button";
+// import { Button } from "../button/Button";
 import { HamburgerIcon } from "@/components/icons/hamburguer";
+import { Avatar, Button } from "@nextui-org/react";
+
+import { signIn, signOut, useSession } from "next-auth/react";
+// import { logout } from "@/actions/auth/logout";
 
 function NavBar() {
+  const { data: session } = useSession();
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoaded(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  console.log(session);
+
   const [hamburgerMenuIsOpen, setHamburgerMenuIsOpen] = useState(false);
   useEffect(() => {
     const html = document.querySelector("html");
@@ -43,12 +59,11 @@ function NavBar() {
   return (
     <header className="fixed top-0 left-0 z-10 w-full border-b border-transparent-white backdrop-blur-[12px]">
       <Container className="flex h-navigation-height">
-      <Logo className="h-13"/>
+        <Logo className="h-13" />
         <Link className="flex items-center text-md" href="/">
-            
-           LUC
+          LUC
         </Link>
-        
+
         <div
           className={classNames(
             "transition-[visibility] md:visible",
@@ -72,20 +87,50 @@ function NavBar() {
             >
               {pages.map((page) => (
                 <li key={page.title}>
-                  <Link  href={page.route}>{page.title}</Link>
+                  <Link href={page.route}>{page.title}</Link>
                 </li>
               ))}
-
-              
             </ul>
           </nav>
         </div>
 
         <div className="ml-auto flex h-full items-center">
-          <Link className="mr-6 text-sm" href="#">
+          {loaded &&
+            (session?.user ? (
+              <div className="flex gap-5">
+                <div className="flex flex-col gap-1 items-start justify-center">
+                  <h4 className="text-small font-semibold leading-none text-default-600">
+                    {session.user.name}
+                  </h4>
+                  <h5 className="text-small tracking-tight text-default-400">
+                    {session.user.email}
+                  </h5>
+                </div>
+                <Avatar
+                  isBordered
+                  radius="full"
+                  size="sm"
+                  src={session.user.image || undefined}
+                />
+                {/* <img className="rounded-full size-6" src={session.user.image || undefined } alt="nada" /> */}
+                <Button
+                  onClick={() => {
+                    signOut();
+                  }}
+                >
+                  Cerrar Sesión
+                </Button>
+              </div>
+            ) : (
+              <Button onClick={() => signIn()}>
+                Iniciar Sesión con Google
+              </Button>
+            ))}
+
+          {/* <Link className="mr-6 text-sm" href="/auth/login">
             Iniciar sesión
           </Link>
-          <Button href="#">Registrarse</Button>
+          <Button href="/auth/new-account">Registrarse</Button> */}
         </div>
 
         <button

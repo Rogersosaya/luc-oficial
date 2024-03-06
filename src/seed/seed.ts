@@ -7,6 +7,7 @@ import { Course } from '../interfaces/course.interface';
 import { coursesData } from "./seed-course";
 import { cycleData } from "./seed-cycle";
 import { Cycle } from '../interfaces/cycle.interface';
+import bcryptjs from 'bcryptjs';
 interface SeedTeacher {
   name: string;
   slug: string;
@@ -17,7 +18,14 @@ interface SeedFaculty {
   name: string;
   careers: Career[]
 } 
+interface SeedUser {
+  email: string;
+  password: string;
+  name: string;
+  role: 'admin'|'user'
+}
 interface SeedData {
+  users: SeedUser[];
   teachers: SeedTeacher[];
   faculties: SeedFaculty[];
   courses: Course[];
@@ -27,8 +35,22 @@ interface SeedData {
 
 
 
-export const initialData: SeedData = {
 
+export const initialData: SeedData = {
+  users: [
+    {
+      email: 'jordan.laureano.g@uni.pe',
+      name:'Jordan Laureano',
+      password: bcryptjs.hashSync("123456"),
+      role: 'user'
+    },
+    {
+      email: 'roger.sosaya.q@uni.pe',
+      name:'Roger Sosaya',
+      password: bcryptjs.hashSync("123456"),
+      role: 'admin'
+    }
+  ],
   teachers: teachersData.map(teacher => ({
     name: teacher.name,
     slug: slugify(teacher.name),

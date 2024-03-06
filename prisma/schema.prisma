@@ -13,6 +13,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  admin
+  user
+}
+
 model Teacher {
   id      String            @id @default(uuid())
   name    String
@@ -32,7 +37,7 @@ model Contact {
 
 model Course {
   id       String            @id @default(uuid())
-  name     String 
+  name     String
   teachers TeacherOnCourse[]
   filters  Filter[]
 }
@@ -57,7 +62,6 @@ model Career {
   filters   Filter[]
 }
 
-
 model TeacherOnCourse {
   teacher   Teacher @relation(fields: [teacherId], references: [id])
   teacherId String
@@ -75,4 +79,14 @@ model Filter {
   careerId String
   cycle    Cycle  @relation(fields: [cycleId], references: [id])
   cycleId  String
+}
+
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  emailVerified DateTime?
+  password      String
+  role          Role   @default(user)
+  image         String?
 }
