@@ -11,7 +11,6 @@ export const getCommentsByTeacher = async ({ teacher }: Props) => {
   try {
     const session = await getServerSession();
     const userEmail = session?.user?.email;
-    console.log(session?.user?.email);
     const userCurrent = await prisma.user.findUnique({
       where: {
         email: userEmail!,
@@ -19,12 +18,24 @@ export const getCommentsByTeacher = async ({ teacher }: Props) => {
     });
 
     const comments = await prisma.comment.findMany({
+      orderBy: [
+        {
+          assignedAt: "desc",
+        },
+      ],
+      include: {
+        user: true,
+        reactions: {
+          include: {
+            user: true,
+          },
+        },
+      },
       where: {
         teacherId: teacher,
       },
     });
-    
-    // console.log(comments)
+    // console.log(comments[0].reactions);
     return comments;
   } catch (error) {
     console.log(error);

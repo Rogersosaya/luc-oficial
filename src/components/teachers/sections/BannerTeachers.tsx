@@ -22,7 +22,7 @@ function BannerTeachers() {
       params.delete('query');
     }
     replace(`${pathname}?${params.toString()}`);
-    console.log(params);
+    // console.log(params);
   }
   
   

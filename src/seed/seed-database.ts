@@ -4,6 +4,12 @@ import { filters } from "./seed-filters";
 import { teachersAndCourse } from "./seed-course-teacher";
 
 async function main() {
+  await prisma.valorationOnTag.deleteMany();
+  await prisma.reaction.deleteMany();
+  await prisma.tag.deleteMany();
+  await prisma.valoration.deleteMany();
+  await prisma.comment.deleteMany();
+  await prisma.reaction.deleteMany();
   await prisma.user.deleteMany();
   await prisma.filter.deleteMany();
   await prisma.teacherOnCourse.deleteMany();

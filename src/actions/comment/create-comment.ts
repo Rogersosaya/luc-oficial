@@ -1,21 +1,22 @@
 'use server'
 import prisma from "@/lib/prisma";
+import { getServerSession } from "next-auth";
 
 interface Props {
   value: string;
   teacher: string;
-  userEmail: string;
+  
 }
 
-export const createComment = async ({ teacher, userEmail, value }: Props) => {
+export const createComment = async ({ teacher,  value }: Props) => {
   try {
-    console.log("hola")
+    const session = await getServerSession();
+    const userEmail = session?.user?.email;
     const userCurrent = await prisma.user.findUnique({
       where: {
-        email: userEmail,
+        email: userEmail!,
       },
     });
-    console.log(userCurrent);
     const newComment = await prisma.comment.create({
       data: {
         value: value,
@@ -23,10 +24,22 @@ export const createComment = async ({ teacher, userEmail, value }: Props) => {
         userId: userCurrent!.id,
       },
     });
-
-    console.log(newComment);
-    return true;
+    const newCommentData = await prisma.comment.findUnique({
+      include: {
+        user: true,
+        reactions: {
+          include: {
+            user: true
+          }
+        },
+      },
+      where:{
+        id: newComment.id,
+      }
+    })
+    return newCommentData;
   } catch (error) {
-    return false;
+    console.log(error);
+    throw new Error('Error al obtener producto por slug');
   }
 };

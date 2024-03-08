@@ -7,8 +7,18 @@ import {
 } from "@nextui-org/react";
 import React from "react";
 import BodyModal from './BodyModal';
+import { User } from "@/interfaces/user.interface";
+interface PropsReaction{
+  value: string;
+  user: User
+}
+interface Props{
+  isOpen: any,
+  onOpenChange: any
+  reactionsTotal?: PropsReaction[] 
+}
+function ModalComponent({ isOpen, onOpenChange, reactionsTotal }: Props) {
 
-function ModalComponent({ isOpen, onOpenChange }: any) {
   return (
     <Modal size="lg" isOpen={isOpen} onOpenChange={onOpenChange} scrollBehavior="inside"
     placement="center"
@@ -19,7 +29,7 @@ function ModalComponent({ isOpen, onOpenChange }: any) {
             <>
               <ModalBody>
                 <div className="flex w-full flex-col">
-                  <BodyModal/>
+                  <BodyModal reactionsTotal={reactionsTotal}/>
                 </div>
               </ModalBody>
               

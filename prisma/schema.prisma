@@ -106,6 +106,7 @@ model Comment {
   teacherId String
   user User @relation(fields: [userId], references: [id])
   userId String
+  assignedAt DateTime @default(now())
   reactions Reaction[]
 }
 
@@ -116,6 +117,7 @@ model Reaction {
   commentId String
   user User @relation(fields: [userId], references: [id])
   userId String
+  assignedAt DateTime @default(now())
 }
 
 model Valoration {
@@ -129,12 +131,15 @@ model Valoration {
   userId     String
   teacher    Teacher           @relation(fields: [teacherId], references: [id])
   teacherId  String
+  assignedAt DateTime @default(now())
+
 }
 
 model Tag {
   id          String            @id @default(uuid())
   name        String
   valorations ValorationOnTag[]
+
 }
 
 model ValorationOnTag {

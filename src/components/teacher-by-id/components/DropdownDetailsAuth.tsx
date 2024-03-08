@@ -1,3 +1,7 @@
+import { deleteComment } from "@/actions/comment/delete-comment";
+import { ValueReaction } from "@/interfaces/reaction.interface";
+import { User } from "@/interfaces/user.interface";
+import { useCommentStore } from "@/store/commentStore";
 import {
   Button,
   Dropdown,
@@ -6,7 +10,24 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import { IoIosMore } from "react-icons/io";
-const DropdownDetailsAuth = ({ onOpen }: any) => (
+interface PropsReaction{
+  user: User
+  value: ValueReaction
+}
+interface CommentProps {
+  id: string;
+  value: string;
+  user: User;
+  reactions: PropsReaction[]
+}
+interface Props {
+  onOpen: any
+  comment: CommentProps;
+}
+
+const DropdownDetailsAuth = ({ onOpen, comment }: Props) => {
+  const { deleteComment,editUnabledComment } = useCommentStore();
+  return (
   <Dropdown>
     <DropdownTrigger>
       <Button className="rounded-lg" isIconOnly variant="bordered">
@@ -14,15 +35,15 @@ const DropdownDetailsAuth = ({ onOpen }: any) => (
       </Button>
     </DropdownTrigger>
     <DropdownMenu aria-label="Static Actions">
-      <DropdownItem key="edithAuth">Editar</DropdownItem>
+      <DropdownItem  key="edithAuth" onPress={() => editUnabledComment(comment.id, true)}>Editar</DropdownItem>
       <DropdownItem key="detailsAuth" onPress={onOpen}>
         Detalles
       </DropdownItem>
-      <DropdownItem key="deleteAuth" className="text-danger" color="danger">
+      <DropdownItem onPress={() => deleteComment(comment.id)}   key="deleteAuth" className="text-danger" color="danger">
         Eliminar
       </DropdownItem>
     </DropdownMenu>
   </Dropdown>
-);
+  )};
 
 export default DropdownDetailsAuth;

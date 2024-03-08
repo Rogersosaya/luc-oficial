@@ -1,3 +1,5 @@
+"use client";
+
 import {
   
   useDisclosure,
@@ -5,18 +7,38 @@ import {
 import ModalComponent from "./ModalComponent";
 import DropdownDetailsAuth from "./DropdownDetailsAuth";
 import DropdownDetailsNotAuth from "./DropdownDetailsNotAuth";
+import { User } from "@/interfaces/user.interface";
+import { useEffect } from "react";
+import { getCommentsByTeacher } from "@/actions/comment/get-comments-by-teacher";
+import { ValueReaction } from "@/interfaces/reaction.interface";
 
-function DropdownDetails() {
+interface PropsReaction{
+  user: User
+  value: ValueReaction
+}
+interface CommentProps {
+  id: string;
+  value: string;
+  user: User;
+  reactions: PropsReaction[]
+}
+interface Props {
+  comment: CommentProps;
+}
+
+
+function DropdownDetails({comment}:Props) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  
   return (
     <>
       {true ? (
-        <DropdownDetailsAuth onOpen={onOpen} />
+        <DropdownDetailsAuth comment={comment} onOpen={onOpen} />
       ) : (
         <DropdownDetailsNotAuth onOpen={onOpen} />
       )}
 
-      <ModalComponent isOpen={isOpen} onOpenChange={onOpenChange} />
+      <ModalComponent isOpen={isOpen} onOpenChange={onOpenChange}  reactionsTotal={comment.reactions} />
     </>
   );
 }

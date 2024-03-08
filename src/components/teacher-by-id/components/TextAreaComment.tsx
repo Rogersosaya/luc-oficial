@@ -1,6 +1,8 @@
 "use client";
 import { createComment } from "@/actions/comment/create-comment";
 import { Teacher } from "@/interfaces/teacher.interface";
+import { useCommentStore } from "@/store/commentStore";
+import { useTeacherStore } from "@/store/teacherStore";
 import { Textarea, Avatar, Button } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
@@ -13,11 +15,13 @@ interface PropsTeacher{
 interface Props{
   teacher: PropsTeacher | null
 }
-function TextAreaComment({teacher}:Props) {
+function TextAreaComment() {
+  const { addComment }=useCommentStore()
   const { data: session } = useSession();
   const [value, setValue] = useState("");
   const [disabledState, setdisabledState] = useState(true);
-  
+  const {teacherId} = useTeacherStore()
+
   const HandleTextArea = (value: string) => {
     setValue(value);
     if (value.trim() == "") {
@@ -27,8 +31,8 @@ function TextAreaComment({teacher}:Props) {
     setdisabledState(false);
   };
 const sendComment = () => {
-
-  createComment({teacher:teacher!.id, userEmail:session?.user?.email!, value:value })
+  addComment(teacherId, value)
+  // createComment({teacher:teacher!.id, value:value })
   setValue("")
   setdisabledState(true);
 }

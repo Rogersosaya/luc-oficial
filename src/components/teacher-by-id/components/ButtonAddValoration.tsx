@@ -1,3 +1,4 @@
+"use client";
 import { Button, useDisclosure } from "@nextui-org/react";
 import React from "react";
 import { IoIosAddCircle } from "react-icons/io";
