@@ -44,11 +44,11 @@ export const createReaction = async ({ commentId, value }: Props) => {
       },
     });
     // if(!!reactionExist) return false
-    if (!!reactionLikeExist && value === "like") return false;
-    if (!!reactionDislikeExist && value === "dislike") return false;
+    if (!!reactionLikeExist && value === "like") return reactionLikeExist;
+    if (!!reactionDislikeExist && value === "dislike") return reactionDislikeExist;
 
     if (!!reactionLikeExist && value === "dislike") {
-      await prisma.reaction.update({
+      const newReaction = await prisma.reaction.update({
         where: {
           id: reactionExist?.id,
         },
@@ -56,10 +56,10 @@ export const createReaction = async ({ commentId, value }: Props) => {
           value: "dislike",
         },
       });
-      return true;
+      return newReaction;
     }
     if (!!reactionDislikeExist && value === "like") {
-      await prisma.reaction.update({
+      const newReaction =await prisma.reaction.update({
         where: {
           id: reactionExist?.id,
         },
@@ -67,7 +67,7 @@ export const createReaction = async ({ commentId, value }: Props) => {
           value: "like",
         },
       });
-      return true;
+      return newReaction;
     }
    
     const newReaction = await prisma.reaction.create({
@@ -79,8 +79,8 @@ export const createReaction = async ({ commentId, value }: Props) => {
     });
 
     // console.log(reactionExist);
-    return true;
+    return newReaction;
   } catch (error) {
-    return false;
+    console.log(error);
   }
 };

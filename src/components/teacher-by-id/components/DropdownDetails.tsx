@@ -11,6 +11,7 @@ import { User } from "@/interfaces/user.interface";
 import { useEffect } from "react";
 import { getCommentsByTeacher } from "@/actions/comment/get-comments-by-teacher";
 import { ValueReaction } from "@/interfaces/reaction.interface";
+import { useSession } from "next-auth/react";
 
 interface PropsReaction{
   user: User
@@ -28,11 +29,12 @@ interface Props {
 
 
 function DropdownDetails({comment}:Props) {
+  const {data: session}=useSession()
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   
   return (
     <>
-      {true ? (
+      {comment.user.email == session?.user!.email  ? (
         <DropdownDetailsAuth comment={comment} onOpen={onOpen} />
       ) : (
         <DropdownDetailsNotAuth onOpen={onOpen} />

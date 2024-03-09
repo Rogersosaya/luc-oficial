@@ -1,22 +1,38 @@
 'use client'
 import { createReaction } from "@/actions/reaction/create-reaction";
+import { ValueReaction } from "@/interfaces/reaction.interface";
 import { User } from "@/interfaces/user.interface";
+import { useCommentStore } from "@/store/commentStore";
 import { useReactionStore } from "@/store/reactionStore";
 import { Button } from "@nextui-org/react";
+import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
+interface PropsReaction {
+  user: User;
+  value: ValueReaction;
+}
 interface CommentProps {
   id: string
   value: string;
   user: User;
+  reactions: PropsReaction[];
 }
 interface Props {
-  countLikes?: number 
-  countDislikes?: number
+  
   comment: CommentProps;
 }
-function ButtonsReactions({comment, countLikes, countDislikes}: Props) {
-  // const {getCountLike, likes} = useReactionStore()
+function ButtonsReactions({comment}: Props) {
+  const {data: session} = useSession()
+  const countLikes = comment.reactions.filter(
+    (item) => item.value === "like"
+  ).length;
+  const countDislikes = comment.reactions.filter(
+    (item) => item.value === "dislike"
+  ).length;
+  
+  const {updateReaction} = useCommentStore()
+  
   // useEffect(() => {
   //   const countsLike = getCountLike(comment.id);
   // }, []);
@@ -49,7 +65,7 @@ function ButtonsReactions({comment, countLikes, countDislikes}: Props) {
       setDislikeClient(dislikeClient!+1);
       setSelectedDislike(true)
     }
-    
+    session?.user
   };
   return (
     <>
@@ -59,21 +75,21 @@ function ButtonsReactions({comment, countLikes, countDislikes}: Props) {
           className="text-xs font-bold"
           color="primary"
           isDisabled={false}
-          onClick={() => handlerReaction("like")}
+          onClick={() => updateReaction(comment.id,"like",(session?.user?.email)!)}
           variant="bordered"
           endContent={<AiOutlineLike size={15} />}
         >
-          {likeClient}
+          {countLikes}
         </Button>
         <Button
           className="text-xs font-bold"
           color="danger"
           isDisabled={false}
-          onClick={() => handlerReaction("dislike")}
+          onClick={() =>  updateReaction(comment.id,"dislike",(session?.user?.email)!)}
           variant="bordered"
           endContent={<AiOutlineDislike size={15} />}
         >
-          {dislikeClient}
+          {countDislikes}
         </Button>
       </div>
     </>

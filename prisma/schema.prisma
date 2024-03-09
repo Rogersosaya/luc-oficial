@@ -23,6 +23,7 @@ enum ValueReaction {
   dislike
 }
 
+
 model Teacher {
   id          String            @id @default(uuid())
   name        String

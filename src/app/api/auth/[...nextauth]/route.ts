@@ -16,9 +16,9 @@ const handler = NextAuth({
 
       // console.log(userExists);
 
-      if (!user.email?.endsWith("@uni.pe")) {
-        return false;
-      }
+      // if (!user.email?.endsWith("@uni.pe")) {
+      //   return false;
+      // }
       
       if (user.email && user.name) {
         const existUser = await prisma.user.findUnique({

@@ -39,13 +39,8 @@ interface Props {
 
 function CardComment({ comment }: Props) {
   
+ 
   
-  const countLikes = comment.reactions.filter(
-    (item) => item.value === "like"
-  ).length;
-  const countDislikes = comment.reactions.filter(
-    (item) => item.value === "dislike"
-  ).length;
   const [value, setValue] = useState(comment.value);
   const [disabledState, setdisabledState] = useState(true);
   const {updateComment, editUnabledComment} =  useCommentStore()
@@ -127,8 +122,7 @@ function CardComment({ comment }: Props) {
       <CardFooter className="gap-3">
         <ButtonsReactions
           comment={comment}
-          countLikes={countLikes}
-          countDislikes={countDislikes}
+          
         />
       </CardFooter>
     </Card>
