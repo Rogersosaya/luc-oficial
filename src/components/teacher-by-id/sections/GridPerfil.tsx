@@ -1,7 +1,6 @@
-
 import React from "react";
 import Image from "next/image";
-import { Button} from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { FaLinkedinIn } from "react-icons/fa";
 
 import Resenia from "../components/Resenia";
@@ -9,10 +8,18 @@ import Valuation from "../components/Valuation";
 import Tags from "../components/Tags";
 import { IoIosContact } from "react-icons/io";
 import { CiCircleMore } from "react-icons/ci";
-import ButtonAddValoration from '../components/ButtonAddValoration';
-import { Teacher } from "@/interfaces/teacher.interface";
-
-function GridPerfil({teacher}:{teacher: Teacher | null}) {
+import ButtonAddValoration from "../components/ButtonAddValoration";
+import { getValorationsByTeacher } from "@/actions/valoration/get-valorations";
+interface PropsTeacher {
+  id: string;
+  name: string;
+  slug: string;
+  url: string;
+}
+interface Props {
+  teacher: PropsTeacher | null;
+}
+function GridPerfil({ teacher }: Props) {
   
   return (
     <>
@@ -28,7 +35,7 @@ function GridPerfil({teacher}:{teacher: Teacher | null}) {
             />
           </div>
           <div className="border-slate-500 border px-4 py-3 rounded-lg my-2 text-center ">
-            <ButtonAddValoration/>
+            <ButtonAddValoration />
           </div>
           <div className="border-slate-500 border px-4 py-3 rounded-lg my-2">
             <div className="text-md font-bold mb-2 flex items-center">
@@ -172,10 +179,10 @@ function GridPerfil({teacher}:{teacher: Teacher | null}) {
             <Valuation teacher={teacher} />
           </div>
           <div className="border-slate-500 border px-4 py-3 rounded-lg my-2">
-            <Resenia />
+            <Resenia teacher={teacher} />
           </div>
-          <div className="border-slate-500 border px-4 py-3 rounded-lg ">
-            <Tags />
+          <div className="border-slate-500 border px-4 py-3 rounded-lg flex-auto">
+            <Tags teacher={teacher} />
           </div>
         </div>
       </div>

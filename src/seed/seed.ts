@@ -43,13 +43,9 @@ export const initialData: SeedData = {
     {
       name:'Jordan Laureano',
       email: 'jordan.laureano.g@uni.pe',
-      role: 'user'
-    },
-    {
-      name:'Roger Sosaya',
-      email: 'roger.sosaya.q@uni.pe',
       role: 'admin'
-    }
+    },
+    
   ],
   teachers: teachersData.map(teacher => ({
     name: teacher.name,

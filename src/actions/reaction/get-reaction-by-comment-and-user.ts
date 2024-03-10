@@ -42,7 +42,6 @@ export const getReactionsByCommentAndUser = async ({ commentId }: Props) => {
         }
       },
     });
-    // console.log(reactions);
     return reactions;
   } catch (error) {
     // console.log(error);

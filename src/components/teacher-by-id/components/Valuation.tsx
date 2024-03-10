@@ -1,27 +1,69 @@
+"use client";
+import { getValorationsByTeacher } from "@/actions/valoration/get-valorations";
 import { Teacher } from "@/interfaces/teacher.interface";
+import { useValorationsStore } from "@/store/valorationsStore";
 import { Progress } from "@nextui-org/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { FaRegStar, FaStar, FaUser } from "react-icons/fa6";
+interface PropsTeacher {
+  id: string;
+  name: string;
+  slug: string;
+  url: string;
+}
+interface Props {
+  teacher: PropsTeacher | null;
+}
+function Valuation({ teacher }: Props) {
+  const { getValorations, valorations } = useValorationsStore();
+  useEffect(() => {
+    getValorations(teacher!.id);
+  }, []);
+  const ratings = valorations.map((item) => item.rating);
 
-function Valuation({teacher}: {teacher:Teacher | null}) {
-  const value = 50;
+  let rating1 =
+  Number(((ratings.filter((rating) => rating === 1).length / ratings.length) * 100).toFixed(1));
+  let rating2 =
+  Number(((ratings.filter((rating) => rating === 2).length / ratings.length) * 100).toFixed(1));
+  let rating3 =
+  Number(((ratings.filter((rating) => rating === 3).length / ratings.length) * 100).toFixed(1));
+  let rating4 =
+  Number(((ratings.filter((rating) => rating === 4).length / ratings.length) * 100).toFixed(1));
+  let rating5 =
+  Number(((ratings.filter((rating) => rating === 5).length / ratings.length) * 100).toFixed(1));
+  let averageRating =
+  Number((ratings.reduce((acc, val) => acc + val, 0) / ratings.length).toFixed(1));
+
+  rating1 = Number.isNaN(rating1) ? 0 : rating1;
+  rating2 = Number.isNaN(rating2) ? 0 : rating2;
+  rating3 = Number.isNaN(rating3) ? 0 : rating3;
+  rating4 = Number.isNaN(rating4) ? 0 : rating4;
+  rating5 = Number.isNaN(rating5) ? 0 : rating5;
+  averageRating = Number.isNaN(averageRating) ? 0 : averageRating;
+  const array = [...Array(5)];
+
   return (
     <>
       <div className="text-lg font-bold">{teacher?.name}</div>
       <div className="grid grid-cols-12 w-full">
         <div className="p-3 flex flex-col items-center justify-center col-span-5">
           <div className="text-lg ">Valoración</div>
-          <div className="text-2xl font-bold">4.5</div>
+          <div className="text-2xl font-bold">{averageRating}</div>
           <div className="flex">
-            <FaStar size={14} />
-            <FaStar size={14} />
-            <FaStar size={14} />
-            <FaStar size={14} />
-            <FaRegStar size={14} />
+            {array.map((_, index) => {
+              const currentRating = index + 1;
+              return (
+                <FaStar
+                  key={index}
+                  size={18}
+                  color={currentRating <= averageRating ? "yellow" : ""}
+                />
+              );
+            })}
           </div>
           <div className="flex justify-center mt-3 items-center">
             <FaUser size={14} />
-            <span className="ml-2 text-lg">110</span>
+            <span className="ml-2 text-lg">{valorations.length}</span>
           </div>
         </div>
         <div className="flex flex-col justify-center items-center w-full col-span-7 px-2 md:px-10">
@@ -29,86 +71,76 @@ function Valuation({teacher}: {teacher:Teacher | null}) {
             <span className="text-md mr-1">5</span>
             <FaStar size={20} />
             <Progress
-              className="ml-1 mr-2"
+              className="ml-1 mr-2 max-w-80"
               size="md"
               radius="sm"
               aria-label="1"
               classNames={{
-                base: "w-full",
-
                 indicator: "bg-gradient-to-r from-primary to-secondary",
               }}
-              value={value}
+              value={rating5}
             />
-            <span className="text-md">%{value}</span>
+            <span className="text-md">%{rating5}</span>
           </div>
           <div className="flex items-center w-full">
-            <span className="text-md mr-1">5</span>
+            <span className="text-md mr-1">4</span>
             <FaStar size={20} />
             <Progress
-              className="ml-1 mr-2"
+              className="ml-1 mr-2 max-w-80"
               size="md"
               radius="sm"
               aria-label="1"
               classNames={{
-                base: "w-full",
-
                 indicator: "bg-gradient-to-r from-primary to-secondary",
               }}
-              value={value}
+              value={rating4}
             />
-            <span className="text-md">%{value}</span>
+            <span className="text-md">%{rating4}</span>
           </div>
           <div className="flex items-center w-full">
-            <span className="text-md mr-1">5</span>
+            <span className="text-md mr-1">3</span>
             <FaStar size={20} />
             <Progress
-              className="ml-1 mr-2"
+              className="ml-1 mr-2 max-w-80"
               size="md"
               radius="sm"
               aria-label="1"
               classNames={{
-                base: "w-full",
-
                 indicator: "bg-gradient-to-r from-primary to-secondary",
               }}
-              value={value}
+              value={rating3}
             />
-            <span className="text-md">%{value}</span>
+            <span className="text-md">%{rating3}</span>
           </div>
           <div className="flex items-center w-full">
-            <span className="text-md mr-1">5</span>
+            <span className="text-md mr-1">2</span>
             <FaStar size={20} />
             <Progress
-              className="ml-1 mr-2"
+              className="ml-1 mr-2 max-w-80"
               size="md"
               radius="sm"
               aria-label="1"
               classNames={{
-                base: "w-full",
-
                 indicator: "bg-gradient-to-r from-primary to-secondary",
               }}
-              value={value}
+              value={rating2}
             />
-            <span className="text-md">%{value}</span>
+            <span className="text-md">%{rating2}</span>
           </div>
           <div className="flex items-center w-full">
-            <span className="text-md mr-1">5</span>
+            <span className="text-md mr-1">1</span>
             <FaStar size={20} />
             <Progress
-              className="ml-1 mr-2"
+              className="ml-1 mr-2 max-w-80"
               size="md"
               radius="sm"
               aria-label="1"
               classNames={{
-                base: "w-full",
-
                 indicator: "bg-gradient-to-r from-primary to-secondary",
               }}
-              value={value}
+              value={rating1}
             />
-            <span className="text-md">%{value}</span>
+            <span className="text-md">%{rating1}</span>
           </div>
         </div>
       </div>

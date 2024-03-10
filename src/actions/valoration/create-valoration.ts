@@ -1,16 +1,25 @@
-'use server'
+"use server";
 import { getServerSession } from "next-auth";
 import prisma from "../../lib/prisma";
+import { Tag } from "@/interfaces/tag-interface";
 
-interface ValorationProps{
-    teacherId: string,
-    rating: number,
-    difficulty: number,
-    learning: number,
-    repeat: boolean,
+interface ValorationProps {
+  teacherId: string;
+  rating: number;
+  difficulty: number;
+  learning: number;
+  repeat: boolean;
+  tags: string[];
 }
 
-export const createValoration = async ({teacherId, rating, difficulty,learning, repeat}:ValorationProps) => {
+export const createValoration = async ({
+  teacherId,
+  rating,
+  difficulty,
+  learning,
+  repeat,
+  tags,
+}: ValorationProps) => {
   try {
     const session = await getServerSession();
     const userEmail = session?.user?.email;
@@ -19,19 +28,57 @@ export const createValoration = async ({teacherId, rating, difficulty,learning, 
         email: userEmail!,
       },
     });
-    const valoration = await prisma.valoration.create({
-      data:{
+    const newValoration = await prisma.valoration.create({
+      data: {
         rating: rating,
         difficulty: difficulty,
         learning: learning,
         repeat: repeat,
         teacherId: teacherId,
-        userId: userCurrent!.id
-      }
+        userId: userCurrent!.id,
+      },
     });
+    const tagsDBPromises = tags.map(async (tag) => {
+      return await prisma.tag.findUnique({
+        where: {
+          name: tag,
+        },
+      });
+    });
+    const tagsDB = await Promise.all(tagsDBPromises);
 
+    const valorationOnTagsDBPromises = tagsDB.map(async(tag) => {
+      return await prisma.valorationOnTag.create({
+        data: {
+          tagId: tag!.id,
+          valorationId:  newValoration.id,
+        }
+      })
+    })    
+    await Promise.all(valorationOnTagsDBPromises);
 
-    return valoration;
+    const newValorationWithId = await prisma.valoration.findUnique({
+      include: {
+        tags: {
+          include: {
+            tag: true,
+          },
+        },
+      },
+      where: {
+        id: newValoration.id
+      }
+    })
+    if(newValorationWithId !== null){
+      const newValorationData = {
+        ...newValorationWithId,
+        tags: newValorationWithId.tags.map((tag) => tag!.tag)
+      }
+    return newValorationData;
+    }
+    
+   
+    return 
   } catch (error) {
     console.log(error);
   }

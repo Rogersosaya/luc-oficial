@@ -78,7 +78,6 @@ export const createReaction = async ({ commentId, value }: Props) => {
       },
     });
 
-    // console.log(reactionExist);
     return newReaction;
   } catch (error) {
     console.log(error);

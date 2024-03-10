@@ -7,7 +7,6 @@ interface Props{
 
 export const updateCommentByValue = async ({commentId, value}:Props) => {
   try {
-    console.log(commentId)
     const commentUpdate= await prisma.comment.update({
       where:{
           id: commentId,

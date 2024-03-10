@@ -16,7 +16,6 @@ export const getLikesByComment = async ({ commentId }: Props) => {
     //     email: userEmail!,
     //   },
     // });
-    // console.log(commentId)
     const likes = await prisma.reaction.findMany({
       // include:{
       //   user:true

@@ -1,7 +1,7 @@
 "use client";
 import ReactSpeedometer from "react-d3-speedometer";
 
-function Velocimeter({}) {
+function Velocimeter({value}:{value:number}) {
   return (
     <div>
       <ReactSpeedometer
@@ -11,7 +11,7 @@ function Velocimeter({}) {
         height={140}
         needleTransitionDuration={1500}
         needleColor="steelblue"
-        value={3}
+        value={value}
         segments={5}
         segmentColors={["#00FF00", "#ADFF2F", "#FFFF00", "#FFA500", "#FF0000"]}
         customSegmentLabels={[

@@ -35,7 +35,6 @@ export const getCommentsByTeacher = async ({ teacher }: Props) => {
         teacherId: teacher,
       },
     });
-    // console.log(comments[0].reactions);
     return comments;
   } catch (error) {
     console.log(error);
