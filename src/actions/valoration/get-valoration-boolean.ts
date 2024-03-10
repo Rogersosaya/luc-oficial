@@ -1,20 +1,27 @@
 'use server'
+import { getServerSession } from "next-auth";
 import prisma from "../../lib/prisma";
 
 export const getValorationBoolean = async (teacherId:string) => {
   try {
-    const teachers = await prisma.teacher.findMany({
-      select: {
-        name: true,
-        slug: true,
-        url: true,
-        
+    const session = await getServerSession();
+    const userEmail = session?.user?.email;
+    const userCurrent = await prisma.user.findUnique({
+      where: {
+        email: userEmail!,
+      },
+    });
+
+    const valoration = await prisma.valoration.findFirst({
+      where: {
+        teacherId: teacherId,
+        userId: userCurrent!.id
       }
     });
-    
-    return teachers;
+    const ExistValoration = !!valoration
+    console.log(ExistValoration);
+    return ExistValoration;
   } catch (error) {
     console.log(error);
-    return [];
   }
 };

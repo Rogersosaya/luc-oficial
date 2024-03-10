@@ -9,7 +9,7 @@ import Tags from "../components/Tags";
 import { IoIosContact } from "react-icons/io";
 import { CiCircleMore } from "react-icons/ci";
 import ButtonAddValoration from "../components/ButtonAddValoration";
-import { getValorationsByTeacher } from "@/actions/valoration/get-valorations";
+import { getValorationBoolean } from "@/actions/valoration/get-valoration-boolean";
 interface PropsTeacher {
   id: string;
   name: string;
@@ -20,7 +20,6 @@ interface Props {
   teacher: PropsTeacher | null;
 }
 function GridPerfil({ teacher }: Props) {
-  
   return (
     <>
       <div className="grid grid-cols-12    text-white gap-4 px-1 md:px-11 translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms]">
@@ -35,7 +34,8 @@ function GridPerfil({ teacher }: Props) {
             />
           </div>
           <div className="border-slate-500 border px-4 py-3 rounded-lg my-2 text-center ">
-            <ButtonAddValoration />
+            <ButtonAddValoration teacherId={teacher!.id} />
+            
           </div>
           <div className="border-slate-500 border px-4 py-3 rounded-lg my-2">
             <div className="text-md font-bold mb-2 flex items-center">

@@ -1,15 +1,22 @@
 "use client";
 import { Button, useDisclosure } from "@nextui-org/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { IoIosAddCircle } from "react-icons/io";
 import ModalValoration from './ModalValoration';
+import { useValorationsStore } from "@/store/valorationsStore";
 
-function ButtonAddValoration() {
+function ButtonAddValoration({teacherId}:{teacherId:string}) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
+  const {existValoration, getExistValoration}= useValorationsStore()
+  useEffect(() => {
+    getExistValoration(teacherId)
+    
+  }, [])
+  
   return (
     <div>
       <Button
+      isDisabled={existValoration}
         onClick={onOpen}
         startContent={<IoIosAddCircle className="text-xl" />}
         size="lg"

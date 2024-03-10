@@ -17,8 +17,9 @@ function ModalValoration({ isOpen, onOpenChange }: any) {
   const { teacherId } = useTeacherStore();
   const { rating, difficulty, learning, repeat, tags } =
     useValorationValuesStore();
-  const { valorations, addValoration } = useValorationsStore();
+  const { valorations, addValoration,updateExistValoration } = useValorationsStore();
   const handleValoration = () => {
+    updateExistValoration()
     addValoration( teacherId, rating, difficulty, learning, repeat, tags );
   };
 

@@ -1,5 +1,6 @@
 import { getLikesByComment } from "@/actions/reaction/get-likes-by-comment";
 import { createValoration } from "@/actions/valoration/create-valoration";
+import { getValorationBoolean } from "@/actions/valoration/get-valoration-boolean";
 import { getValorationsByTeacher } from "@/actions/valoration/get-valorations";
 import { Teacher } from "@/interfaces/teacher.interface";
 import { create } from "zustand";
@@ -17,7 +18,10 @@ interface Valoration {
 }
 interface ValorationState {
   valorations: Valoration[];
-  getValorations: (teacherId:string) => void
+  existValoration: boolean;
+  updateExistValoration: () => void;
+  getExistValoration: (teacherId: string) => Promise<void>
+  getValorations: (teacherId: string) => void;
   addValoration: (
     teacherId: string,
     rating: number,
@@ -29,6 +33,14 @@ interface ValorationState {
 }
 export const useValorationsStore = create<ValorationState>((set, get) => ({
   valorations: [],
+  existValoration: false,
+  updateExistValoration: () => {
+    set({ existValoration: true })
+  },
+  getExistValoration: async(teacherId:string) => {
+    const existValoration = await getValorationBoolean(teacherId);
+    set({ existValoration: existValoration})
+  },
   getValorations: async (teacherId: string) => {
     const valorations = await getValorationsByTeacher({ teacherId: teacherId });
     set({ valorations: valorations });
@@ -42,7 +54,7 @@ export const useValorationsStore = create<ValorationState>((set, get) => ({
     tags: string[]
   ) => {
     const { valorations } = get();
-    console.log("----------hola")
+    console.log("----------hola");
     const valorationAdd = await createValoration({
       teacherId: teacherId,
       rating: rating,
@@ -51,7 +63,7 @@ export const useValorationsStore = create<ValorationState>((set, get) => ({
       repeat: repeat,
       tags: tags,
     });
-    console.log(valorationAdd,"as")
+    console.log(valorationAdd, "as");
     set({ valorations: [valorationAdd!, ...valorations] });
   },
 }));
