@@ -30,8 +30,10 @@ function Resenia({ teacher }: Props) {
   averageLearning = (Number.isNaN(averageLearning) ? 1 : averageLearning);
 
   const rapeats = valorations.map((item) => item.repeat);
-  const falsesPercentage = ((rapeats.filter((rapeat) => rapeat === false).length / rapeats.length) * 100).toFixed(1);
-  const truesPercentage = ((rapeats.filter((rapeat) => rapeat === true).length / rapeats.length) * 100).toFixed(1);
+  let falsesPercentage = Number(((rapeats.filter((rapeat) => rapeat === false).length / rapeats.length) * 100).toFixed(1));
+  let truesPercentage = Number(((rapeats.filter((rapeat) => rapeat === true).length / rapeats.length) * 100).toFixed(1));
+  falsesPercentage = (Number.isNaN(falsesPercentage) ? 0 : falsesPercentage);
+  truesPercentage = (Number.isNaN(truesPercentage) ? 0 : truesPercentage);
   return (
     <>
       <div className="text-md font-bold mb-2 flex items-center">

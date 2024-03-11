@@ -6,21 +6,21 @@ import { useTeacherStore } from "@/store/teacherStore";
 import { Textarea, Avatar, Button } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
-interface PropsTeacher{
+interface PropsTeacher {
   id: string;
-  name: string,
-    slug: string,
-    url: string,
+  name: string;
+  slug: string;
+  url: string;
 }
-interface Props{
-  teacher: PropsTeacher | null
+interface Props {
+  teacher: PropsTeacher | null;
 }
 function TextAreaComment() {
-  const { addComment }=useCommentStore()
+  const { addComment } = useCommentStore();
   const { data: session } = useSession();
   const [value, setValue] = useState("");
   const [disabledState, setdisabledState] = useState(true);
-  const {teacherId} = useTeacherStore()
+  const { teacherId } = useTeacherStore();
 
   const HandleTextArea = (value: string) => {
     setValue(value);
@@ -30,12 +30,12 @@ function TextAreaComment() {
 
     setdisabledState(false);
   };
-const sendComment = () => {
-  addComment(teacherId, value)
-  // createComment({teacher:teacher!.id, value:value })
-  setValue("")
-  setdisabledState(true);
-}
+  const sendComment = () => {
+    addComment(teacherId, value);
+    // createComment({teacher:teacher!.id, value:value })
+    setValue("");
+    setdisabledState(true);
+  };
 
   return (
     <div className="mb-5">
@@ -47,15 +47,29 @@ const sendComment = () => {
           src={session?.user?.image ?? ""}
           className="mr-3"
         />
-        <Textarea
-          key="bordered"
-          onValueChange={HandleTextArea}
-          value={value}
-          variant="bordered"
-          labelPlacement="outside"
-          placeholder="Agregar un comentario"
-          className="w-full mb-6 md:mb-0 block"
-        />
+        {session ? (
+          <Textarea
+            key="bordered"
+            onValueChange={HandleTextArea}
+            value={value}
+            variant="bordered"
+            labelPlacement="outside"
+            placeholder="Agregar un comentario"
+            className="w-full mb-6 md:mb-0 block"
+          />
+        ) : (
+          <Textarea
+
+          isDisabled
+            key="bordered"
+            onValueChange={HandleTextArea}
+            value={value}
+            variant="bordered"
+            labelPlacement="outside"
+            placeholder="Inicia sesión para comentar"
+            className="w-full mb-6 md:mb-0 block"
+          />
+        )}
       </div>
       <div className="flex justify-end">
         <Button
@@ -67,7 +81,12 @@ const sendComment = () => {
         >
           Cancelar
         </Button>
-        <Button onClick={()=>sendComment() } isDisabled={disabledState} color="primary" variant="solid">
+        <Button
+          onClick={() => sendComment()}
+          isDisabled={disabledState}
+          color="primary"
+          variant="solid"
+        >
           Comentar
         </Button>
       </div>

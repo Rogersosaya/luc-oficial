@@ -165,6 +165,9 @@ export const coursesData = [
     name: "PROYECTO DE TESIS EN INGENIERIA SISTEMAS II",
   },
   {
+    name: "PROYECTO DE TESIS EN INGENIERIA SISTEMAS I",
+  },
+  {
     name: "GESTION DE PROYECTOS",
   },
   {
@@ -180,7 +183,7 @@ export const coursesData = [
     name: "INGENIERIA EMPRESARIAL",
   },
   {
-    name: "INTRODUCCION AL PENSAMIENTO Y A LA INGENIERIA  DE SISTEMAS",
+    name: "INTRODUCCION AL PENSAMIENTO Y A LA INGENIERIA DE SISTEMAS",
   },
   {
     name: "TEORIA DE DECISIONES",

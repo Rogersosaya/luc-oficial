@@ -3,10 +3,10 @@ import { Career } from "@/interfaces/career.interface";
 import { Course } from "@/interfaces/course.interface";
 import { Cycle } from "@/interfaces/cycle.interface";
 import { Faculty } from "@/interfaces/faculty.interface";
-import { Select, SelectItem } from "@nextui-org/react";
+import { Button, Select, SelectItem } from "@nextui-org/react";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface Props {
   faculties: Faculty[];
@@ -19,22 +19,32 @@ function Filters({ faculties, careers, cycles, courses }: Props) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
+  // const [reset, setreset] = useState(false)
+  // useEffect(() => {
 
-  function handleSelect(term: string, nameQuery: string) {
+  // }, [reset]);
+  // const handleReset = () => {
+  //   const params = new URLSearchParams(searchParams);
+  // params.delete('faculty');
+  // params.delete('course');
+  // params.delete('career');
+  // params.delete('cycle');
+  // replace(`/teachers?${params.toString()}`);
+
+  // }
+  function handleSelect(term: string, nameQuery?: string) {
     const params = new URLSearchParams(searchParams);
-    
-    if(nameQuery === "faculty") 
-    {params.delete(`career`);
-    params.delete(`course`);
-  }
-  if(nameQuery === "career") 
-    {
-    params.delete(`course`);
-  }
-  if(nameQuery === "cycle") 
-    {
-    params.delete(`course`);
-  }
+
+    if (nameQuery === "faculty") {
+      params.delete(`career`);
+      params.delete(`course`);
+    }
+    if (nameQuery === "career") {
+      params.delete(`course`);
+    }
+    if (nameQuery === "cycle") {
+      params.delete(`course`);
+    }
 
     if (term) {
       params.set(`${nameQuery}`, term);
@@ -58,7 +68,7 @@ function Filters({ faculties, careers, cycles, courses }: Props) {
   const defaultSelectedCourseKeys = defaultCourse ? [defaultCourse] : undefined;
   return (
     <>
-      <div className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:600ms] flex mx-9 flex-wrap md:flex-nowrap gap-4 bg-gray-900 py-3 px-3 justify-center mt-5 rounded-lg md:rounded-full">
+      <div className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:600ms] flex mx-9 flex-wrap md:flex-nowrap gap-4 bg-gray-900 py-3 px-3 justify-center mt-5 rounded-lg md:rounded-xl">
         <Select
           size={"sm"}
           color={"primary"}
@@ -115,7 +125,7 @@ function Filters({ faculties, careers, cycles, courses }: Props) {
           size={"sm"}
           color={"primary"}
           label="CURSO"
-          className="w-full  md:max-w-xs"
+          className="  md:max-w-xs"
           defaultSelectedKeys={defaultSelectedCourseKeys}
           onChange={(e) => {
             handleSelect(e.target.value, "course");
@@ -128,6 +138,7 @@ function Filters({ faculties, careers, cycles, courses }: Props) {
           ))}
         </Select>
       </div>
+      {/* <Button onClick={()=>handleReset()} className="h-auto ">Reset</Button> */}
     </>
   );
 }

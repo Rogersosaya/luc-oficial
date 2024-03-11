@@ -86,12 +86,22 @@ async function main() {
 
   filters.forEach(async ({ course, cycle, career }) => {
     const courseItem = course
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
+      .toLowerCase().
+      replace(/[áäâà]/gi, 'a')
+                .replace(/[éëêè]/gi, 'e')
+                .replace(/[íïîì]/gi, 'i')
+                .replace(/[óöôò]/gi, 'o')
+                .replace(/[úüûù]/gi, 'u');;
     const cycleItem = cycle.toLowerCase();
     const careerItem = career.toLowerCase();
-    // console.log(courseItem,coursesMap[courseItem], cyclesMap[cycleItem])
+    
+    // if(!coursesMap[courseItem]){
+      
+    //   console.log("curso",coursesMap["courseItem"], courseItem, "filters")
+    // }
+    // if(!cyclesMap[cycleItem]){
+    //   console.log("teacher")
+    // }
     await prisma.filter.create({
       data: {
         courseId: coursesMap[courseItem],
@@ -102,13 +112,18 @@ async function main() {
   });
 
   teachersAndCourse.map(async ({ course, teacher }) => {
-    const courseItem = course
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
+    const courseItem = course.toLowerCase();
+      ;
+    
     const teacherItem = teacher.toLowerCase();
-    // console.log(coursesMap[courseItem], teachersMap[teacherItem])
-
+    // console.log(course, teacher)
+    // if(!coursesMap[courseItem]){
+      
+    //   console.log("curso",coursesMap["courseItem"], courseItem)
+    // }
+    // if(!teachersMap[teacherItem]){
+    //   console.log("teacher")
+    // }
     await prisma.teacherOnCourse.create({
       data: {
         courseId: coursesMap[courseItem],

@@ -5,13 +5,15 @@ import prisma from "../../lib/prisma";
 export const getValorationBoolean = async (teacherId:string) => {
   try {
     const session = await getServerSession();
+    if(!session) return true;
     const userEmail = session?.user?.email;
+    
     const userCurrent = await prisma.user.findUnique({
       where: {
         email: userEmail!,
       },
     });
-
+    
     const valoration = await prisma.valoration.findFirst({
       where: {
         teacherId: teacherId,

@@ -9,13 +9,7 @@ interface Props {
 
 export const getLikesByComment = async ({ commentId }: Props) => {
   try {
-    // const session = await getServerSession();
-    // const userEmail = session?.user?.email;
-    // const userCurrent = await prisma.user.findUnique({
-    //   where: {
-    //     email: userEmail!,
-    //   },
-    // });
+    
     const likes = await prisma.reaction.findMany({
       // include:{
       //   user:true

@@ -9,29 +9,35 @@ const AnimatedNumbers = dynamic(
   { ssr: false }
 );
 
-const achievementsList = [
-  
-  {
-    
-    metric: "Usuarios",
-    value: "100,000",
-  },
-  {
-    metric: "Comentarios",
-    value: "100",
-    
-  },
-  {
-    metric: "Valoraciones",
-    value: "7",
-  },
-  {
-    metric: "Profesores",
-    value: "5",
-  },
-];
 
-const Achievements = () => {
+interface Props{
+  teachersTotal: number,
+  commentsTotal: number,
+  valorationsTotal: number,
+  usersTotal: number,
+}
+const Achievements = ({teachersTotal, commentsTotal, valorationsTotal, usersTotal}: Props) => {
+  const achievementsList = [
+  
+    {
+      
+      metric: "Usuarios",
+      value: usersTotal,
+    },
+    {
+      metric: "Comentarios",
+      value: commentsTotal,
+      
+    },
+    {
+      metric: "Valoraciones",
+      value: valorationsTotal,
+    },
+    {
+      metric: "Profesores",
+      value: teachersTotal,
+    },
+  ];
   return (
     <div className="py-8 px-4 xl:gap-16 sm:py-16 xl:px-16">
       <div className="sm:border-[#33353F] sm:border rounded-md py-8 px-16 flex flex-col sm:flex-row items-center justify-between">
@@ -51,7 +57,7 @@ const Achievements = () => {
                     type: "spring",
                     duration: index + 2,
                   })}
-                  animateToNumber={parseInt(achievement.value)}
+                  animateToNumber={(achievement.value)}
                   
                 />
                 

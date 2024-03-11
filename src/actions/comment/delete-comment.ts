@@ -7,13 +7,7 @@ interface Props {
 
 export const deleteComment = async ({ commentId }: Props) => {
   try {
-    // const session = await getServerSession();
-    // const userEmail = session?.user?.email;
-    // const userCurrent = await prisma.user.findUnique({
-    //   where: {
-    //     email: userEmail!,
-    //   },
-    // });
+    
     const commentDelete= await prisma.comment.delete({
         where:{
             id: commentId,

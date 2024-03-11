@@ -23,7 +23,6 @@
 
 //     //     const { email, password } = parsedCredentials.data;
 
-//     //     const user = await prisma.user.findUnique({ where: { email: email.toLowerCase() } });
 
 //     //     if(!user) return null;
 

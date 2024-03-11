@@ -3,22 +3,33 @@
 import prisma from "../../lib/prisma";
 
 interface Props {
-  faculty: string;
-  career: string;
-  cycle: string;
-  course: string;
+  page?: number,
+  take?:number,
+  faculty?: string;
+  career?: string;
+  cycle?: string;
+  course?: string;
   search: string;
 }
 
 export const getTeachersByFilter = async ({
+  page=1,
+  take= 16,
   faculty,
   career,
   cycle,
   course,
   search,
 }: Props) => {
+  if (isNaN(Number(page))) page = 1;
+  if (page < 1) page = 1;
   try {
     const teachers = await prisma.teacher.findMany({
+      orderBy: {
+        name: "asc",
+      },
+      take: take,
+      skip: (page - 1) * take,
       include: {
         courses: {
           include: {
@@ -67,9 +78,13 @@ export const getTeachersByFilter = async ({
         },
       },
     });
-    return teachers;
+    const totalCount = await prisma.teacher.count();
+    
+    const totalPages = Math.ceil(totalCount / take);
+
+    return  {currentPage: page,totalPages:totalPages,  teachers} ;
   } catch (error) {
     console.log(error);
-    return [];
+    return {}
   }
 };

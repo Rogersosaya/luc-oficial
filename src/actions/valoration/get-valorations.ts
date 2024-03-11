@@ -9,13 +9,7 @@ interface Props {
 
 export const getValorationsByTeacher = async ({ teacherId }: Props) => {
   try {
-    const session = await getServerSession();
-    const userEmail = session?.user?.email;
-    const userCurrent = await prisma.user.findUnique({
-      where: {
-        email: userEmail!,
-      },
-    });
+    
 
     const valorations = await prisma.valoration.findMany({
       include: {
