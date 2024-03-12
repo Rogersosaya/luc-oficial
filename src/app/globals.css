@@ -6,10 +6,17 @@
   :root {
     --navigation-height: 4.8rem;
   }
-  
+
   html {
-    @apply bg-background font-sans text-off-white;
     font-size: 62.5%;
+    background-image: linear-gradient(
+      to bottom,
+      #00003f,
+      #00044d,
+      #00055a,
+      #000468,
+      #000076
+    );
   }
 
   .highlighted-keys .active rect:first-child {
@@ -71,8 +78,72 @@
   }
   .green-pink-gradient {
     background: "#00cea8";
-    background: linear-gradient(90.13deg, #00D292 1.9%, #0187FF 97.5%);
-    background: -webkit-linear-gradient(-90.13deg, #00D292 1.9%, #0187FF 97.5%);
+    background: linear-gradient(90.13deg, #00d292 1.9%, #0187ff 97.5%);
+    background: -webkit-linear-gradient(-90.13deg, #00d292 1.9%, #0187ff 97.5%);
   }
-  
+}
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 90deg;
+  inherits: true;
+}
+
+@property --gradX {
+  syntax: '<percentage>';
+  initial-value: 50%;
+  inherits: true;
+}
+
+@property --gradY {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: true;
+}
+
+.box {
+	--d: 2500ms;
+	--angle: 90deg;
+	--gradX: 100%;
+	--gradY: 50%;
+	--c1: #4AFFE7;
+	--c2: #0F17FF;
+	
+	border: 0.35rem solid;
+	border-radius: 205px;
+	border-image: conic-gradient(from var(--angle), var(--c2), var(--c1) 0.1turn, var(--c1) 0.15turn, var(--c2) 0.25turn) 30;
+	animation: borderRotate var(--d) linear infinite forwards;
+}
+
+.box:nth-child(2) {
+	border-image: radial-gradient(ellipse at var(--gradX) var(--gradY), var(--c1), var(--c1) 10%, var(--c2) 40%) 30;
+	animation: borderRadial var(--d) linear infinite forwards;
+}
+
+@keyframes borderRotate {
+	100% {
+		--angle: 420deg;
+	}
+}
+
+@keyframes borderRadial {
+	20% {
+		--gradX: 100%;
+		--gradY: 50%;
+	}
+	40% {
+		--gradX: 100%;
+		--gradY: 100%;
+	}
+	60% {
+		--gradX: 50%;
+		--gradY: 100%;
+	}
+	80% {
+		--gradX: 0%;
+		--gradY: 50%;
+	}
+	100% {
+		--gradX: 50%;
+		--gradY: 0%;
+	}
 }

@@ -8,7 +8,6 @@ import { getCareersByFaculty } from "@/actions/career/get-careers-by-faculty";
 import { getCycle } from "@/actions/cycle/get-cycle";
 import { getCoursesByFilter } from "@/actions/course/get-course-by-filter";
 import { getTeachersByFilter } from "@/actions/teacher/get-teacher-by-filter";
-import { redirect } from 'next/navigation';
 import { Pagination } from "@/components/ui/pagination/Pagination";
 
 async function TeachersPage({
@@ -31,7 +30,7 @@ async function TeachersPage({
   const course = searchParams.course;
   const query = searchParams.query;
 
-  let {teachers, currentPage, totalPages} = await getTeachersByFilter({
+  let {teachersResult, currentPage, totalPages} = await getTeachersByFilter({
     page:page,
     faculty: faculty,
     career: career,
@@ -39,9 +38,6 @@ async function TeachersPage({
     course: course,
     search: query,
   });
-  console.log(currentPage, totalPages);
-  
-  // const courses = await getCourses();
   const faculties = await getFaculties();
   const careers = await getCareersByFaculty({ faculty: searchParams.faculty });
   const cycles = await getCycle();
@@ -64,9 +60,9 @@ async function TeachersPage({
             courses={courses}
           />
         </Container>
-        <Container>
-          <ListTeachers teachers={teachers} />
-        </Container>
+        <div className="px-0  md:px-8 mx-auto max-w-[120rem]">
+          <ListTeachers teachers={teachersResult!} />
+        </div>
         <Pagination totalPages={totalPages!}/>
       </div>
     </>

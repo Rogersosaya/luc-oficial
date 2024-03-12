@@ -6,6 +6,7 @@ import { getTeachers } from "@/actions/teacher/get-teachers";
 import { Teacher } from "@/interfaces/teacher.interface";
 import { getCommentsByTeacher } from "@/actions/comment/get-comments-by-teacher";
 import { getValorationsByTeacher } from "@/actions/valoration/get-valorations";
+import { getTeachersRecent } from "@/actions/teacher/get-teachers-recent";
 interface PropsTeacher {
   id: string;
   name: string;
@@ -16,7 +17,7 @@ interface Props {
   teacher: PropsTeacher | null;
 }
 async function CommentsAndOthers({ teacher }: Props) {
-  const teachers = await getTeachers();
+  const teachers = await getTeachersRecent();
   const comments = await getCommentsByTeacher({ teacher: teacher!.id });
   
   return (

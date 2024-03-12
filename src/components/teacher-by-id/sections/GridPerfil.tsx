@@ -10,16 +10,26 @@ import { IoIosContact } from "react-icons/io";
 import { CiCircleMore } from "react-icons/ci";
 import ButtonAddValoration from "../components/ButtonAddValoration";
 import { getValorationBoolean } from "@/actions/valoration/get-valoration-boolean";
+import { Course } from "@/interfaces/course.interface";
+interface CourseProps {
+  course: Course;
+}
 interface PropsTeacher {
   id: string;
   name: string;
   slug: string;
   url: string;
+  courses: CourseProps[];
 }
 interface Props {
   teacher: PropsTeacher | null;
 }
 function GridPerfil({ teacher }: Props) {
+  const result = {
+    ...teacher,
+    courses: teacher!.courses.map((course) => course.course),
+  };
+  console.log(result);
   return (
     <>
       <div className="grid grid-cols-12    text-white gap-4 px-1 md:px-11 translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms]">
@@ -35,7 +45,6 @@ function GridPerfil({ teacher }: Props) {
           </div>
           <div className="border-slate-500 border px-4 py-3 rounded-lg my-2 text-center ">
             <ButtonAddValoration teacherId={teacher!.id} />
-            
           </div>
           <div className="border-slate-500 border px-4 py-3 rounded-lg my-2">
             <div className="text-md font-bold mb-2 flex items-center">
@@ -159,18 +168,11 @@ function GridPerfil({ teacher }: Props) {
               Otros cursos
             </div>
             <div className="flex flex-wrap ">
-              <div className="bg-primary rounded-lg  px-2 py-1 font-bold mr-2  mb-2 text-base flex items-center">
-                MCD
-              </div>
-              <div className="bg-primary rounded-lg  px-2 py-1 font-bold mr-2  mb-2 text-base flex items-center">
-                MCD
-              </div>
-              <div className="bg-primary rounded-lg  px-2 py-1 font-bold mr-2  mb-2 text-base flex items-center">
-                MCD
-              </div>
-              <div className="bg-primary rounded-lg  px-2 py-1 font-bold mr-2  mb-2 text-base flex items-center">
-                MCD
-              </div>
+              {result.courses.map((course) => (
+                <div className="bg-danger rounded-lg text-black px-2 py-1 font-bold mx-2  mb-1.5 text-base  items-center">
+                  {course.name}
+                </div>
+              ))}
             </div>
           </div>
         </div>

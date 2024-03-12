@@ -32,7 +32,7 @@ model Teacher {
   contact     Contact?
   courses     TeacherOnCourse[]
   valorations Valoration[]
-  commnets Comment[]
+  comments Comment[]
 }
 
 model Contact {

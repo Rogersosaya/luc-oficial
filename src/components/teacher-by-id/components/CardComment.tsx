@@ -12,14 +12,9 @@ import {
 import DropdownDetails from "./DropdownDetails";
 import { User } from "@/interfaces/user.interface";
 import ButtonsReactions from "./ButtonsReactions";
-import { getReactionsByComment } from "@/actions/reaction/get-reactions-by-comment";
-import { getLikesByComment } from "@/actions/reaction/get-likes-by-comment";
-import { getDislikesByComment } from "@/actions/reaction/get-dislikes-by-comment";
-import { getReactionsByCommentAndUser } from "@/actions/reaction/get-reaction-by-comment-and-user";
-import { useReactionStore } from "@/store/reactionStore";
-import { useEffect, useState } from "react";
-import { Reaction, ValueReaction } from "@/interfaces/reaction.interface";
-import { useTeacherStore } from "@/store/teacherStore";
+
+import {  useState } from "react";
+import {  ValueReaction } from "@/interfaces/reaction.interface";
 import { useCommentStore } from "@/store/commentStore";
 
 interface PropsReaction {

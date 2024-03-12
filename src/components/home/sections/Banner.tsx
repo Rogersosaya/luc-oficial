@@ -2,8 +2,9 @@ import React from "react";
 import { BannerElement } from "../components/BannerElement";
 import { BannerSubtitle } from "../components/BannerSubtitle";
 import { BannerTitle } from "../components/BannerTitle";
-import { Button, Highlight } from "../../ui/button/Button";
+import {  Highlight } from "../../ui/button/Button";
 import Link from "next/link";
+import { Button } from "@nextui-org/react";
 
 function Banner() {
   return (
@@ -19,13 +20,13 @@ function Banner() {
         <br className="hidden md:block" /> puedan compartir sus experiencias
       </BannerSubtitle>
       <Link href={"/teachers"}>
+        
         <Button
-          className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:600ms]"
-          variant="primary"
-          size="large"
+          className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:600ms] text-lg px-6 py-6 font-bold "
+          color="primary" size="lg"
         >
-          <span>Empezar </span>
-          <Highlight>{"->"}</Highlight>
+          Empezar
+          
         </Button>
       </Link>
     </BannerElement>

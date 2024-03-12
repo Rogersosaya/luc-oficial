@@ -34,7 +34,7 @@ function Filters({ faculties, careers, cycles, courses }: Props) {
   // }
   function handleSelect(term: string, nameQuery?: string) {
     const params = new URLSearchParams(searchParams);
-
+    params.delete('page')
     if (nameQuery === "faculty") {
       params.delete(`career`);
       params.delete(`course`);

@@ -15,7 +15,9 @@ function BannerTeachers() {
   const pathname = usePathname();
   const {replace} = useRouter();
   function handleSearch(termSearch?: string, ){
+    
     const params = new URLSearchParams(searchParams);
+    params.delete('page')
     if (termSearch) {
       params.set('query', termSearch);
     } else {

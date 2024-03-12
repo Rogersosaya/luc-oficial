@@ -31,6 +31,8 @@ export const getTeachersByFilter = async ({
       take: take,
       skip: (page - 1) * take,
       include: {
+        valorations:true,
+        
         courses: {
           include: {
             course: {
@@ -81,8 +83,13 @@ export const getTeachersByFilter = async ({
     const totalCount = await prisma.teacher.count();
     
     const totalPages = Math.ceil(totalCount / take);
-
-    return  {currentPage: page,totalPages:totalPages,  teachers} ;
+    const teachersResult = teachers.map(teacher => {
+      return {
+        ...teacher,
+        courses: teacher.courses.map((course) => course.course)
+      }
+    })
+    return  {currentPage: page,totalPages:totalPages,  teachersResult} ;
   } catch (error) {
     console.log(error);
     return {}

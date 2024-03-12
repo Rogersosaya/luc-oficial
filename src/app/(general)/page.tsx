@@ -7,12 +7,13 @@ import Podium from "../../components/home/sections/Podium";
 import TeachersSwiper from "@/components/home/sections/TeachersSwiper";
 
 import { getTeachers } from "@/actions/teacher/get-teachers";
-import { Pagination } from '../../components/ui/pagination/Pagination';
-import { getTotal } from '../../actions/total/get-info-total';
+import { getTotal } from "../../actions/total/get-info-total";
+import { getTeachersRecent } from "@/actions/teacher/get-teachers-recent";
 
 async function GeneralPage() {
-  const teachers = await getTeachers() 
-  const {teachersTotal, commentsTotal, valorationsTotal, usersTotal}= await getTotal()
+  const teachers = await getTeachersRecent();
+  const { teachersTotal, commentsTotal, valorationsTotal, usersTotal } =
+    await getTotal();
   return (
     <>
       <div className="overflow-hidden pb-[16.4rem] md:pb-[19.6rem]">
@@ -21,17 +22,18 @@ async function GeneralPage() {
         </Container>
       </div>
       <Container>
-        <Achievements teachersTotal={teachersTotal!} commentsTotal={commentsTotal!} valorationsTotal={valorationsTotal!} usersTotal={usersTotal!}  />
+        <Achievements
+          teachersTotal={teachersTotal!}
+          commentsTotal={commentsTotal!}
+          valorationsTotal={valorationsTotal!}
+          usersTotal={usersTotal!}
+        />
       </Container>
-
       <CommentsFast />
-
       <Podium />
-
       <Container>
         <TeachersSwiper teachers={teachers} />
       </Container>
-      
     </>
   );
 }

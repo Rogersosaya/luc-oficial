@@ -1,6 +1,10 @@
 "use client";
 import React from "react";
 import dynamic from "next/dynamic";
+import { FaRegUser } from "react-icons/fa";
+import { FaComments } from "react-icons/fa";
+import { GiTeacher } from "react-icons/gi";
+import { MdOutlineStarRate } from "react-icons/md";
 
 const AnimatedNumbers = dynamic(
   () => {
@@ -20,27 +24,31 @@ const Achievements = ({teachersTotal, commentsTotal, valorationsTotal, usersTota
   const achievementsList = [
   
     {
-      
+      icon:<FaRegUser size={24} className="mr-4 text-secondary"/>,
       metric: "Usuarios",
       value: usersTotal,
     },
     {
+      icon:<FaComments size={24} className="mr-4 text-secondary"/>,
       metric: "Comentarios",
       value: commentsTotal,
       
     },
+    
     {
+      icon:<MdOutlineStarRate size={24} className="mr-4 text-secondary"/>,
       metric: "Valoraciones",
       value: valorationsTotal,
     },
     {
+      icon:<GiTeacher size={24} className="mr-4 text-secondary"/>,
       metric: "Profesores",
       value: teachersTotal,
     },
   ];
   return (
     <div className="py-8 px-4 xl:gap-16 sm:py-16 xl:px-16">
-      <div className="sm:border-[#33353F] sm:border rounded-md py-8 px-16 flex flex-col sm:flex-row items-center justify-between">
+      <div className="box py-8 px-16 flex flex-col sm:flex-row items-center justify-between">
         {achievementsList.map((achievement, index) => {
           return (
             <div
@@ -62,7 +70,10 @@ const Achievements = ({teachersTotal, commentsTotal, valorationsTotal, usersTota
                 />
                 
               </h2>
-              <p className="text-[#ADB7BE] text-xl">{achievement.metric}</p>
+              <div className="flex items-center mt-3">
+                {achievement.icon}
+              <p className="text-white text-xl">  {achievement.metric}</p>
+              </div>
             </div>
           );
         })}

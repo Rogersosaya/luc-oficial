@@ -53,7 +53,7 @@ function Resenia({ teacher }: Props) {
           <div className="flex">
             <div className="flex flex-col items-center">
               <div>
-                <AiOutlineLike size={100} color="green" />
+                <AiOutlineLike size={100} className="text-secondary" />
               </div>
               <div className="text-xl">{truesPercentage}%</div>
             </div>
@@ -61,7 +61,7 @@ function Resenia({ teacher }: Props) {
               <div>
                 <AiOutlineDislike
                   size={100}
-                  color="red"
+                  className="text-danger"
                   style={{ transform: "scaleX(-1)" }}
                 />
               </div>

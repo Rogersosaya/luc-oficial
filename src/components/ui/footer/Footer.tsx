@@ -6,44 +6,39 @@ import Container from '../../container/Container';
 
 const footerLinks = [
   {
-    title: "Product",
+    title: "Redes sociales",
     links: [
-      { title: "Features", href: "#" },
-      { title: "Integrations", href: "#" },
-      { title: "Pricing", href: "#" },
-      { title: "Changelog", href: "#" },
-      { title: "Docs", href: "#" },
-      { title: "Linear Method", href: "#" },
-      { title: "Download", href: "#" },
+      { title: "Facebook", href: "#" },
+      { title: "Twitter", href: "#" },
+      { title: "Instagram", href: "#" },
+      { title: "Youtube", href: "#" },
+      
     ],
   },
   {
-    title: "Company",
+    title: "Contact",
     links: [
-      { title: "About us", href: "#" },
-      { title: "Blog", href: "#" },
-      { title: "Careers", href: "#" },
-      { title: "Customers", href: "#" },
-      { title: "Brand", href: "#" },
+      { title: "Email", href: "teamluc12321@gmail.com" },
+      
     ],
   },
-  {
-    title: "Resources",
-    links: [
-      { title: "Community", href: "#" },
-      { title: "Contact", href: "#" },
-      { title: "DPA", href: "#" },
-      { title: "Terms of service", href: "#" },
-    ],
-  },
-  {
-    title: "Developers",
-    links: [
-      { title: "API", href: "#" },
-      { title: "Status", href: "#" },
-      { title: "GitHub", href: "#" },
-    ],
-  },
+  // {
+  //   title: "Resources",
+  //   links: [
+  //     { title: "Community", href: "#" },
+  //     { title: "Contact", href: "#" },
+  //     { title: "DPA", href: "#" },
+  //     { title: "Terms of service", href: "#" },
+  //   ],
+  // },
+  // {
+  //   title: "Developers",
+  //   links: [
+  //     { title: "API", href: "#" },
+  //     { title: "Status", href: "#" },
+  //     { title: "GitHub", href: "#" },
+  //   ],
+  // },
 ];
 
 export const Footer = () => (
@@ -52,13 +47,10 @@ export const Footer = () => (
       <div>
         <div className="flex h-full flex-row justify-between lg:flex-col">
           <div className="flex items-center text-grey">
-            <Logo className="mr-4 h-4 w-4" /> Linear - Designed worldwide
+
+            <Logo className="mr-4 h-11 w-11 flex items-center" /> LUC - Lo cambia todo
           </div>
-          <div className="mt-auto flex space-x-4 text-grey">
-            <FaTwitter />
-            {/* <GithubIcon /> */}
-            {/* <SlackIcon /> */}
-          </div>
+         
         </div>
       </div>
       <div className="flex flex-wrap">

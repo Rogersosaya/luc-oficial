@@ -37,13 +37,12 @@ export const Features = ({ children, color, colorDark }: FeaturesProps) => {
 };
 
 type MainFeatureProps = {
-  text: string;
   title: React.ReactNode;
   imageSize?: "small" | "large";
 };
 
 const MainFeature = ({
-  text,
+  
   title,
   imageSize = "small",
 }: MainFeatureProps) => {
@@ -56,17 +55,12 @@ const MainFeature = ({
             imageSize === "small" ? "w-[78rem]" : "w-[102.4rem]"
           )}
         >
-          <h2 className="text-gradient mb-11 translate-y-[40%] pt-[12rem] text-center text-6xl [transition:transform_1000ms_cubic-bezier(0.3,_1.17,_0.55,_0.99)_0s] md:pt-0 md:text-8xl [.is-visible_&]:translate-y-0">
+          
             {title}
-          </h2>
+          
         </Container>
       </div>
-      <Container className=" w-[85rem] max-w-[90%] text-center">
-        <p className=" mx-auto my-16 text-xl leading-tight text-primary-text md:w-[80%] md:text-2xl">
-          {text}
-        </p>
-        <hr className=" h-[1px] border-none bg-[linear-gradient(to_right,transparent,rgba(255,255,255,0.1)_50%,transparent)]" />
-      </Container>
+      
     </>
   );
 };

@@ -17,7 +17,27 @@ import "swiper/css/autoplay";
 
 import { Button } from '@nextui-org/react';
 import Link from "next/link";
-import { Teacher } from "@/interfaces/teacher.interface";
+
+import Line from "@/components/ui/line/Line";
+import { Course } from "@/interfaces/course.interface";
+
+interface Valoration {
+  rating:number,
+  difficulty: number,
+  learning: number,
+  repeat: boolean,
+
+}
+interface CourseProps {
+  course:Course,
+}
+interface Teacher {
+  name: string,
+  slug:string,
+  url:string,
+  valorations: Valoration[];
+  courses: Course[];
+}
 interface Props {
   teachers: Teacher[]
 }
@@ -31,8 +51,9 @@ function TeachersSwiper({teachers}: Props) {
           Profesores
           <br className="hidden md:inline-block" /> 
         </h2>
+        <Line/>
         <p className="mx-auto mb-12 max-w-[68rem] text-lg text-primary-text md:mb-7 md:text-xl">
-          Por el momento se han registrado un total de 340 profesores de la Facultad de Ingeniería Industrial, Sistemas y Software.  
+          Por el momento se han registrado un total de 162 profesores de la Facultad de Ingeniería Industrial, Sistemas y Software.  
         </p>
       </div>
       <div className="text-center">
@@ -49,8 +70,8 @@ function TeachersSwiper({teachers}: Props) {
         }}
         slidesPerView={4}
         navigation
-        pagination={{ clickable: true }}
         
+        loop={true}
 
         breakpoints={{
           // when window width is >= 320px
@@ -71,7 +92,7 @@ function TeachersSwiper({teachers}: Props) {
         }}
       >
         {teachers.map((teacher, index) => (
-          <SwiperSlide className="px-4 py-10" key={index}>
+          <SwiperSlide className="px-4 py-10 text-center" key={index}>
             <CardTeachers teacher={teacher} />
           </SwiperSlide>
         ))}

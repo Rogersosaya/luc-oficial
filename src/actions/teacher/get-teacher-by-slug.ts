@@ -3,10 +3,18 @@ import prisma from "@/lib/prisma";
 export const getTeacherBySlug = async (slug: string) => {
   try {
     const teacher = await prisma.teacher.findUnique({
+      include: {
+        courses: {
+          include: {
+            course:true
+          }
+        }
+      },
       where: {
         slug: slug
       },
     });
+    
     
     return teacher;
   } catch (error) {

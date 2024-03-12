@@ -3,13 +3,8 @@ import Marquee from 'react-fast-marquee'
 import CardCommentFast from '../components/CardCommentFast';
 import Container from '@/components/container/Container';
 import { getCommentsRecent } from '@/actions/comment/get-comments-recent';
-const urlCollaborations = [
-    "/images/marquee1.png",
-    "/images/marquee2.png",
-    "/images/marquee3.png",
-    "/images/marquee4.jpg",
-    "/images/marquee5.jpg",
-  ];
+import Line from '../../ui/line/Line';
+
 async function CommentsFast() {
   const commentsRecent = await getCommentsRecent()
   return (
@@ -20,6 +15,8 @@ async function CommentsFast() {
           Comentarios recientes
           <br className="hidden md:inline-block" /> 
         </h2>
+        
+        <Line/>
         <p className="mx-auto mb-12 max-w-[68rem] text-lg text-primary-text md:mb-7 md:text-xl">
           Últimos 15 comentarios de alumnos dando su opinión sobre un profesor que les enseñó. Escribe un comentario y se mostrará aquí 
         </p>
