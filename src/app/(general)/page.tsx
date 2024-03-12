@@ -6,7 +6,6 @@ import CommentsFast from "../../components/home/sections/CommentsFast";
 import Podium from "../../components/home/sections/Podium";
 import TeachersSwiper from "@/components/home/sections/TeachersSwiper";
 
-import { getTeachers } from "@/actions/teacher/get-teachers";
 import { getTotal } from "../../actions/total/get-info-total";
 import { getTeachersRecent } from "@/actions/teacher/get-teachers-recent";
 

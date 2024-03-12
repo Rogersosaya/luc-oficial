@@ -1,6 +1,5 @@
 "use server";
 
-import { getServerSession } from "next-auth";
 import prisma from "../../lib/prisma";
 
 interface Props {
@@ -22,7 +21,6 @@ export const getReactionsByComment = async ({ commentId }: Props) => {
 
     return reactions;
   } catch (error) {
-    // console.log(error);
-    // return [];
+    
   }
 };

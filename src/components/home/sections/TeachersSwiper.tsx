@@ -28,9 +28,7 @@ interface Valoration {
   repeat: boolean,
 
 }
-interface CourseProps {
-  course:Course,
-}
+
 interface Teacher {
   name: string,
   slug:string,

@@ -17,16 +17,12 @@ export const createReaction = async ({ commentId, value }: Props) => {
         email: userEmail!,
       },
     });
-    // confirmar su ya se reacciono a este comentario de parte del un usuario
+   
     const reactionExist = await prisma.reaction.findFirst({
       where: {
         commentId: commentId,
         userId: userCurrent?.id,
-        // reactions: {
-        //   some:{
-        //     value: "like"
-        //   }
-        // }
+       
       },
     });
     const reactionLikeExist = await prisma.reaction.findFirst({

@@ -2,7 +2,6 @@ import React from "react";
 import { BannerElement } from "../components/BannerElement";
 import { BannerSubtitle } from "../components/BannerSubtitle";
 import { BannerTitle } from "../components/BannerTitle";
-import {  Highlight } from "../../ui/button/Button";
 import Link from "next/link";
 import { Button } from "@nextui-org/react";
 

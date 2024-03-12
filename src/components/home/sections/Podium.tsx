@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-import { FaRegStar } from "react-icons/fa6";
 
 import { FaStar } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
