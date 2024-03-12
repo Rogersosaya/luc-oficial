@@ -30,7 +30,6 @@ function GridPerfil({ teacher }: Props) {
     ...teacher,
     courses: teacher!.courses.map((course) => course.course),
   };
-  console.log(result);
   return (
     <>
       <div className="grid grid-cols-12    text-white gap-4 px-1 md:px-11 translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms]">

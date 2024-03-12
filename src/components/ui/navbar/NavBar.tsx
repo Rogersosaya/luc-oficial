@@ -112,7 +112,7 @@ function NavBar() {
                   src={session.user.image ?? "/teachers/icono.png"}
                 />
                 {/* <img className="rounded-full size-6" src={session.user.image || undefined } alt="nada" /> */}
-                <Button className="bg-danger font-bold " 
+                <Button className=" font-bold " 
                   onClick={() => {
                     signOut();
                   }}

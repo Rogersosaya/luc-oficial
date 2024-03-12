@@ -8,7 +8,7 @@ import Line from '../../ui/line/Line';
 async function CommentsFast() {
   const commentsRecent = await getCommentsRecent()
   return (
-    <div className='my-44'>
+    <div className='my-64'>
     <Container>
       <div className="text-center">
         <h2 className="mb-4 text-4xl md:mb-7 md:text-7xl">

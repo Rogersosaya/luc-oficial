@@ -13,7 +13,7 @@ function Velocimeter({value}:{value:number}) {
         needleColor="steelblue"
         value={value}
         segments={5}
-        segmentColors={["#00FF00", "#ADFF2F", "#FFFF00", "#FFA500", "#FF0000"]}
+        segmentColors={["#4ade80", "#ADFF2F", "#facc15", "#fb923c", "#ef4444"]}
         customSegmentLabels={[
           {
             text: "",

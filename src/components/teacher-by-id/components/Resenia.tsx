@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import Velocimeter from "./Velocimeter";
 import { MdReviews } from "react-icons/md";
-import { Teacher } from "@/interfaces/teacher.interface";
 import { useValorationsStore } from "@/store/valorationsStore";
 interface PropsTeacher {
   id: string;

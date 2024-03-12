@@ -95,13 +95,7 @@ async function main() {
     const cycleItem = cycle.toLowerCase();
     const careerItem = career.toLowerCase();
     
-    // if(!coursesMap[courseItem]){
-      
-    //   console.log("curso",coursesMap["courseItem"], courseItem, "filters")
-    // }
-    // if(!cyclesMap[cycleItem]){
-    //   console.log("teacher")
-    // }
+    
     await prisma.filter.create({
       data: {
         courseId: coursesMap[courseItem],
@@ -116,14 +110,7 @@ async function main() {
       ;
     
     const teacherItem = teacher.toLowerCase();
-    // console.log(course, teacher)
-    // if(!coursesMap[courseItem]){
-      
-    //   console.log("curso",coursesMap["courseItem"], courseItem)
-    // }
-    // if(!teachersMap[teacherItem]){
-    //   console.log("teacher")
-    // }
+    
     await prisma.teacherOnCourse.create({
       data: {
         courseId: coursesMap[courseItem],

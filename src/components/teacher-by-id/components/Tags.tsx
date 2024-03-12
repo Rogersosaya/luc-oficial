@@ -54,7 +54,6 @@ function Tags({ teacher }: Props) {
     return result;
   }
   const result = contarTags(tags);
-  console.log(result);
   return (
     <>
       <div className="text-md font-bold mb-2 flex items-center ">

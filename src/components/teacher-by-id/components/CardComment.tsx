@@ -55,9 +55,7 @@ function CardComment({ comment }: Props) {
     
     
   };
-  // console.log(countLikes?.length)
-  // const countLikes = comment.reactions.length;
-  // const countDislikes = comment.reactions.length;
+
 
   return (
     <Card className="w-full bg-transparent border border-slate-600 mb-2">

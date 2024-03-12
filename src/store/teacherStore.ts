@@ -1,5 +1,3 @@
-import { getLikesByComment } from "@/actions/reaction/get-likes-by-comment";
-import { Teacher } from "@/interfaces/teacher.interface";
 import { create } from "zustand";
 
 interface TeacherState {

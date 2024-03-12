@@ -21,7 +21,6 @@ export const getValorationBoolean = async (teacherId:string) => {
       }
     });
     const ExistValoration = !!valoration
-    console.log(ExistValoration);
     return ExistValoration;
   } catch (error) {
     console.log(error);

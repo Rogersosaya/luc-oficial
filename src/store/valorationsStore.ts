@@ -1,4 +1,3 @@
-import { getLikesByComment } from "@/actions/reaction/get-likes-by-comment";
 import { createValoration } from "@/actions/valoration/create-valoration";
 import { getValorationBoolean } from "@/actions/valoration/get-valoration-boolean";
 import { getValorationsByTeacher } from "@/actions/valoration/get-valorations";
@@ -54,7 +53,6 @@ export const useValorationsStore = create<ValorationState>((set, get) => ({
     tags: string[]
   ) => {
     const { valorations } = get();
-    console.log("----------hola");
     const valorationAdd = await createValoration({
       teacherId: teacherId,
       rating: rating,
@@ -63,7 +61,6 @@ export const useValorationsStore = create<ValorationState>((set, get) => ({
       repeat: repeat,
       tags: tags,
     });
-    console.log(valorationAdd, "as");
     set({ valorations: [valorationAdd!, ...valorations] });
   },
 }));

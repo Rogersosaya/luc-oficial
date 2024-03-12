@@ -169,7 +169,7 @@ function CardTeachers({ teacher }: Props) {
     <div
       onMouseEnter={() => setDisplayDiv(false)}
       onMouseLeave={() => setDisplayDiv(true)}
-      className="h-[320px] w-[200px]  p-[1px] box mx-auto mb-2"
+      className="h-[320px] w-[200px]  p-[1px] box mx-auto mb-2 "
     >
       {displayDiv ? (
         <CardDisplayTrue teacher={teacher} />

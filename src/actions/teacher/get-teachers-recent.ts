@@ -6,17 +6,17 @@ export const getTeachersRecent = async () => {
     const teachersRecent = await prisma.teacher.findMany({
       take: 10,
       include: {
-        valorations: true,
+        valorations: {
+          orderBy: {
+            assignedAt: "desc"
+          }
+        },
         courses: {
           include: {
             course: true,
           }
         },
-        comments:{
-          orderBy: {
-            assignedAt: "desc"
-          }
-        },
+        comments:true,
         
       }
     });

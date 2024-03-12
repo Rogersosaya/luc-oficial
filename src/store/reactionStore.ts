@@ -1,4 +1,3 @@
-import { getLikesByComment } from "@/actions/reaction/get-likes-by-comment";
 import { getReactionsByComment } from "@/actions/reaction/get-reactions-by-comment";
 import { User } from "@/interfaces/user.interface";
 import { create } from "zustand";

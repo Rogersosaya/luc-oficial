@@ -62,10 +62,7 @@ function TeachersSwiper({teachers}: Props) {
       <Swiper 
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
         spaceBetween={70}
-        autoplay={{
-          delay: 1500,
-          disableOnInteraction: false
-        }}
+        
         slidesPerView={4}
         navigation
         

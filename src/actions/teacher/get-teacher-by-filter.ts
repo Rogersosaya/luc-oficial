@@ -82,7 +82,7 @@ export const getTeachersByFilter = async ({
     });
     const totalCount = await prisma.teacher.count();
     
-    const totalPages = Math.ceil(totalCount / take);
+    const totalPages = 10
     const teachersResult = teachers.map(teacher => {
       return {
         ...teacher,
