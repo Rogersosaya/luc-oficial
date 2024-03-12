@@ -10,9 +10,8 @@ function Banner() {
     <BannerElement>
       
       <BannerTitle className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms]">
-        LUC brinda un espacio
-        <br className="hidden md:block" />
-        al estudiante para expresarse con libertad y respeto
+        LUC brinda un espacio 
+         al estudiante para expresarse con libertad y respeto
       </BannerTitle>
       <BannerSubtitle className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:400ms]">
         Ayúdanos a crear una comunidad educativa donde los estudiantes

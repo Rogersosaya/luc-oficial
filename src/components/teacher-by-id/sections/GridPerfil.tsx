@@ -36,25 +36,24 @@ function GridPerfil({ teacher }: Props) {
         <div className="col-span-12 md:col-span-3 flex flex-col rounded-lg">
           <div className="border-slate-500 border px-2 py-3 flex justify-center rounded-lg">
             <Image
-              src={`/teachers/${teacher?.url}`}
+              src='/teacher.png'
               width={280}
               height={280}
               alt="foto"
-              className="rounded-lg border"
             />
           </div>
           <div className="border-slate-500 border px-4 py-3 rounded-lg my-2 text-center ">
             <ButtonAddValoration teacherId={teacher!.id} />
           </div>
-          <div className="border-slate-500 border px-4 py-3 rounded-lg my-2">
+          {/* <div className="border-slate-500 border px-4 py-3 rounded-lg my-2">
             <div className="text-md font-bold mb-2 flex items-center">
               <IoIosContact className="mr-2 text-secondary" />
-              Contacto
+              Contacto 
             </div>
             <div className="flex  flex-wrap">
               <Button size="lg" className="bg-blue-900 text-sm mr-4">
                 Linked
-                <FaLinkedinIn className="bg-white text-blue-900 -ml-1" />
+                <FaLinkedinIn className="bg-white text-blue-900 -ml-2" />
               </Button>
               <Button size="lg" className="bg-red-600 text-sm">
                 <svg
@@ -161,7 +160,7 @@ function GridPerfil({ teacher }: Props) {
                 Gmail
               </Button>
             </div>
-          </div>
+          </div> */}
           <div className="border-slate-500 border px-4 py-3 flex-auto rounded-lg">
             <div className="text-md font-bold mb-2 flex items-center">
               <CiCircleMore className="mr-2 text-secondary" />

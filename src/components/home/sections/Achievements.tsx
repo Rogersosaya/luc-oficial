@@ -24,24 +24,24 @@ const Achievements = ({teachersTotal, commentsTotal, valorationsTotal, usersTota
   const achievementsList = [
   
     {
-      icon:<FaRegUser size={24} className="mr-4 text-secondary"/>,
+      icon:<FaRegUser size={24} className="mr-2 text-secondary"/>,
       metric: "Usuarios",
       value: usersTotal,
     },
     {
-      icon:<FaComments size={24} className="mr-4 text-secondary"/>,
+      icon:<FaComments size={24} className="mr-2 text-secondary"/>,
       metric: "Comentarios",
       value: commentsTotal,
       
     },
     
     {
-      icon:<MdOutlineStarRate size={24} className="mr-4 text-secondary"/>,
+      icon:<MdOutlineStarRate size={24} className="mr-2 text-secondary"/>,
       metric: "Valoraciones",
       value: valorationsTotal,
     },
     {
-      icon:<GiTeacher size={24} className="mr-4 text-secondary"/>,
+      icon:<GiTeacher size={24} className="mr-2 text-secondary"/>,
       metric: "Profesores",
       value: teachersTotal,
     },

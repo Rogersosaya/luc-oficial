@@ -9,14 +9,7 @@
 
   html {
     font-size: 62.5%;
-    background-image: linear-gradient(
-      to bottom,
-      #00003f,
-      #00044d,
-      #00055a,
-      #000468,
-      #000076
-    );
+    background-image: linear-gradient(to right top, #00043c, #010436, #010330, #01032a, #000224);
   }
 
   .highlighted-keys .active rect:first-child {

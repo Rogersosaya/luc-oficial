@@ -7,6 +7,7 @@ interface User {
   image:string| null,
 }
 interface Teacher {
+  name:string,
   url: string ,
 }
 interface Comment {
@@ -38,14 +39,14 @@ function CardCommentFast({comment}:Props) {
             />
 
             <MdOutlineDoubleArrow className="mx-2" size={25} />
-
-            <Avatar
+            <div className="font-bold">{comment.teacher.name}</div>
+            {/* <Avatar
               isBordered
               radius="full"
               size="md"
-              src={`/teachers/${comment.teacher.url}`}
+              src="{`/teachers/${comment.teacher.url}`}"
               color="secondary"
-            />
+            /> */}
           </div>
         </CardHeader>
         <CardBody className="px-3 py-0 text-small text-default-600 overflow-hidden">

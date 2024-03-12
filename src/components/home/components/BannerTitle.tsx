@@ -8,7 +8,7 @@ export const BannerTitle = ({ children, className }: BannerTitleProps) => {
     return (
       <h1
         className={classNames(
-          "text-gradient my-6 text-6xl md:text-8xl",
+          "text-white my-6 text-6xl md:text-8xl",
           className
         )}
       >

@@ -74,7 +74,7 @@ function Valuation({ teacher }: Props) {
             <span className="text-md mr-1">5</span>
             <FaStar className="text-danger" size={20} />
             <Progress
-              className="ml-1 mr-2 max-w-80"
+              className="ml-1 mr-2 max-w-40 md:max-w-80"
               size="md"
               radius="sm"
               aria-label="1"
@@ -89,7 +89,7 @@ function Valuation({ teacher }: Props) {
             <span className="text-md mr-1">4</span>
             <FaStar className="text-danger" size={20} />
             <Progress
-              className="ml-1 mr-2 max-w-80"
+              className="ml-1 mr-2 max-w-40 md:max-w-80"
               size="md"
               radius="sm"
               aria-label="1"
@@ -104,7 +104,7 @@ function Valuation({ teacher }: Props) {
             <span className="text-md mr-1">3</span>
             <FaStar className="text-danger" size={20} />
             <Progress
-              className="ml-1 mr-2 max-w-80"
+              className="ml-1 mr-2 max-w-40 md:max-w-80"
               size="md"
               radius="sm"
               aria-label="1"
@@ -119,7 +119,7 @@ function Valuation({ teacher }: Props) {
             <span className="text-md mr-1">2</span>
             <FaStar className="text-danger" size={20} />
             <Progress
-              className="ml-1 mr-2 max-w-80"
+              className="ml-1 mr-2 max-w-40 md:max-w-80"
               size="md"
               radius="sm"
               aria-label="1"
@@ -134,7 +134,7 @@ function Valuation({ teacher }: Props) {
             <span className="text-md mr-1">1</span>
             <FaStar className="text-danger" size={20} />
             <Progress
-              className="ml-1 mr-2 max-w-80"
+              className="ml-1 mr-2 max-w-40 md:max-w-80"
               size="md"
               radius="sm"
               aria-label="1"

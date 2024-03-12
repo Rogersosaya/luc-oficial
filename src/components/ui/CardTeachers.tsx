@@ -31,15 +31,12 @@ interface Props {
 const CardDisplayTrue = ({ teacher }: Props) => (
   <div className=" rounded-[20px] pt-1 px-2 min-h-[260px] md:min-h-[280px] flex justify items-center flex-col ">
     <Image
-      src={
-        `/teachers/${teacher.url}`
-          ? `/teachers/${teacher.url}`
-          : `/teachers/icono.jpg`
-      }
+      src='/teacher.png'
       width={130}
       height={130}
       alt="web-development"
       className="object-contain rounded-lg w-48 h-48 md:w-60 md:h-60"
+      priority={false}
     />
 
     <h3 className="text-white text-xs md:text-xs font-bold text-center mt-1">

@@ -16,6 +16,7 @@ export const getCommentsRecent = async () => {
         },
         teacher:{
             select:{
+              name:true,
                 url:true,
             }
         },

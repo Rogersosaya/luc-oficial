@@ -60,6 +60,7 @@ function CardComment({ comment }: Props) {
   return (
     <Card className="w-full bg-transparent border border-slate-600 mb-2">
       <CardHeader className="justify-between">
+        
         <div className="flex gap-5">
           <Avatar
             isBordered
@@ -109,6 +110,7 @@ function CardComment({ comment }: Props) {
             </div>
           </>
         ) : (
+          
           <p>{comment.value}</p>
         )}
       </CardBody>
