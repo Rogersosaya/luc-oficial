@@ -53,7 +53,7 @@ const CardDisplayTrue = ({ teacher }: Props) => (
           courseValue = courseValue.slice(0, 20) + "...";
         }
         return (
-          <div className="bg-danger rounded-lg text-black px-2 py-1 font-bold mx-2  mb-1.5 text-base  items-center">
+          <div className="bg-secondary rounded-lg text-black px-2 py-1 font-bold mx-2  mb-1.5 text-base  items-center" key={course.name}>
             {courseValue}
           </div>
         );
@@ -96,13 +96,13 @@ const CardDisplayFalse = ({ teacher }: Props) => {
         {array.map((_, index) => {
           const currentRating = index + 1;
           return (
-            <>
+            <div key={index}>
               {currentRating <= averageRating ? (
-                <FaStar className="text-danger" key={index} size={18} />
+                <FaStar className="text-danger"  size={18} />
               ) : (
-                <FaRegStar className="text-danger" key={index} size={18} />
+                <FaRegStar className="text-danger"  size={18} />
               )}
-            </>
+            </div>
           );
         })}
         <span className="ml-2 text-lg">{averageRating}</span>
@@ -111,13 +111,13 @@ const CardDisplayFalse = ({ teacher }: Props) => {
         {array.map((_, index) => {
           const currentDifficulty = index + 1;
           return (
-            <>
+            <div key={index}>
               {currentDifficulty <= averageDifficulty ? (
-                <AiFillFire className="text-danger" key={index} size={18} />
+                <AiFillFire className="text-danger"  size={18} />
               ) : (
-                <AiOutlineFire className="text-danger" key={index} size={18} />
+                <AiOutlineFire className="text-danger"  size={18} />
               )}
-            </>
+            </div>
           );
         })}
 
@@ -127,13 +127,13 @@ const CardDisplayFalse = ({ teacher }: Props) => {
       {array.map((_, index) => {
           const currentLearning = index + 1;
           return (
-            <>
+            <div key={index}>
               {currentLearning <= averageLearning ? (
-                <IoBook className="text-danger" key={index} size={18} />
+                <IoBook className="text-danger" size={18} />
               ) : (
-                <IoBookOutline className="text-danger" key={index} size={18} />
+                <IoBookOutline className="text-danger"  size={18} />
               )}
-            </>
+            </div>
           );
         })}
        

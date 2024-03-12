@@ -1,9 +1,28 @@
 import React from "react";
 import { PiUsersThreeFill } from "react-icons/pi";
 import CardTeachers from "../../ui/CardTeachers";
-import { Teacher } from "@/interfaces/teacher.interface";
+import { Course } from "@/interfaces/course.interface";
+interface Valoration {
+  rating:number,
+  difficulty: number,
+  learning: number,
+  repeat: boolean,
 
-function Others({ teachers }: { teachers: Teacher[] }) {
+}
+interface CourseProps {
+  course:Course,
+}
+interface Teacher {
+  name: string,
+  slug:string,
+  url:string,
+  valorations: Valoration[];
+  courses: Course[];
+}
+interface Props {
+  teachers: Teacher[]
+}
+function Others({ teachers }: Props) {
   return (
     <>
       <div className="text-md font-bold mb-5 flex items-center">

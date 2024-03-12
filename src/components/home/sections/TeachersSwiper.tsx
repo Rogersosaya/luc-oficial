@@ -92,7 +92,7 @@ function TeachersSwiper({teachers}: Props) {
         }}
       >
         {teachers.map((teacher, index) => (
-          <SwiperSlide className="px-4 py-10 text-center" key={index}>
+          <SwiperSlide className="px-4 py-10 text-center" key={teacher.slug}>
             <CardTeachers teacher={teacher} />
           </SwiperSlide>
         ))}

@@ -112,7 +112,7 @@ function NavBar() {
                   src={session.user.image ?? "/teachers/icono.png"}
                 />
                 {/* <img className="rounded-full size-6" src={session.user.image || undefined } alt="nada" /> */}
-                <Button
+                <Button className="bg-danger font-bold " 
                   onClick={() => {
                     signOut();
                   }}
@@ -121,8 +121,8 @@ function NavBar() {
                 </Button>
               </div>
             ) : (
-              <Button onClick={() => signIn()}>
-                Iniciar Sesión con Google
+              <Button className="bg-secondary text-black font-bold text-base py-3 px-4" onClick={() => signIn()}>
+                INICIAR SESIÓN
               </Button>
             ))}
 

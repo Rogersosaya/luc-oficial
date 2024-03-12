@@ -73,7 +73,7 @@ function ButtonsReactions({comment}: Props) {
         {/* <p className="font-semibold text-default-800 text-small">4</p> */}
         <Button
           className="text-xs font-bold"
-          color="primary"
+          color="secondary"
           isDisabled={false}
           onClick={() => updateReaction(comment.id,"like",(session?.user?.email)!)}
           variant="bordered"

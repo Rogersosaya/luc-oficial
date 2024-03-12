@@ -41,7 +41,7 @@ function BodyModal({ reactionsTotal }: Props) {
         }
       >
         {reactionsTotal?.map((reactionItem) => {
-          return <UserReaction reactionItem={reactionItem} />;
+          return <UserReaction key={reactionItem.user.email}  reactionItem={reactionItem} />;
         })}
         {/* <UserLike/>
         <UserLike/>
@@ -60,7 +60,7 @@ function BodyModal({ reactionsTotal }: Props) {
         {reactionsTotal?.map((reactionItem) => {
           return (
             reactionItem.value === "like" && (
-              <UserReaction reactionItem={reactionItem} />
+              <UserReaction key={reactionItem.user.email} reactionItem={reactionItem} />
             )
           );
         })}
@@ -78,7 +78,7 @@ function BodyModal({ reactionsTotal }: Props) {
         }
       >
         {reactionsTotal?.map((reactionItem) => {
-          return reactionItem.value === "dislike" && <UserReaction reactionItem={reactionItem} />;
+          return reactionItem.value === "dislike" && <UserReaction key={reactionItem.user.email} reactionItem={reactionItem} />;
         })}
       </Tab>
     </Tabs>

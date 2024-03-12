@@ -68,10 +68,10 @@ function Filters({ faculties, careers, cycles, courses }: Props) {
   const defaultSelectedCourseKeys = defaultCourse ? [defaultCourse] : undefined;
   return (
     <>
-      <div className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:600ms] flex mx-9 flex-wrap md:flex-nowrap gap-4 bg-gray-900 py-3 px-3 justify-center mt-5 rounded-lg md:rounded-xl">
+      <div className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:600ms] flex mx-9 flex-wrap md:flex-nowrap gap-4  py-3 px-3 justify-center mt-5 rounded-lg md:rounded-xl">
         <Select
           size={"sm"}
-          color={"primary"}
+          color={"default"}
           label="FACULTAD"
           className="w-full  md:max-w-xs "
           defaultSelectedKeys={defaultSelectedFacultyKeys}
@@ -91,7 +91,7 @@ function Filters({ faculties, careers, cycles, courses }: Props) {
         </Select>
         <Select
           size={"sm"}
-          color={"primary"}
+          color={"default"}
           label="CARRERA"
           className="w-full  md:max-w-xs "
           defaultSelectedKeys={defaultSelectedCareerKeys}
@@ -107,7 +107,7 @@ function Filters({ faculties, careers, cycles, courses }: Props) {
         </Select>
         <Select
           size={"sm"}
-          color={"primary"}
+          color={"default"}
           label="CICLO"
           className="w-full  md:max-w-xs "
           defaultSelectedKeys={defaultSelectedCycleKeys}
@@ -123,7 +123,7 @@ function Filters({ faculties, careers, cycles, courses }: Props) {
         </Select>
         <Select
           size={"sm"}
-          color={"primary"}
+          color={"default"}
           label="CURSO"
           className="  md:max-w-xs"
           defaultSelectedKeys={defaultSelectedCourseKeys}

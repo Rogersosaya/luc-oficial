@@ -53,13 +53,13 @@ function Valuation({ teacher }: Props) {
           {array.map((_, index) => {
           const currentRating = index + 1;
           return (
-            <>
+            <div key={index}>
               {currentRating <= averageRating ? (
-                <FaStar className="text-danger" key={index} size={18} />
+                <FaStar className="text-danger" size={18} />
               ) : (
-                <FaRegStar className="text-danger" key={index} size={18} />
+                <FaRegStar className="text-danger"  size={18} />
               )}
-            </>
+            </div>
           );
         })}
             

@@ -29,6 +29,7 @@
     "react-intersection-observer": "^9.8.1",
     "slugify": "^1.6.6",
     "swiper": "^11.0.7",
+    "use-debounce": "^10.0.0",
     "uuid": "^9.0.1",
     "zod": "^3.22.4",
     "zustand": "^4.5.2"

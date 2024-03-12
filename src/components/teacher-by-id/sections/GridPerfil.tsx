@@ -11,6 +11,7 @@ import { CiCircleMore } from "react-icons/ci";
 import ButtonAddValoration from "../components/ButtonAddValoration";
 import { getValorationBoolean } from "@/actions/valoration/get-valoration-boolean";
 import { Course } from "@/interfaces/course.interface";
+import ButtonAnimate from "@/components/ui/button-animate/ButtonAnimate";
 interface CourseProps {
   course: Course;
 }
@@ -165,11 +166,11 @@ function GridPerfil({ teacher }: Props) {
           <div className="border-slate-500 border px-4 py-3 flex-auto rounded-lg">
             <div className="text-md font-bold mb-2 flex items-center">
               <CiCircleMore className="mr-2 text-secondary" />
-              Otros cursos
+              Cursos
             </div>
-            <div className="flex flex-wrap ">
+            <div className="flex md:block flex-wrap ">
               {result.courses.map((course) => (
-                <div className="bg-danger rounded-lg text-black px-2 py-1 font-bold mx-2  mb-1.5 text-base  items-center">
+                <div className="bg-secondary rounded-lg text-black px-2 py-1 font-bold mx-2  mb-1.5 text-base  items-center" key={course.name}>
                   {course.name}
                 </div>
               ))}

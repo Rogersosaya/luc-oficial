@@ -26,7 +26,7 @@ function CardCommentFast({comment}:Props) {
   }
   return (
     <>
-      <Card className="w-96 bg-transparent border primary mb-2 pb-2 mx-3 mt-24 ">
+      <Card className="w-96 bg-transparent border mb-2 pb-2 mx-3 mt-24 ">
         <CardHeader className="justify-between">
           <div className="flex gap-2 items-center">
             <Avatar

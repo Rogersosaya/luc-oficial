@@ -12,8 +12,19 @@ import {
 import { FaRegStar, FaStar } from "react-icons/fa6";
 import { IoBook, IoBookOutline } from "react-icons/io5";
 function ModalValorationBody() {
-  const {teacherId} = useTeacherStore()
-  const{rating, setRating,difficulty, setDifficulty,learning, setLearning,repeat, setRepeat,tags, setTags} =  useValorationValuesStore()
+  const { teacherId } = useTeacherStore();
+  const {
+    rating,
+    setRating,
+    difficulty,
+    setDifficulty,
+    learning,
+    setLearning,
+    repeat,
+    setRepeat,
+    tags,
+    setTags,
+  } = useValorationValuesStore();
 
   const array = [...Array(5)];
   const toggleTag = (tag: string) => {
@@ -52,15 +63,25 @@ function ModalValorationBody() {
         <div className="text-sm font-bold">Valoración General</div>
         <div className="flex  items-center">
           {array.map((_, index) => {
-            const currentRating = index + 1;
+            const current = index + 1;
             return (
-              <FaStar
-                key={index}
-                onClick={() => setRating(currentRating)}
-                className="cursor-pointer"
-                size={20}
-                color={currentRating <= rating ? "yellow" : ""}
-              />
+              <div key={index}>
+                {current <= rating ? (
+                  <FaStar
+                    className="text-yellow-400 cursor-pointer"
+                    
+                    size={20}
+                    onClick={() => setRating(current)}
+                  />
+                ) : (
+                  <FaRegStar
+                    className="text-yellow-400 cursor-pointer"
+                   
+                    size={20}
+                    onClick={() => setRating(current)}
+                  />
+                )}
+              </div>
             );
           })}
 
@@ -70,36 +91,55 @@ function ModalValorationBody() {
       <div className="mb-3">
         <div className="text-sm font-bold">Dificultad</div>
         <div className="flex  items-center ">
-          {array.map((_, index) => {
-            const currentDifficulty = index + 1;
+        {array.map((_, index) => {
+            const current = index + 1;
             return (
-              <AiFillFire
-                key={index}
-                onClick={() => setDifficulty(currentDifficulty)}
-                className="cursor-pointer"
-                size={20}
-                color={currentDifficulty <= difficulty ? "red" : ""}
-              />
+              <div key={index}>
+                {current <= difficulty ? (
+                  <AiFillFire
+                    className="text-red-500 cursor-pointer"
+                    size={20}
+                    onClick={() => setDifficulty(current)}
+                  />
+                ) : (
+                  <AiOutlineFire
+                    className="text-red-500 cursor-pointer"
+                    size={20}
+                    onClick={() => setDifficulty(current)}
+                  />
+                )}
+              </div>
             );
           })}
+          
           <span className="ml-2 text-lg">{difficulty}</span>
         </div>
       </div>
       <div className="mb-3">
         <div className="text-sm font-bold">Aprendizaje</div>
         <div className="flex  items-center">
-          {array.map((_, index) => {
-            const currentLearning = index + 1;
+        {array.map((_, index) => {
+            const current = index + 1;
             return (
-              <IoBook
-                key={index}
-                onClick={() => setLearning(currentLearning)}
-                className="cursor-pointer"
-                size={20}
-                color={currentLearning <= learning ? "blue" : ""}
-              />
+              <div key={index}>
+                {current <= learning ? (
+                  <IoBook
+                    className="text-blue-600 cursor-pointer"
+                    
+                    size={20}
+                    onClick={() => setLearning(current)}
+                  />
+                ) : (
+                  <IoBookOutline
+                    className="text-blue-600 cursor-pointer"
+                    size={20}
+                    onClick={() => setLearning(current)}
+                  />
+                )}
+              </div>
             );
           })}
+         
 
           <span className="ml-2 text-lg">{learning}</span>
         </div>
@@ -108,16 +148,14 @@ function ModalValorationBody() {
         <div className="text-sm font-bold">¿Lo volverías a llevar?</div>
         <div className="flex">
           <AiOutlineLike
-            className="cursor-pointer"
+            className={`cursor-pointer ${repeat ? "text-secondary" : ""}`}
             onClick={() => setRepeat(true)}
             size={30}
-            color={repeat ? "green" : ""}
           />
           <AiOutlineDislike
-            className="cursor-pointer ml-4"
+            className={`cursor-pointer ml-4 ${!repeat ? "text-danger" : ""}`}
             onClick={() => setRepeat(false)}
             size={30}
-            color={!repeat ? "red" : ""}
           />
         </div>
       </div>
@@ -126,7 +164,7 @@ function ModalValorationBody() {
         <div className="flex flex-wrap">
           {tagsData.map((tagName) => {
             return (
-              <div
+              <div key={tagName} 
                 className={`bg-secondary rounded-lg text-slate-950 px-2 py-1 font-bold mr-2 mb-2 text-base flex items-center cursor-pointer select-none ${
                   tags.includes(tagName)
                     ? "bg-secondary"
@@ -138,8 +176,6 @@ function ModalValorationBody() {
               </div>
             );
           })}
-
-         
         </div>
       </div>
     </>
