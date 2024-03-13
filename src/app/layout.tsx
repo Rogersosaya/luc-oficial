@@ -7,13 +7,15 @@ import Head from 'next/head';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://luc-oficial.vercel.app'),
   title: "LUC",
   description: "LUC - Un grupo que lo cambia todo",
   openGraph: {
     title: "LUC",
     description: "LUC - Un grupo que lo cambia todo",
-    images: [{ url: "/example.png", alt: "Logo de LUC" }],
+    images: '/example.png'
   },
+ 
 };
 
 export default function RootLayout({
@@ -27,15 +29,7 @@ export default function RootLayout({
       style={{ fontSize: "62.5%" }}
       lang="en"
     >
-      <Head>
-        <title>LUC</title>
-        <meta name="description" content="LUC - Un grupo que lo cambia todo" />
-        <meta property="og:title" content="LUC" />
-        <meta property="og:description" content="LUC - Un grupo que lo cambia todo"/>
-        
-          <meta  property="og:image" content="/example.png" />
-        
-      </Head>
+      
       <body>
         <Providers>{children}</Providers>
       </body>
