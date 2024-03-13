@@ -2,12 +2,11 @@
 import { FaRegComments } from "react-icons/fa";
 import CardComment from "./CardComment";
 import TextAreaComment from "./TextAreaComment";
-import { Teacher } from "@/interfaces/teacher.interface";
-import { getCommentsByTeacher } from "@/actions/comment/get-comments-by-teacher";
 import { User } from "@/interfaces/user.interface";
 import { useCommentStore } from "@/store/commentStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTeacherStore } from "@/store/teacherStore";
+
 interface PropsTeacher {
   id: string;
   name: string;
@@ -17,6 +16,7 @@ interface PropsTeacher {
 interface PropsComment{
   id: string;
   value: string;
+  occult:boolean;
   user: User ;
 }
 interface Props {
@@ -30,17 +30,27 @@ function CommentsContainer({ teacher, comments }: Props) {
     getComments(teacher!.id)
     updateTeacher(teacher!.id)
   }, [])
+  
+  
+
+  
   return (
     <>
-      <div className="text-md font-bold mb-5 flex items-center">
+      <div className="text-md font-bold mb-1 flex items-center">
         <FaRegComments className="mr-2 text-secondary" />
-        Comentarios
+        <div>Comentarios</div> 
       </div>
+      <span className=" mb-5 text-slate-400 text-xs leading-5">(Recuerda comentar siempre con respeto)</span>
       <div>
         <TextAreaComment  />
+        
         {storedComments.map((comment) => {
-          return <CardComment key={comment.id} comment={comment} />;
+          return (
+          
+          
+          <CardComment key={comment.id} comment={comment} />);
         })}
+        
       </div>
     </>
   );

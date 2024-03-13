@@ -5,10 +5,10 @@ import { getServerSession } from "next-auth";
 interface Props {
   value: string;
   teacher: string;
-  
+  occult:boolean;
 }
 
-export const createComment = async ({ teacher,  value }: Props) => {
+export const createComment = async ({ teacher,  value, occult }: Props) => {
   try {
     const session = await getServerSession();
     const userEmail = session?.user?.email;
@@ -20,6 +20,7 @@ export const createComment = async ({ teacher,  value }: Props) => {
     const newComment = await prisma.comment.create({
       data: {
         value: value,
+        occult:occult,
         teacherId: teacher,
         userId: userCurrent!.id,
       },

@@ -4,7 +4,7 @@ import { ValueReaction } from "@/interfaces/reaction.interface";
 import { User } from "@/interfaces/user.interface";
 import { useCommentStore } from "@/store/commentStore";
 import { useReactionStore } from "@/store/reactionStore";
-import { Button } from "@nextui-org/react";
+import { Tooltip,Button } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
@@ -35,7 +35,7 @@ function ButtonsReactions({ comment }: Props) {
   return (
     <>
       <div className="flex gap-1 items-center">
-       
+      <Tooltip  content="Estoy de acuerdo">
         <Button
           className="text-xs font-bold"
           color="secondary"
@@ -48,6 +48,8 @@ function ButtonsReactions({ comment }: Props) {
         >
           {countLikes}
         </Button>
+        </Tooltip>
+        <Tooltip  content="No estoy de acuerdo">
         <Button
           className="text-xs font-bold"
           color="danger"
@@ -60,6 +62,7 @@ function ButtonsReactions({ comment }: Props) {
         >
           {countDislikes}
         </Button>
+        </Tooltip>
       </div>
     </>
   );

@@ -89,7 +89,7 @@ function ModalValorationBody() {
         </div>
       </div>
       <div className="mb-3">
-        <div className="text-sm font-bold">Dificultad</div>
+        <div className="text-sm font-bold">Dificultad <span className="font-normal text-gray-400"> ( ¿Que tan difícil te resulto aprobar su curso?)</span></div>
         <div className="flex  items-center ">
         {array.map((_, index) => {
             const current = index + 1;
@@ -116,7 +116,7 @@ function ModalValorationBody() {
         </div>
       </div>
       <div className="mb-3">
-        <div className="text-sm font-bold">Aprendizaje</div>
+      <div className="text-sm font-bold">Aprendizaje<span className="font-normal text-gray-400"> ( ¿Que tanto aprendiste con este profe?)</span></div>
         <div className="flex  items-center">
         {array.map((_, index) => {
             const current = index + 1;

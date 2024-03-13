@@ -32,15 +32,33 @@ function GridPerfil({ teacher }: Props) {
   };
   return (
     <>
+      <div className="px-1 md:px-11">
+        <div
+          className="flex items-center p-4 mb-4 text-sm text-blue-800 border border-blue-300 rounded-lg   dark:text-blue-400 dark:border-blue-800 "
+          role="alert"
+        >
+          <svg
+            className="flex-shrink-0 inline w-4 h-4 me-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+          </svg>
+          <span className="sr-only">Info</span>
+          <div>
+            <span className="font-medium">Ten presente!</span> Si no has tomado
+            clases con este profesor, por favor abstente de dejar comentarios o
+            valoraciones. Es importante mantener la transparencia
+          </div>
+        </div>
+      </div>
+
       <div className="grid grid-cols-12    text-white gap-4 px-1 md:px-11 translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms]">
         <div className="col-span-12 md:col-span-3 flex flex-col rounded-lg">
           <div className="border-slate-500 border px-2 py-3 flex justify-center rounded-lg">
-            <Image
-              src='/teacher.png'
-              width={280}
-              height={280}
-              alt="foto"
-            />
+            <Image src="/teacher.png" width={280} height={280} alt="foto" />
           </div>
           <div className="border-slate-500 border px-4 py-3 rounded-lg my-2 text-center ">
             <ButtonAddValoration teacherId={teacher!.id} />
@@ -168,7 +186,10 @@ function GridPerfil({ teacher }: Props) {
             </div>
             <div className="flex md:block flex-wrap ">
               {result.courses.map((course) => (
-                <div className="bg-secondary rounded-lg text-black px-2 py-1 font-bold mx-2  mb-1.5 text-base  items-center" key={course.name}>
+                <div
+                  className="bg-secondary rounded-lg text-black px-2 py-1 font-bold mx-2  mb-1.5 text-base  items-center"
+                  key={course.name}
+                >
                   {course.name}
                 </div>
               ))}

@@ -28,7 +28,7 @@ async function Podium() {
             Estos son los 3 mejores profesores según las valoraciones hechas por
             los alumnos, este podio se armó promediando el puntaje de la
             valoración general, sólo se tienen en cuenta profesores que cuenten
-            con más de 10 valoraciones
+            con más de 7 valoraciones
           </p>
         </div>
 
@@ -40,7 +40,7 @@ async function Podium() {
                 <div className="rounded-full overflow-hidden border-5 border-primary relative text-center h-56 md:h-96 w-56 md:w-96">
                   <Image
                     src="/teacher.png"
-                    alt=""
+                    alt="imagen"
                     layout="fill"
                     objectFit="cover"
                   />
@@ -50,28 +50,36 @@ async function Podium() {
                 </div>
               </div>
               <div className="mt-6 font-normal text-sm  md:text-xl text-slate-300 relative z-50 text leading-7 md:leading-10 mb-4 w-36  md:w-80 text-center">
-                {top2.name}
+                {top2 ? <>{top2.name}</> : <>*********</>}
               </div>
               <div className="flex justify-center items-center">
-                {array.map((_, index) => {
-                  const currentRating = index + 1;
-
-                  return (
-                    <FaStar
-                      className={
-                        currentRating <= top2.averageRating ? "text-danger" : ""
-                      }
-                      key={index}
-                      size={18}
-                    />
-                  );
-                })}
-
-                <span className="ml-2 text-lg">{top2.averageRating}</span>
+                {
+                  top2 ?<>{array.map((_, index) => {
+                    const currentRating = index + 1;
+  
+                    return (
+                      <FaStar
+                        className={
+                          currentRating <= top2.averageRating ? "text-danger" : ""
+                        }
+                        key={index}
+                        size={18}
+                      />
+                    );
+                  })}</> : <>*********</>
+                }
+                
+                {
+                  top2 &&  <span className="ml-2 text-lg">{top2.averageRating}</span>
+                }
+               
               </div>
               <div className="flex justify-center mt-3 items-center">
                 <FaUser size={20} />
-                <span className="ml-2 text-lg">{top2.valorations.length}</span>
+                {
+                  top2 && <span className="ml-2 text-lg">{top2.valorations.length}</span>
+                }
+                
               </div>
             </div>
             <div className="text-center z-10 flex flex-col items-center">
@@ -89,26 +97,34 @@ async function Podium() {
                 </div>
               </div>
               <div className="mt-6 font-normal text-sm  md:text-xl text-slate-300 relative z-50 text leading-7 md:leading-10 mb-4 w-36  md:w-80  text-center">
-                {top1.name}
+              {top1 ? <>{top1.name}</> : <>*********</>}
               </div>
               <div className="flex justify-center items-center">
-                {array.map((_, index) => {
-                  const currentRating = index + 1;
-                  return (
-                    <FaStar
-                      className={
-                        currentRating <= top1.averageRating ? "text-danger" : ""
-                      }
-                      key={index}
-                      size={18}
-                    />
-                  );
-                })}
-                <span className="ml-2 text-lg">{top1.averageRating}</span>
+              {
+                  top1 ?<>{array.map((_, index) => {
+                    const currentRating = index + 1;
+                    return (
+                      <FaStar
+                        className={
+                          currentRating <= top1.averageRating ? "text-danger" : ""
+                        }
+                        key={index}
+                        size={18}
+                      />
+                    );
+                  })}</> : <>*********</>
+                }
+                {
+                  top1 &&  <span className="ml-2 text-lg">{top1.averageRating}</span>
+                }
+                
               </div>
               <div className="flex justify-center mt-3 items-center">
                 <FaUser size={20} />
-                <span className="ml-2 text-lg">{top1.valorations.length}</span>
+                {
+                  top1 && <span className="ml-2 text-lg">{top1.valorations.length}</span>
+                }
+                
               </div>
             </div>
             <div className="text-center mt-28  md:-ml-9 flex flex-col items-center">
@@ -126,26 +142,34 @@ async function Podium() {
                 </div>
               </div>
               <div className="mt-6 font-normal text-sm  md:text-xl text-slate-300 relative z-50 text leading-7 md:leading-10 mb-4 w-36  md:w-80 text-center">
-                {top3.name}
+              {top3 ? <>{top3.name}</> : <>*********</>}
               </div>
               <div className="flex justify-center items-center">
-                {array.map((_, index) => {
-                  const currentRating = index + 1;
-                  return (
-                    <FaStar
-                      className={
-                        currentRating <= top3.averageRating ? "text-danger" : ""
-                      }
-                      key={index}
-                      size={18}
-                    />
-                  );
-                })}
-                <span className="ml-2 text-lg">{top3.averageRating}</span>
+              {
+                  top3 ?<>{array.map((_, index) => {
+                    const currentRating = index + 1;
+                    return (
+                      <FaStar
+                        className={
+                          currentRating <= top3.averageRating ? "text-danger" : ""
+                        }
+                        key={index}
+                        size={18}
+                      />
+                    );
+                  })}</> : <>*********</>
+                }
+                {
+                  top3 &&  <span className="ml-2 text-lg">{top3.averageRating}</span>
+                }
+                
               </div>
               <div className="flex justify-center mt-3 items-center">
                 <FaUser size={20} />
-                <span className="ml-2 text-lg">{top3.valorations.length}</span>
+                {
+                  top3 && <span className="ml-2 text-lg">{top3.valorations.length}</span>
+                }
+                
               </div>
             </div>
           </div>

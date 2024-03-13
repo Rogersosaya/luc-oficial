@@ -20,7 +20,7 @@ export const  useValorationValuesStore = create<ValorationValues>((set,get) => (
     rating: 1,
     difficulty: 1,
     learning: 1,
-    repeat: false,
+    repeat: true,
     tags: [],
     setRating: (value:number) => {
         set({rating: value})

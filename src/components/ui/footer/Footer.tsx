@@ -8,20 +8,14 @@ const footerLinks = [
   {
     title: "Redes sociales",
     links: [
-      { title: "Facebook", href: "#" },
-      { title: "Twitter", href: "#" },
-      { title: "Instagram", href: "#" },
-      { title: "Youtube", href: "#" },
+      { title: "Facebook", href: "https://www.facebook.com/TeamLUC1/" },
+      { title: "Tik Tok", href: "https://www.tiktok.com/@luc.oficial?_t=8kdb4AbYjqw&_r=1" },
+      { title: "Instagram", href: "https://www.instagram.com/teamluc_123/" },
+      { title: "Youtube", href: "https://www.youtube.com/@LUC12321_" },
       
     ],
   },
-  {
-    title: "Contact",
-    links: [
-      { title: "Email", href: "teamluc12321@gmail.com" },
-      
-    ],
-  },
+  
   // {
   //   title: "Resources",
   //   links: [
@@ -48,7 +42,7 @@ export const Footer = () => (
         <div className="flex h-full flex-row justify-between lg:flex-col">
           <div className="flex items-center text-grey">
 
-            <Logo className="mr-4 h-11 w-11 flex items-center" /> LUC - Lo cambia todo
+            <Logo className="mr-4 h-11 w-11 flex items-center" /> LUC - ¡Un grupo que lo cambia todo!
           </div>
          
         </div>
@@ -65,6 +59,7 @@ export const Footer = () => (
                 <li key={link.title} className="[&_a]:last:mb-0">
                   <Link
                     className="mb-3 block text-grey transition-colors hover:text-off-white"
+                    target="_blank"
                     href={link.href}
                   >
                     {link.title}

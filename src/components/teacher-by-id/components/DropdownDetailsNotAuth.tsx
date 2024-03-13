@@ -12,9 +12,9 @@ const DropdownDetailsNotAuth = ({ onOpen }: any) => (
         <DropdownItem key="details" onPress={onOpen}>
           Detalles
         </DropdownItem>
-        <DropdownItem key="delete" className="text-warning" color="warning">
+        {/* <DropdownItem key="delete" className="text-warning" color="warning">
           Denunciar
-        </DropdownItem>
+        </DropdownItem> */}
       </DropdownMenu>
     </Dropdown>
   );

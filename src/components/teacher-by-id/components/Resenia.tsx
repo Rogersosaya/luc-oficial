@@ -42,7 +42,7 @@ function Resenia({ teacher }: Props) {
       <div className="flex flex-wrap justify-center">
         <div className="flex flex-col items-center">
           <Velocimeter value={averageDifficulty} />
-          <div className="text-sm mt-2">Dificultad</div>
+          <div className="text-sm mt-2">Dificultad </div>
         </div>
         <div className="flex flex-col items-center">
           <Velocimeter value={averageLearning} />

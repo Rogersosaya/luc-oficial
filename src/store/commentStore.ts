@@ -18,6 +18,7 @@ interface Reaction {
 interface Comment {
   id: string;
   value: string;
+  occult:boolean;
   user: User;
   reactions: Reaction[];
   editEnabled?: boolean;
@@ -25,7 +26,7 @@ interface Comment {
 interface CommentState {
   comments: Comment[];
   getComments: (teacherId: string) => Promise<void>;
-  addComment: (teacherId: string, value: string) => Promise<void>;
+  addComment: (teacherId: string, value: string, occult:boolean) => Promise<void>;
   deleteComment: (commentId: string) => Promise<void>;
   updateComment: (commentId: string, value: string) => Promise<void>;
   editUnabledComment: (commentId: string, opened: boolean) => void;
@@ -43,11 +44,12 @@ export const useCommentStore = create<CommentState>((set, get) => ({
     const comments = await getCommentsByTeacher({ teacher: teacherId });
     set({ comments: comments });
   },
-  addComment: async (teacherId: string, value: string) => {
+  addComment: async (teacherId: string, value: string, occult:boolean) => {
     const { comments } = get();
     const commentAdd = await createComment({
       teacher: teacherId,
       value: value,
+      occult: occult,
     });
     set({ comments: [commentAdd!, ...comments] });
   },

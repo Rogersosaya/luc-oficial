@@ -32,11 +32,11 @@ function BannerTeachers() {
         de la UNI
       </BannerTitle>
       <BannerSubtitle className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:400ms]">
-        Selecciona el profesor, por el momento sólo están registrados profesores de la FIIS
+        Profesores y cursos registrados de la última carga horaria
         <br className="hidden md:block" />
       </BannerSubtitle>
 
-      <div className="translate-y-[-1rem] animate-fade-in opacity-0 px-4 [--animation-delay:600ms] h-12 w-[50rem] mx-auto rounded-full bg-zinc-800 text-sm pl-8 ">
+      <div className="translate-y-[-1rem] animate-fade-in opacity-0 px-4 [--animation-delay:600ms] h-12 md:w-[50rem] mx-auto rounded-full bg-zinc-800 text-sm pl-8 ">
         <button
           type="button"
           className="absolute top-1/2 -translate-y-1/2 left-0 text-xl p-3"
@@ -47,7 +47,7 @@ function BannerTeachers() {
           placeholder="Buscar Profesor..."
           defaultValue={searchParams.get("query")?.toString()}
           onChange={(e) => handleSearch(e.target.value)}
-          className="h-full bg-transparent w-full outline-none px-4 text-sm"
+          className="h-full bg-transparent w-full  px-4 text-sm"
         />
         
       </div>

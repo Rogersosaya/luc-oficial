@@ -86,7 +86,7 @@ function NavBar() {
             >
               {pages.map((page) => (
                 <li key={page.title}>
-                  <Link href={page.route}>{page.title}</Link>
+                  <Link onClick={()=>setHamburgerMenuIsOpen(false)} href={page.route}>{page.title}</Link>
                 </li>
               ))}
             </ul>
@@ -96,7 +96,7 @@ function NavBar() {
         <div className="ml-auto flex h-full items-center">
           {loaded &&
             (session?.user ? (
-              <div className="flex gap-5">
+              <div className="flex gap-5 items-center">
                 <div className="flex flex-col gap-1 items-start justify-center">
                   <h4 className="hidden md:block text-small font-semibold leading-none text-default-600">
                     {session.user.name}

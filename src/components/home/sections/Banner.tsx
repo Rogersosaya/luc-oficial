@@ -11,11 +11,11 @@ function Banner() {
       
       <BannerTitle className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms]">
         LUC brinda un espacio 
-         al estudiante para expresarse con libertad y respeto
+         al estudiante para expresarse libremente y con respeto.
       </BannerTitle>
       <BannerSubtitle className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:400ms]">
         Ayúdanos a crear una comunidad educativa donde los estudiantes
-        <br className="hidden md:block" /> puedan compartir sus experiencias
+        <br className="hidden md:block" /> puedan compartir sus opiniones
       </BannerSubtitle>
       <Link href={"/teachers"}>
         
