@@ -19,19 +19,7 @@ function Filters({ faculties, careers, cycles, courses }: Props) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
-  // const [reset, setreset] = useState(false)
-  // useEffect(() => {
-
-  // }, [reset]);
-  // const handleReset = () => {
-  //   const params = new URLSearchParams(searchParams);
-  // params.delete('faculty');
-  // params.delete('course');
-  // params.delete('career');
-  // params.delete('cycle');
-  // replace(`/teachers?${params.toString()}`);
-
-  // }
+ 
   function handleSelect(term: string, nameQuery?: string) {
     const params = new URLSearchParams(searchParams);
     params.delete('page')

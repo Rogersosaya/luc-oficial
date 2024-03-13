@@ -14,7 +14,7 @@ function ButtonAddValoration({teacherId}:{teacherId:string}) {
   useEffect(() => {
     getExistValoration(teacherId)
     
-  }, [])
+  }, [getExistValoration, teacherId]);
   
   return (
     <div>

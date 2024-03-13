@@ -1,5 +1,6 @@
 "use client";
 
+import { Image } from "@nextui-org/react";
 import classNames from "classnames";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
@@ -94,7 +95,7 @@ function BannerImage() {
       <path pathLength="1" d="M538 777L538 128"></path>
     </svg>
 
-    <img
+    <Image
       className={classNames(
         "relative z-10 transition-opacity delay-[680ms]",
         inView ? "opacity-100" : "opacity-0"

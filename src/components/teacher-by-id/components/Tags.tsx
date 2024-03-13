@@ -21,7 +21,7 @@ function Tags({ teacher }: Props) {
   const { getValorations, valorations } = useValorationsStore();
   useEffect(() => {
     getValorations(teacher!.id);
-  }, []);
+  }, [getValorations,teacher]);
 
   const tags = valorations.map((item) => item.tags);
 

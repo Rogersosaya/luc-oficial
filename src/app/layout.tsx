@@ -8,11 +8,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "LUC",
   description: "LUC - Un grupo que lo cambia todo",
-  openGraph: {
-    title: "LUC",
-  description: "LUC - Un grupo que lo cambia todo",
-    images: ["/logo.png"]
-  }
+  // openGraph: {
+  //   title: "LUC",
+  // description: "LUC - Un grupo que lo cambia todo",
+  //   images: ["/logo.png"]
+  // }
 };
 
 export default function RootLayout({

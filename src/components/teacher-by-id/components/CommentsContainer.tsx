@@ -29,7 +29,7 @@ function CommentsContainer({ teacher, comments }: Props) {
   useEffect(() => {
     getComments(teacher!.id)
     updateTeacher(teacher!.id)
-  }, [])
+  }, [getComments,updateTeacher,teacher])
   
   
 

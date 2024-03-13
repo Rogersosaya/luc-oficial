@@ -18,7 +18,7 @@ function Valuation({ teacher }: Props) {
   const { getValorations, valorations } = useValorationsStore();
   useEffect(() => {
     getValorations(teacher!.id);
-  }, []);
+  }, [getValorations,teacher]);
   const ratings = valorations.map((item) => item.rating);
 
   let rating1 =

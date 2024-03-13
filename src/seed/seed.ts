@@ -41,8 +41,8 @@ interface SeedData {
 export const initialData: SeedData = {
   users: [
     {
-      name:'Jordan Laureano',
-      email: 'jordan.laureano.g@uni.pe',
+      name:'Roger Sosaya',
+      email: 'rogersosayafc@gmail.com',
       role: 'admin'
     },
     

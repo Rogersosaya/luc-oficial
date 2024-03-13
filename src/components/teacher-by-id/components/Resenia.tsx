@@ -17,7 +17,7 @@ function Resenia({ teacher }: Props) {
   const { getValorations, valorations } = useValorationsStore();
   useEffect(() => {
     getValorations(teacher!.id);
-  }, []);
+  }, [getValorations,teacher]);
   const difficulties = valorations.map((item) => item.difficulty);
   const learnings = valorations.map((item) => item.learning);
   let averageDifficulty =
