@@ -35,9 +35,9 @@ async function Podium() {
         <div className="mb-12 ">
           <FaCrown className="mx-auto text-yellow-400  text-6xl md:text-8xl" />
           <div className="flex justify-center">
-            <div className="text-center mt-16  md:-mr-9 flex flex-col items-center">
+            <div className="text-center mt-16 md:-mr-9 -mr-4 flex flex-col items-center">
               <div className="relative ">
-                <div className="rounded-full overflow-hidden border-5 border-primary relative text-center h-56 md:h-96 w-56 md:w-96">
+                <div className="rounded-full overflow-hidden border-5 border-primary relative text-center h-52 md:h-96 w-52 md:w-96">
                   <Image
                     src="/teacher.png"
                     alt="imagen"
@@ -49,7 +49,7 @@ async function Podium() {
                   2
                 </div>
               </div>
-              <div className="mt-6 font-normal text-sm  md:text-xl text-slate-300 relative z-50 text leading-7 md:leading-10 mb-4 w-36  md:w-80 text-center">
+              <div className="mt-6 font-normal text-sm  md:text-xl text-slate-300 relative z-3 text leading-7 md:leading-10 mb-4 w-36  md:w-80 text-center">
                 {top2 ? <>{top2.name}</> : <>*********</>}
               </div>
               <div className="flex justify-center items-center">
@@ -82,9 +82,9 @@ async function Podium() {
                 
               </div>
             </div>
-            <div className="text-center z-10 flex flex-col items-center">
+            <div className="text-center z-1 flex flex-col items-center">
               <div className="relative">
-                <div className="rounded-full overflow-hidden border-5 border-yellow-400 relative text-center h-56 md:h-96 w-56 md:w-96">
+                <div className="rounded-full overflow-hidden border-5 border-yellow-400 relative text-center h-52 md:h-96 w-52 md:w-96">
                   <Image
                     src="/teacher.png"
                     alt=""
@@ -96,7 +96,7 @@ async function Podium() {
                   1
                 </div>
               </div>
-              <div className="mt-6 font-normal text-sm  md:text-xl text-slate-300 relative z-50 text leading-7 md:leading-10 mb-4 w-36  md:w-80  text-center">
+              <div className="mt-6 font-normal text-sm  md:text-xl text-slate-300 relative z-3 text leading-7 md:leading-10 mb-4 w-36  md:w-80  text-center">
               {top1 ? <>{top1.name}</> : <>*********</>}
               </div>
               <div className="flex justify-center items-center">
@@ -127,9 +127,9 @@ async function Podium() {
                 
               </div>
             </div>
-            <div className="text-center mt-28  md:-ml-9 flex flex-col items-center">
+            <div className="text-center mt-28  md:-ml-9 -ml-4 flex flex-col items-center">
               <div className="relative">
-                <div className="rounded-full overflow-hidden border-5 border-secondary relative text-center h-56 md:h-96 w-56 md:w-96">
+                <div className="rounded-full overflow-hidden border-5 border-secondary relative text-center h-52 md:h-96 w-52 md:w-96">
                   <Image
                     src="/teacher.png"
                     alt=""
@@ -141,7 +141,7 @@ async function Podium() {
                   3
                 </div>
               </div>
-              <div className="mt-6 font-normal text-sm  md:text-xl text-slate-300 relative z-50 text leading-7 md:leading-10 mb-4 w-36  md:w-80 text-center">
+              <div className="mt-6 font-normal text-sm  md:text-xl text-slate-300 relative z-3 text leading-7 md:leading-10 mb-4 w-36  md:w-80 text-center">
               {top3 ? <>{top3.name}</> : <>*********</>}
               </div>
               <div className="flex justify-center items-center">

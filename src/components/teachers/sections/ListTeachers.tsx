@@ -24,7 +24,7 @@ interface Props {
 function ListTeachers({ teachers }: Props) {
   return (
     <>
-      <div className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:800ms] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-12 gap-3 mt-9 px-2">
+      <div className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:800ms] grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 md:gap-12 gap-3 mt-9 px-2">
         {teachers?.map((teacher) => (
           <CardTeachers key={teacher.slug} teacher={teacher}/>
         ))}

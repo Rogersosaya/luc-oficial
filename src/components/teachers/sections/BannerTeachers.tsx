@@ -32,7 +32,7 @@ function BannerTeachers() {
         de la UNI
       </BannerTitle>
       <BannerSubtitle className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:400ms]">
-        Profesores y cursos registrados de la última carga horaria
+        Profesores y cursos de la FIIS registrados de la última carga horaria
         <br className="hidden md:block" />
       </BannerSubtitle>
 

@@ -14,7 +14,7 @@ interface Props {
 
 export const getTeachersByFilter = async ({
   page=1,
-  take= 16,
+  take= 12,
   faculty,
   career,
   cycle,
@@ -82,7 +82,7 @@ export const getTeachersByFilter = async ({
     });
     const totalCount = await prisma.teacher.count();
     
-    const totalPages = 10
+    const totalPages = Math.ceil(totalCount / take);
     const teachersResult = teachers.map(teacher => {
       return {
         ...teacher,

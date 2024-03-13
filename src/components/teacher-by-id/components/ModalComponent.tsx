@@ -1,27 +1,24 @@
-import {
-   
-  Modal,
-  ModalBody,
-  ModalContent,
-  
-} from "@nextui-org/react";
+import { Modal, ModalBody, ModalContent } from "@nextui-org/react";
 import React from "react";
-import BodyModal from './BodyModal';
+import BodyModal from "./BodyModal";
 import { User } from "@/interfaces/user.interface";
-interface PropsReaction{
+interface PropsReaction {
   value: string;
-  user: User
+  user: User;
 }
-interface Props{
-  isOpen: any,
-  onOpenChange: any
-  reactionsTotal?: PropsReaction[] 
+interface Props {
+  isOpen: any;
+  onOpenChange: any;
+  reactionsTotal?: PropsReaction[];
 }
 function ModalComponent({ isOpen, onOpenChange, reactionsTotal }: Props) {
-
   return (
-    <Modal size="lg" isOpen={isOpen} onOpenChange={onOpenChange} scrollBehavior="inside"
-    placement="center"
+    <Modal
+      size="lg"
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+      scrollBehavior="inside"
+      placement="center"
     >
       <ModalContent>
         {(onClose) => {
@@ -29,10 +26,9 @@ function ModalComponent({ isOpen, onOpenChange, reactionsTotal }: Props) {
             <>
               <ModalBody>
                 <div className="flex w-full flex-col">
-                  <BodyModal reactionsTotal={reactionsTotal}/>
+                  <BodyModal reactionsTotal={reactionsTotal} />
                 </div>
               </ModalBody>
-              
             </>
           );
         }}

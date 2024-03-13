@@ -29,7 +29,7 @@ function ModalValoration({ isOpen, onOpenChange }: any) {
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       scrollBehavior="inside"
-      placement="center"
+      placement="top"
     >
       <ModalContent>
         {(onClose) => {
