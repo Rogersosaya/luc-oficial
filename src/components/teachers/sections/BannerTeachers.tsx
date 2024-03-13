@@ -28,7 +28,7 @@ function BannerTeachers() {
     <BannerElement>
       <BannerTitle className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms]">
         Profesores
-        <br className="hidden md:block" />
+        <br className="block" />
         de la UNI
       </BannerTitle>
       <BannerSubtitle className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:400ms]">

@@ -15,12 +15,13 @@ async function TeacherPageId({ params }: Props) {
   
   return (
     <>
-      <Container className="pt-[6.4rem]">
-        <GridPerfil teacher={teacher}/>
-      </Container>
-      <Container className="pt-[6.4rem]">
-        <CommentsAndOthers teacher={teacher}/>
-      </Container>
+      <div className="mx-auto max-w-[120rem] px-4 md:px-8 pt-5 md:pt-[6.4rem]">
+      <GridPerfil teacher={teacher}/>
+      </div>
+      <div className="mx-auto max-w-[120rem] px-4 md:px-8 pt-[6.4rem]">
+      <CommentsAndOthers teacher={teacher}/>
+      </div>
+      
     </>
   );
 }

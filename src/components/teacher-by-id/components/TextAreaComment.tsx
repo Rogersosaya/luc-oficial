@@ -39,16 +39,16 @@ function TextAreaComment() {
 
   return (
     <div className="mb-5">
-      <div className="w-full flex items-center  mb-2">
+      <div className="w-full md:flex items-center  mb-2">
         {occult ? (
-          <Avatar isBordered radius="full" size="md" className="mr-3" />
+          <Avatar isBordered radius="full" size="md" className="mr-3 mx-auto md:mr-3 mb-2 md:mb-0" />
         ) : (
           <Avatar
             isBordered
             radius="full"
             size="md"
             src={session?.user?.image ?? ""}
-            className="mr-3"
+            className="mr-3 mx-auto md:mr-3 mb-2 md:mb-0"
           />
         )}
 
@@ -65,7 +65,7 @@ function TextAreaComment() {
        
       </div>
       <div className="md:flex justify-between">
-        <div className="text-base text-slate-400 ml-14 mb-2 md:mb-0 md:mr-6">
+        <div className="text-base text-slate-400 md:ml-14 mb-2 md:mb-0 md:mr-6">
           {
             occult ? <>
             Tu identidad está protegida en modo anónimo para que puedas expresarte con sinceridad y sin miedo a represalias. Por favor, utilízalo de manera respetuosa y constructiva.</>: <></>
