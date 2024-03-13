@@ -10,13 +10,7 @@ interface Props {
 export const getCommentsByTeacher = async ({ teacher }: Props) => {
   try {
    
-    const session = await getServerSession();
-    const userEmail = session?.user?.email;
-    const userCurrent = await prisma.user.findUnique({
-      where: {
-        email: userEmail!,
-      },
-    });
+    
     
     const comments = await prisma.comment.findMany({
       orderBy: [

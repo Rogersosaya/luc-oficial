@@ -49,7 +49,7 @@ function CardCommentFast({comment}:Props) {
             /> */}
           </div>
         </CardHeader>
-        <CardBody className="px-3 py-0 text-small text-default-600 overflow-hidden">
+        <CardBody className="px-3 py-0 text-xs text-default-600 overflow-hidden">
           <p>
             {commentValue}
           </p>

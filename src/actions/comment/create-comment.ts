@@ -1,6 +1,7 @@
 'use server'
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
+import { revalidatePath } from 'next/cache';
 
 interface Props {
   value: string;
@@ -38,6 +39,8 @@ export const createComment = async ({ teacher,  value, occult }: Props) => {
         id: newComment.id,
       }
     })
+    revalidatePath('/')
+
     return newCommentData;
   } catch (error) {
     console.log(error);

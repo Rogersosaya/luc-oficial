@@ -44,10 +44,11 @@ function ModalValoration({ isOpen, onOpenChange }: any) {
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+                <Button size="lg" color="danger" variant="light" onPress={onClose}>
                   Cerrar
                 </Button>
                 <Button
+                size="lg"
                   color="primary"
                   onPress={() => {
                     onClose();

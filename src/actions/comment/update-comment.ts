@@ -1,5 +1,6 @@
 'use server'
 import prisma from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 interface Props{
   commentId: string;
   value:string
@@ -16,6 +17,8 @@ export const updateCommentByValue = async ({commentId, value}:Props) => {
       }
     
   });
+  revalidatePath('/')
+
   return commentUpdate;
    
   } catch (error) {

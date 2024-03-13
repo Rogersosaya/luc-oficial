@@ -2,6 +2,7 @@
 import { ValueReaction } from "@/interfaces/reaction.interface";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
 
 interface Props {
   value: ValueReaction;
@@ -17,6 +18,7 @@ export const createReaction = async ({ commentId, value }: Props) => {
         email: userEmail!,
       },
     });
+    
    
     const reactionExist = await prisma.reaction.findFirst({
       where: {
@@ -52,6 +54,7 @@ export const createReaction = async ({ commentId, value }: Props) => {
           value: "dislike",
         },
       });
+      revalidatePath('/')
       return newReaction;
     }
     if (!!reactionDislikeExist && value === "like") {
@@ -63,6 +66,7 @@ export const createReaction = async ({ commentId, value }: Props) => {
           value: "like",
         },
       });
+      revalidatePath('/')
       return newReaction;
     }
    
@@ -73,7 +77,7 @@ export const createReaction = async ({ commentId, value }: Props) => {
         userId: userCurrent!.id,
       },
     });
-
+    revalidatePath('/')
     return newReaction;
   } catch (error) {
     console.log(error);

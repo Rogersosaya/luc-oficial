@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import prisma from "@/lib/prisma";
+import { createUser } from "@/actions/user/create-user/createUser";
 
 const handler = NextAuth({
   providers: [
@@ -29,16 +30,18 @@ const handler = NextAuth({
         const userExists = !!existUser;
         
         if (!userExists) {
-          await prisma.user.create({
-            data: {
-              id: user.id,
-              name: user.name,
-              email: user.email,
-              image: user.image,
-            },
-          });
+          await createUser(user.id,user.name,user.email, user.image!)
+          // await prisma.user.create({
+          //   data: {
+          //     id: user.id,
+          //     name: user.name,
+          //     email: user.email,
+          //     image: user.image,
+          //   },
+          // });
         }
       }
+
       // console.log()
       return true;
     },

@@ -47,7 +47,7 @@ function BannerTeachers() {
           placeholder="Buscar Profesor..."
           defaultValue={searchParams.get("query")?.toString()}
           onChange={(e) => handleSearch(e.target.value)}
-          className="h-full bg-transparent w-full  px-4 text-sm"
+          className="h-full bg-transparent w-full  px-4 text-sm outline-none"
         />
         
       </div>

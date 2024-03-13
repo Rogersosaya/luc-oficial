@@ -2,6 +2,7 @@
 import { getServerSession } from "next-auth";
 import prisma from "../../lib/prisma";
 import { Tag } from "@/interfaces/tag-interface";
+import { revalidatePath } from "next/cache";
 
 interface ValorationProps {
   teacherId: string;
@@ -47,14 +48,14 @@ export const createValoration = async ({
     });
     const tagsDB = await Promise.all(tagsDBPromises);
 
-    const valorationOnTagsDBPromises = tagsDB.map(async(tag) => {
+    const valorationOnTagsDBPromises = tagsDB.map(async (tag) => {
       return await prisma.valorationOnTag.create({
         data: {
           tagId: tag!.id,
-          valorationId:  newValoration.id,
-        }
-      })
-    })    
+          valorationId: newValoration.id,
+        },
+      });
+    });
     await Promise.all(valorationOnTagsDBPromises);
 
     const newValorationWithId = await prisma.valoration.findUnique({
@@ -66,19 +67,22 @@ export const createValoration = async ({
         },
       },
       where: {
-        id: newValoration.id
-      }
-    })
-    if(newValorationWithId !== null){
+        id: newValoration.id,
+      },
+    });
+    if (newValorationWithId !== null) {
       const newValorationData = {
         ...newValorationWithId,
-        tags: newValorationWithId.tags.map((tag) => tag!.tag)
-      }
-    return newValorationData;
+        tags: newValorationWithId.tags.map((tag) => tag!.tag),
+      };
+      revalidatePath("/");
+
+      return newValorationData;
     }
-    
-   
-    return 
+
+    revalidatePath("/");
+
+    return;
   } catch (error) {
     console.log(error);
   }

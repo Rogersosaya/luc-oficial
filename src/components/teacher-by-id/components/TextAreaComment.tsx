@@ -54,13 +54,14 @@ function TextAreaComment() {
 
        
           <Textarea
+          size="lg"
             isDisabled={session ? false : true}
             onValueChange={HandleTextArea}
             value={value}
             variant="bordered"
             labelPlacement="outside"
             placeholder={session ?"Agregar un comentario":"Inicia sesión para comentar"}
-            className="w-full  md:mb-0 block"
+            className="w-full  md:mb-0 block "
           />
        
       </div>
@@ -75,6 +76,7 @@ function TextAreaComment() {
         <div className="flex justify-end">
           {occult ? (
             <Button
+            size="lg"
               isDisabled={disabledState}
               color="default"
               className="text-warning mr-2"
@@ -84,6 +86,7 @@ function TextAreaComment() {
             </Button>
           ) : (
             <Button
+            size="lg"
               isDisabled={disabledState}
               color="default"
               className="text-warning mr-2"
@@ -94,6 +97,7 @@ function TextAreaComment() {
           )}
 
           <Button
+          size="lg"
             isDisabled={disabledState}
             color="default"
             variant="bordered"
@@ -103,6 +107,7 @@ function TextAreaComment() {
             Cancelar
           </Button>
           <Button
+          size="lg"
             onClick={() => sendComment()}
             isDisabled={disabledState}
             color="primary"

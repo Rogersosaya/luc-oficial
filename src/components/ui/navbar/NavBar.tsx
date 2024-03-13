@@ -112,7 +112,7 @@ function NavBar() {
                   src={session.user.image ?? "/teachers/icono.png"}
                 />
                 
-                <Button className=" font-bold " 
+                <Button size="lg" className=" font-bold " 
                   onClick={() => {
                     signOut();
                   }}
@@ -121,7 +121,7 @@ function NavBar() {
                 </Button>
               </div>
             ) : (
-              <Button className="bg-secondary text-black font-bold text-base py-3 px-4" onClick={() => signIn()}>
+              <Button size="lg" className="bg-secondary text-black font-bold py-3 px-4" onClick={() => signIn()}>
                 INICIAR SESIÓN
               </Button>
             ))}

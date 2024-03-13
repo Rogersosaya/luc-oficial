@@ -90,6 +90,7 @@ function CardComment({ comment }: Props) {
         {comment.editEnabled ? (
           <>
             <Textarea
+              size="lg"
               variant="bordered"
               className="w-full mb-2"
               onValueChange={HandleTextArea}
@@ -115,7 +116,7 @@ function CardComment({ comment }: Props) {
             </div>
           </>
         ) : (
-          <p>{comment.value}</p>
+          <p className="text-xs md:text-base">{comment.value}</p>
         )}
       </CardBody>
       <CardFooter className="gap-3">
