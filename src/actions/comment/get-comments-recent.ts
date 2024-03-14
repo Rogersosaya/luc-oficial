@@ -9,6 +9,7 @@ export const getCommentsRecent = async () => {
       select: {
         id:true,
         value: true,
+        occult:true,
         user:{
             select:{
                 image:true,
