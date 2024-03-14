@@ -61,7 +61,7 @@ function GridPerfil({ teacher }: Props) {
             <Image src="/teacher.png" width={280} height={280} alt="foto" />
           </div>
           <div className="border-slate-500 border px-4 py-3 rounded-lg my-2 text-center ">
-            <ButtonAddValoration teacherId={teacher!.id} />
+            <ButtonAddValoration teacherId={teacher!.id} teacher={teacher!} />
           </div>
           {/* <div className="border-slate-500 border px-4 py-3 rounded-lg my-2">
             <div className="text-md font-bold mb-2 flex items-center">

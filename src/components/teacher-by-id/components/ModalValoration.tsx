@@ -6,14 +6,24 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import React from "react";
+import React, { useEffect } from "react";
 import ModalValorationBody from "./ModalValorationBody";
 import { createValoration } from "@/actions/valoration/create-valoration";
 import { useValorationValuesStore } from "@/store/valorationValuesStore";
 import { useTeacherStore } from "@/store/teacherStore";
 import { useValorationsStore } from "@/store/valorationsStore";
-
-function ModalValoration({ isOpen, onOpenChange }: any) {
+interface PropsTeacher {
+  id: string;
+  name: string;
+  slug: string;
+  url: string;
+}
+interface Props {
+  isOpen: any,
+  onOpenChange: any,
+  teacher:PropsTeacher
+}
+function ModalValoration({ isOpen, onOpenChange,teacher }: Props) {
   const { teacherId } = useTeacherStore();
   const { rating, difficulty, learning, repeat, tags } =
     useValorationValuesStore();
@@ -22,7 +32,8 @@ function ModalValoration({ isOpen, onOpenChange }: any) {
     updateExistValoration()
     addValoration( teacherId, rating, difficulty, learning, repeat, tags );
   };
-
+  
+  
   return (
     <Modal
       size="3xl"
@@ -36,7 +47,7 @@ function ModalValoration({ isOpen, onOpenChange }: any) {
           return (
             <>
               <ModalHeader className="flex flex-col gap-1 text-lg font-bold text-center">
-                <div>RODRIGUEZ-RAFAEL-GLEN DARIO</div>
+                <div>{teacher.name}</div>
               </ModalHeader>
               <ModalBody>
                 <div className="flex w-full flex-col">

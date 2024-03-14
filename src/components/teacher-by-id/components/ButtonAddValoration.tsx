@@ -6,8 +6,19 @@ import ModalValoration from './ModalValoration';
 import { useValorationsStore } from "@/store/valorationsStore";
 import { useSession } from "next-auth/react";
 import ButtonAnimate from '../../ui/button-animate/ButtonAnimate';
-
-function ButtonAddValoration({teacherId}:{teacherId:string}) {
+interface PropsTeacher {
+  id: string;
+  name: string;
+  slug: string;
+  url: string;
+  
+}
+interface Props {
+  teacherId: string,
+  teacher: PropsTeacher;
+  
+}
+function ButtonAddValoration({teacherId, teacher}:Props) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const {existValoration, getExistValoration}= useValorationsStore()
   const {data:session} =useSession()
@@ -29,7 +40,7 @@ function ButtonAddValoration({teacherId}:{teacherId:string}) {
         >
           Agregar Valoración
         </Button>
-        <ModalValoration isOpen={isOpen} onOpenChange={onOpenChange} /></> :  <Button
+        <ModalValoration isOpen={isOpen} onOpenChange={onOpenChange} teacher={teacher}/></> :  <Button
       isDisabled={existValoration}
         onClick={onOpen}
         startContent={<IoIosAddCircle className="text-xl" />}

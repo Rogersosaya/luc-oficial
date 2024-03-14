@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 interface TeacherState {
   teacherId: string;
+  
   updateTeacher: (teacherId: string) => void
 }
 export const useTeacherStore = create<TeacherState>((set, get) => ({
