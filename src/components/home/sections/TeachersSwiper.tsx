@@ -65,7 +65,10 @@ function TeachersSwiper({teachers}: Props) {
         
         slidesPerView={4}
         navigation
-        
+        autoplay={{
+          delay: 2000,
+          disableOnInteraction: false,
+        }}
         loop={true}
 
         breakpoints={{
