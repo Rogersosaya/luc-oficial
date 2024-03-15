@@ -7,7 +7,7 @@ function AboutPage() {
       <Container className="text-sm">
         <div className="mt-4 ">Me dió flojera hacer esta vista :v</div>
         <div className="mt-3">Miembros de LUC:</div>
-        bob, leolin, yucra, jordex, jairo, edward, césar, gavino, tuki, elias,
+        bob, leolin, yucra, jordex14, jairo, edward, césar, gavino, tuki, elias,
         joel, ydenek, alfredo, luis y yo
         <div className="mt-3">Colaboradores:</div>
         <div>Stefano Ramirez: Hizo el diseño en figma</div>
