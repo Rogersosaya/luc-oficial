@@ -95,9 +95,9 @@ const CardDisplayFalse = ({ teacher }: Props) => {
           return (
             <div key={index}>
               {currentRating <= averageRating ? (
-                <FaStar className="text-danger"  size={18} />
+                <FaStar className="text-yellow-400"  size={18} />
               ) : (
-                <FaRegStar className="text-danger"  size={18} />
+                <FaRegStar className="text-yellow-400"  size={18} />
               )}
             </div>
           );
@@ -110,9 +110,9 @@ const CardDisplayFalse = ({ teacher }: Props) => {
           return (
             <div key={index}>
               {currentDifficulty <= averageDifficulty ? (
-                <AiFillFire className="text-danger"  size={18} />
+                <AiFillFire className="text-red-500"  size={18} />
               ) : (
-                <AiOutlineFire className="text-danger"  size={18} />
+                <AiOutlineFire className="text-red-500"  size={18} />
               )}
             </div>
           );
@@ -126,9 +126,9 @@ const CardDisplayFalse = ({ teacher }: Props) => {
           return (
             <div key={index}>
               {currentLearning <= averageLearning ? (
-                <IoBook className="text-danger" size={18} />
+                <IoBook className="text-blue-600" size={18} />
               ) : (
-                <IoBookOutline className="text-danger"  size={18} />
+                <IoBookOutline className="text-blue-600"  size={18} />
               )}
             </div>
           );
@@ -137,7 +137,7 @@ const CardDisplayFalse = ({ teacher }: Props) => {
         <span className="ml-2 text-lg">{averageLearning}</span>
       </div>
       <div className="flex justify-center items-center mb-4">
-        <FaRepeat className="text-danger" size={20} />
+        <FaRepeat className="text-green-500" size={20} />
         <span className="ml-2 text-lg">{truesPercentage}%</span>
       </div>
       <div className="flex justify-center items-center mb-5">

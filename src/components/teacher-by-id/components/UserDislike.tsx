@@ -9,6 +9,7 @@ interface PropsReaction{
 interface Props{
   likeItem: PropsReaction
 }
+
 function UserDislike({likeItem}:Props) {
   return (
     <div className="flex gap-5 justify-between items-center mb-3">

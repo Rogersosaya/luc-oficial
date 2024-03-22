@@ -55,9 +55,9 @@ function Valuation({ teacher }: Props) {
           return (
             <div key={index}>
               {currentRating <= averageRating ? (
-                <FaStar className="text-danger" size={18} />
+                <FaStar className="text-yellow-400" size={18} />
               ) : (
-                <FaRegStar className="text-danger"  size={18} />
+                <FaRegStar className="text-yellow-400"  size={18} />
               )}
             </div>
           );
@@ -72,7 +72,7 @@ function Valuation({ teacher }: Props) {
         <div className="flex flex-col justify-center items-center w-full col-span-12  md:col-span-7 px-5 md:px-10 ">
           <div className="flex items-center w-full">
             <span className="text-md mr-1">5</span>
-            <FaStar className="text-danger" size={20} />
+            <FaStar className="text-yellow-400" size={20} />
             <Progress
               className="ml-1 mr-2 max-w-80 md:max-w-80"
               size="md"
@@ -87,7 +87,7 @@ function Valuation({ teacher }: Props) {
           </div>
           <div className="flex items-center w-full">
             <span className="text-md mr-1">4</span>
-            <FaStar className="text-danger" size={20} />
+            <FaStar className="text-yellow-400" size={20} />
             <Progress
               className="ml-1 mr-2 max-w-80  md:max-w-80"
               size="md"
@@ -102,7 +102,7 @@ function Valuation({ teacher }: Props) {
           </div>
           <div className="flex items-center w-full">
             <span className="text-md mr-1">3</span>
-            <FaStar className="text-danger" size={20} />
+            <FaStar className="text-yellow-400" size={20} />
             <Progress
               className="ml-1 mr-2 max-w-80  md:max-w-80"
               size="md"
@@ -117,7 +117,7 @@ function Valuation({ teacher }: Props) {
           </div>
           <div className="flex items-center w-full">
             <span className="text-md mr-1">2</span>
-            <FaStar className="text-danger" size={20} />
+            <FaStar className="text-yellow-400" size={20} />
             <Progress
               className="ml-1 mr-2 max-w-80  md:max-w-80"
               size="md"
@@ -132,7 +132,7 @@ function Valuation({ teacher }: Props) {
           </div>
           <div className="flex items-center w-full">
             <span className="text-md mr-1">1</span>
-            <FaStar className="text-danger" size={20} />
+            <FaStar className="text-yellow-400" size={20} />
             <Progress
               className="ml-1 mr-2 max-w-80  md:max-w-80"
               size="md"

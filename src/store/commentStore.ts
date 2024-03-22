@@ -10,6 +10,7 @@ import { User } from "@/interfaces/user.interface";
 import { getServerSession } from "next-auth";
 import { create } from "zustand";
 import { getUser } from "@/actions/user/getUser";
+import { v4 as uuidv4 } from 'uuid';
 interface Reaction {
   id: string;
   user: User;
@@ -89,16 +90,16 @@ export const useCommentStore = create<CommentState>((set, get) => ({
   updateReaction: async (commentId, value, userEmail) => {
     const { comments } = get();
     const userReacted = comments.some(comment => comment.id === commentId && comment.reactions.some(reaction => reaction.user.email === userEmail));
-    
+    await createReaction({ commentId: commentId, value: value });
     const user = await getUser(userEmail);
     console.log(user)
 
-    await createReaction({ commentId: commentId, value: value });
+    
 
     if (!userReacted) {
         const updatedComments = comments.map((comment) => {
             if (comment.id === commentId) {
-                const newReaction = {id:"asa", user: {name:user!.name, email: userEmail, image:user!.email,  }, value: value };
+                const newReaction = {id:uuidv4(), user: {name:user!.name, email: userEmail, image:user!.email,  }, value: value };
                 return { ...comment, reactions: [...comment.reactions, newReaction] };
             } else {
                 return comment;
@@ -122,6 +123,7 @@ export const useCommentStore = create<CommentState>((set, get) => ({
             }
         });
         set({ comments: updatedComments });
+        
     }
   },
 }));
