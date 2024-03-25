@@ -13,6 +13,7 @@ async function Podium() {
   const top1 = topTeachers[0];
   const top2 = topTeachers[1];
   const top3 = topTeachers[2];
+
   const array = [...Array(5)];
   return (
     <>
@@ -70,7 +71,7 @@ async function Podium() {
                 }
                 
                 {
-                  top2 &&  <span className="ml-2 text-lg">{top2.averageRating}</span>
+                  top2 &&  <span className="ml-2 text-lg">{top2.averageRating.toFixed(1)}</span>
                 }
                
               </div>
@@ -115,7 +116,7 @@ async function Podium() {
                   })}</> : <>*********</>
                 }
                 {
-                  top1 &&  <span className="ml-2 text-lg">{top1.averageRating}</span>
+                  top1 &&  <span className="ml-2 text-lg">{top1.averageRating.toFixed(1)}</span>
                 }
                 
               </div>
@@ -160,7 +161,7 @@ async function Podium() {
                   })}</> : <>*********</>
                 }
                 {
-                  top3 &&  <span className="ml-2 text-lg">{top3.averageRating}</span>
+                  top3 &&  <span className="ml-2 text-lg">{top3.averageRating.toFixed(1)}</span>
                 }
                 
               </div>
