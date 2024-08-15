@@ -5,6 +5,7 @@ function AboutPage() {
   return (
     <div>
       <Container className="text-sm">
+        <div>gaaaaa</div>
         <div className="mt-4 ">Me dió flojera hacer esta vista :v</div>
         <div className="mt-3">Miembros de LUC:</div>
         bob, leolin, yucra, jordex14, kazuo, edward, césar, tuki, elias,joel,
