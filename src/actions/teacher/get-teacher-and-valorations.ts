@@ -6,6 +6,7 @@ export const getTeachersAndValorations = async () => {
     const teachers = await prisma.teacher.findMany({
       select: {
         name: true,
+        slug:true,
         valorations: {
           select: {
             rating: true,
@@ -25,19 +26,20 @@ export const getTeachersAndValorations = async () => {
               (acc, valoration) => acc + valoration.rating,
               0
             ) / teacher.valorations.length
-          ).toFixed(1),
+          ).toFixed(0),
           difficultyProm: (
             teacher.valorations.reduce(
               (acc, valoration) => acc + valoration.rating,
               0
             ) / teacher.valorations.length
-          ).toFixed(1),
+          ).toFixed(0),
           learningProm: (
             teacher.valorations.reduce(
               (acc, valoration) => acc + valoration.learning,
               0
             ) / teacher.valorations.length
-          ).toFixed(1),
+          ).toFixed(0),
+          urlTeacher: `luc-uni.vercel.app/teacher/${teacher.slug}`
         },
       
     }));
