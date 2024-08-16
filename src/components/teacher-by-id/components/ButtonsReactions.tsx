@@ -38,7 +38,7 @@ function ButtonsReactions({ comment }: Props) {
       <Tooltip  content="Estoy de acuerdo">
         <Button
           className="text-xs font-bold"
-          color="secondary"
+          color="primary"
           isDisabled={false}
           onClick={() =>
             updateReaction(comment.id, "like", session?.user?.email!)

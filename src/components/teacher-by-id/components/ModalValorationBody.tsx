@@ -148,7 +148,7 @@ function ModalValorationBody() {
         <div className="text-sm font-bold">¿Lo volverías a llevar?</div>
         <div className="flex">
           <AiOutlineLike
-            className={`cursor-pointer ${repeat ? "text-secondary" : ""}`}
+            className={`cursor-pointer ${repeat ? "text-primary" : ""}`}
             onClick={() => setRepeat(true)}
             size={30}
           />
@@ -165,7 +165,7 @@ function ModalValorationBody() {
           {tagsData.map((tagName) => {
             return (
               <div key={tagName} 
-                className={`bg-secondary rounded-lg text-slate-950 px-2 py-1 font-bold mr-2 mb-2 text-base flex items-center cursor-pointer select-none ${
+                className={`bg-secondary rounded-lg  px-2 py-1 font-bold mr-2 mb-2 text-base flex items-center cursor-pointer select-none ${
                   tags.includes(tagName)
                     ? "bg-secondary"
                     : "bg-slate-400 opacity-50"

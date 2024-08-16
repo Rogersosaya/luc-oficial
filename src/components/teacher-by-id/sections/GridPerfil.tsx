@@ -181,13 +181,13 @@ function GridPerfil({ teacher }: Props) {
           </div> */}
           <div className="border-slate-500 border px-4 py-3 flex-auto rounded-lg">
             <div className="text-md font-bold mb-2 flex items-center">
-              <CiCircleMore className="mr-2 text-secondary" />
+              <CiCircleMore className="mr-2 text-primary" />
               Cursos
             </div>
             <div className="flex md:block flex-wrap ">
               {result.courses.map((course) => (
                 <div
-                  className="bg-secondary rounded-lg text-black px-2 py-1 font-bold mx-2  mb-1.5 text-base  items-center"
+                  className="bg-secondary rounded-lg px-2 py-1 font-bold mx-2  mb-1.5 text-base  items-center"
                   key={course.name}
                 >
                   {course.name}

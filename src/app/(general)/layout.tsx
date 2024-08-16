@@ -10,7 +10,7 @@ export default function GeneralLayout({
     <div>
       <NavBar />
 
-      <main className="bg-page-gradient pt-navigation-height"> {children}</main>
+      <main className=" pt-navigation-height"> {children}</main>
 
       <Footer />
     </div>

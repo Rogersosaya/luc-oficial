@@ -24,7 +24,7 @@ function UserReaction({reactionItem}:Props) {
             </div>
           </div>
           {
-            reactionItem.value==="like" ?  <AiOutlineLike className="text-secondary " size={25} /> : <AiOutlineDislike className="text-danger" size={25} />
+            reactionItem.value==="like" ?  <AiOutlineLike className="text-primary " size={25} /> : <AiOutlineDislike className="text-danger" size={25} />
           }
           
           

@@ -65,7 +65,7 @@ function Valuation({ teacher }: Props) {
             
           </div>
           <div className="flex justify-center mt-3 items-center">
-          <FaUser  className="text-secondary" size={20} />
+          <FaUser  className="" size={20} />
             <span className="ml-2 text-lg">{valorations.length}</span>
           </div>
         </div>

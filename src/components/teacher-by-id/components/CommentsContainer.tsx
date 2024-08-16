@@ -37,7 +37,7 @@ function CommentsContainer({ teacher, comments }: Props) {
   return (
     <>
       <div className="text-md font-bold mb-1 flex items-center">
-        <FaRegComments className="mr-2 text-secondary" />
+        <FaRegComments className="mr-2 text-primary" />
         <div>Comentarios</div> 
       </div>
       <span className=" mb-5 text-slate-400 text-xs leading-5">(Recuerda comentar siempre con respeto)</span>

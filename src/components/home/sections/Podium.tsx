@@ -34,7 +34,7 @@ async function Podium() {
         </div>
 
         <div className="mb-12 ">
-          <FaCrown className="mx-auto text-yellow-400  text-6xl md:text-8xl" />
+          <FaCrown className="mx-auto text-[#FFCE3C]  text-6xl md:text-8xl" />
           <div className="flex justify-center">
             <div className="text-center mt-16 md:-mr-9 -mr-4 flex flex-col items-center">
               <div className="relative ">
@@ -61,7 +61,7 @@ async function Podium() {
                     return (
                       <FaStar
                         className={
-                          currentRating <= top2.averageRating ? "text-danger" : ""
+                          currentRating <= top2.averageRating ? "text-[#FFCE3C]" : ""
                         }
                         key={index}
                         size={18}
@@ -85,7 +85,7 @@ async function Podium() {
             </div>
             <div className="text-center z-1 flex flex-col items-center">
               <div className="relative">
-                <div className="rounded-full overflow-hidden border-5 border-yellow-400 relative text-center h-52 md:h-96 w-52 md:w-96">
+                <div className="rounded-full overflow-hidden border-5 border-[#FFCE3C] relative text-center h-52 md:h-96 w-52 md:w-96">
                   <Image
                     src="/teacher.png"
                     alt=""
@@ -93,7 +93,7 @@ async function Podium() {
                     objectFit="cover"
                   />
                 </div>
-                <div className="rounded-full absolute text-3xl bg-yellow-400  text-white bottom-0 left-1/2 transform -translate-x-1/2 -mb-3 w-10 h-10 text-center font-bold">
+                <div className="rounded-full absolute text-3xl bg-[#FFCE3C]  text-white bottom-0 left-1/2 transform -translate-x-1/2 -mb-3 w-10 h-10 text-center font-bold">
                   1
                 </div>
               </div>
@@ -107,7 +107,7 @@ async function Podium() {
                     return (
                       <FaStar
                         className={
-                          currentRating <= top1.averageRating ? "text-danger" : ""
+                          currentRating <= top1.averageRating ? "text-[#FFCE3C]" : ""
                         }
                         key={index}
                         size={18}
@@ -152,7 +152,7 @@ async function Podium() {
                     return (
                       <FaStar
                         className={
-                          currentRating <= top3.averageRating ? "text-danger" : ""
+                          currentRating <= top3.averageRating ? "text-[#FFCE3C]" : ""
                         }
                         key={index}
                         size={18}

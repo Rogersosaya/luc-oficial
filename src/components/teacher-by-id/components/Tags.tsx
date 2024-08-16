@@ -57,13 +57,13 @@ function Tags({ teacher }: Props) {
   return (
     <>
       <div className="text-md font-bold mb-2 flex items-center ">
-        <FaTags className="mr-2 text-secondary" />
+        <FaTags className="mr-2 text-primary" />
         Etiquetas
       </div>
       <div className="flex flex-wrap ">
         {result.map((tag) => {
           return (
-            <div key={tag.name} className="bg-secondary rounded-lg text-slate-950 px-2 py-1 font-bold mx-2  mb-2 text-base flex items-center">
+            <div key={tag.name} className="bg-secondary rounded-lg  px-2 py-1 font-bold mx-2  mb-2 text-base flex items-center">
               {tag.name}
               <FaUser className="ml-2 mr-0.5" />
 

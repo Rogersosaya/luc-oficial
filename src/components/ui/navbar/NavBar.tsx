@@ -22,7 +22,6 @@ function NavBar() {
     return () => clearTimeout(timer);
   }, []);
 
-
   const [hamburgerMenuIsOpen, setHamburgerMenuIsOpen] = useState(false);
   useEffect(() => {
     const html = document.querySelector("html");
@@ -56,7 +55,7 @@ function NavBar() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 z-10 w-full border-b border-transparent-white backdrop-blur-[12px]">
+    <header className="fixed top-0 left-0 z-10 w-full border-b border-transparent-white backdrop-blur-[12px] bg-[#1b1a19]">
       <Container className="flex h-navigation-height">
         <Logo className="h-13" />
         <Link className="flex items-center text-md" href="/">
@@ -86,7 +85,12 @@ function NavBar() {
             >
               {pages.map((page) => (
                 <li key={page.title}>
-                  <Link onClick={()=>setHamburgerMenuIsOpen(false)} href={page.route}>{page.title}</Link>
+                  <Link
+                    onClick={() => setHamburgerMenuIsOpen(false)}
+                    href={page.route}
+                  >
+                    {page.title}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -111,8 +115,10 @@ function NavBar() {
                   size="sm"
                   src={session.user.image ?? "/teachers/icono.png"}
                 />
-                
-                <Button size="lg" className=" font-bold " 
+
+                <Button
+                  size="lg"
+                  className=" font-bold "
                   onClick={() => {
                     signOut();
                   }}
@@ -121,9 +127,15 @@ function NavBar() {
                 </Button>
               </div>
             ) : (
-              <Button size="lg" className="bg-secondary text-black font-bold py-3 px-4" onClick={() => signIn()}>
-                INICIAR SESIÓN
-              </Button>
+              <div className="bg-gradient-to-r to-primary from-secondary rounded-xl p-[2px] ">
+                <button
+                  
+                  className="  font-bold py-3 px-4 bg-[#1b1a19] rounded-xl"
+                  onClick={() => signIn()}
+                >
+                  INICIAR SESIÓN
+                </button>
+              </div>
             ))}
 
           {/* <Link className="mr-6 text-sm" href="/auth/login">

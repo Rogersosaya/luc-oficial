@@ -50,7 +50,7 @@ const CardDisplayTrue = ({ teacher }: Props) => (
           courseValue = courseValue.slice(0, 20) + "...";
         }
         return (
-          <div className="bg-secondary rounded-lg text-black px-2 py-1 font-bold mx-2  mb-1.5 text-base  items-center" key={course.name}>
+          <div className="bg-secondary rounded-lg text-white px-2 py-1 font-bold mx-2  mb-1.5 text-base  items-center" key={course.name}>
             {courseValue}
           </div>
         );
@@ -141,7 +141,7 @@ const CardDisplayFalse = ({ teacher }: Props) => {
         <span className="ml-2 text-lg">{truesPercentage}%</span>
       </div>
       <div className="flex justify-center items-center mb-5">
-        <FaUser className="text-secondary" size={20} />
+        <FaUser className="" size={20} />
         <span className="ml-2 text-lg">{cantValorations}</span>
       </div>
       <div className="flex justify-center items-center my-1">
@@ -149,7 +149,7 @@ const CardDisplayFalse = ({ teacher }: Props) => {
           <Button
             size="lg"
             color="primary"
-            className=" text-white shadow-lg text-md font-bold"
+            className=" text-md px-5 py-5 font-bold bg-gradient-to-r to-primary from-secondary "
           >
             Ver más
           </Button>

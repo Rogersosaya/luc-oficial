@@ -56,7 +56,7 @@ function TeachersSwiper({teachers}: Props) {
       </div>
       <div className="text-center">
       <Link href="/teachers" >
-      <Button color="primary" size="lg" className=" mx-auto text-xl font-bold py-6">Ver todos</Button>
+      <Button color="primary" size="lg" className=" text-lg px-6 py-6 font-bold bg-gradient-to-r to-primary from-secondary">Ver todos</Button>
       </Link>
       </div>
       <Swiper 
