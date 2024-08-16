@@ -6,6 +6,7 @@ export const getTeachersAndValorations = async () => {
     const teachers = await prisma.teacher.findMany({
       select: {
         name: true,
+        slug:true,
         valorations: {
           select: {
             rating: true,
@@ -38,6 +39,7 @@ export const getTeachersAndValorations = async () => {
               0
             ) / teacher.valorations.length
           ).toFixed(1),
+          urlTeacher: `luc-uni.vercel.app/teacher/${teacher.slug}`
         },
       
     }));
