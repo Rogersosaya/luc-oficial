@@ -33,14 +33,14 @@ const config: Config = {
         white: "#fff",
         "off-white": "#f7f8f8",
         "transparent-white": "rgba(255, 255, 255, 0.08)",
-        background: "#000e22",
+        // background: "#000e22",
         grey: "#858699",
         "grey-dark": "#222326",
         "primary-text": "#b4bcd0",
-        primary: "#0F17FF",
-        secondary: "#4AFFE7",
+        primary: "#025caa",
+        secondary: "#222b91",
         
-        danger:"#FE08FE",
+        danger:"#ef4444",
         tertiary: 'rgb(21 16 48)'
         
       },

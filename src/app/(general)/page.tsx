@@ -28,7 +28,10 @@ async function GeneralPage() {
           usersTotal={usersTotal!}
         />
       </Container>
+      <Container>
       <CommentsFast />
+
+      </Container>
       <Podium />
       <Container>
         <TeachersSwiper teachers={teachers} />

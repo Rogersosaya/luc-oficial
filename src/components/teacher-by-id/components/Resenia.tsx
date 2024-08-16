@@ -36,7 +36,7 @@ function Resenia({ teacher }: Props) {
   return (
     <>
       <div className="text-md font-bold mb-2 flex items-center">
-        <MdReviews className="mr-2 text-secondary" />
+        <MdReviews className="mr-2 text-primary" />
         Reseña de estudiantes
       </div>
       <div className="flex flex-wrap justify-center">
@@ -52,7 +52,7 @@ function Resenia({ teacher }: Props) {
           <div className="flex">
             <div className="flex flex-col items-center">
               <div>
-                <AiOutlineLike size={100} className="text-secondary" />
+                <AiOutlineLike size={100} className="text-primary" />
               </div>
               <div className="text-xl">{truesPercentage}%</div>
             </div>
@@ -60,7 +60,7 @@ function Resenia({ teacher }: Props) {
               <div>
                 <AiOutlineDislike
                   size={100}
-                  className="text-danger"
+                  className="text-red-500"
                   style={{ transform: "scaleX(-1)" }}
                 />
               </div>

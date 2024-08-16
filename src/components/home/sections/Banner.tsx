@@ -20,8 +20,8 @@ function Banner() {
       <Link href={"/teachers"}>
         
         <Button
-          className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:600ms] text-lg px-6 py-6 font-bold "
-          color="primary" size="lg"
+          className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:600ms] text-lg px-6 py-6 font-bold bg-gradient-to-r to-primary from-secondary "
+           size="lg"
         >
           Empezar
           

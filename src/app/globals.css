@@ -5,11 +5,13 @@
 @layer base {
   :root {
     --navigation-height: 4.8rem;
+    --primary: #025caa;
+    --secondary: #222b91;
   }
 
   html {
     font-size: 62.5%;
-    background-image: linear-gradient(to right top, #000e22, #000c20, #010a1e, #00081c, #00061a);
+    /* background-image: linear-gradient(to right top, #000e22, #000c20, #010a1e, #00081c, #00061a); */
   }
 
   .highlighted-keys .active rect:first-child {
@@ -71,8 +73,8 @@
   }
   .green-pink-gradient {
     background: "#00cea8";
-    background: linear-gradient(90.13deg, #00d292 1.9%, #0187ff 97.5%);
-    background: -webkit-linear-gradient(-90.13deg, #00d292 1.9%, #0187ff 97.5%);
+    background: linear-gradient(90.13deg, var(--secondary) 1.9%, var(--primary) 97.5%);
+    background: -webkit-linear-gradient(-90.13deg, var(--secondary) 1.9%, var(--primary) 97.5%);
   }
 }
 @property --angle {
@@ -98,8 +100,8 @@
 	--angle: 90deg;
 	--gradX: 100%;
 	--gradY: 50%;
-	--c1: #4AFFE7;
-	--c2: #0F17FF;
+	--c1: var(--secondary);
+	--c2: var(--primary);
 	
 	border: 0.35rem solid;
 	border-radius: 205px;

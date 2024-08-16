@@ -5,8 +5,7 @@ function AboutPage() {
   return (
     <div>
       <Container className="text-sm">
-        <div>gaaaaa</div>
-        <div className="mt-4 ">Me dió flojera hacer esta vista :v</div>
+        
         <div className="mt-3">Miembros de LUC:</div>
         bob, leolin, yucra, jordex14, kazuo, edward, césar, tuki, elias,joel,
         ydenek, this_is_AM, luis y yo
@@ -39,6 +38,9 @@ function AboutPage() {
         <li>
           Gracias por tomarte el tiempo de entrar, si pudieras comentar o valorar algún profesor que te enseñó para llenar de contenido la página, estaría piola :).
         </li>
+        <li className="mt-4">Ahora la página es de código abierto, <a target="_blank" className="text-sky-500" href="https://github.com/Rogersosaya/luc-oficial"> puedes ver todo el código aqui</a></li>
+        <li>Próximo proyecto: Página de la semana FIIS, 90% terminado</li>
+        
       </Container>
     </div>
   );

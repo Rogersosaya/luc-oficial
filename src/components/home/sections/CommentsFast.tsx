@@ -4,6 +4,7 @@ import CardCommentFast from '../components/CardCommentFast';
 import Container from '@/components/container/Container';
 import { getCommentsRecent } from '@/actions/comment/get-comments-recent';
 import Line from '../../ui/line/Line';
+import SwiperComments from '../components/SwiperComments';
 
 async function CommentsFast() {
   const commentsRecent = await getCommentsRecent()
@@ -22,16 +23,16 @@ async function CommentsFast() {
         </p>
       </div>
     </Container>
-    <div className="mb-8" >
-        
-      <Marquee>
+    <div className="mb-8  from-zinc-950 to-zinc-700 bg-gradient-to-r mt-24 py-6 px-4 rounded-lg" >
+        <SwiperComments commentsRecent={commentsRecent}/>
+      {/* <Marquee>
         {
             commentsRecent.map((comment) => {
                 return (<CardCommentFast key={comment.id} comment={comment} />)
             })
         }
         
-      </Marquee>
+      </Marquee> */}
     </div>
     </div>
   )
