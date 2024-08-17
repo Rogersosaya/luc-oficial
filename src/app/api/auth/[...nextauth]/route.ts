@@ -14,9 +14,7 @@ const handler = NextAuth({
     async signIn({ user }) {
       // Check if email exists
       // console.log(user.email)
-
       // console.log(userExists);
-
       if (!user.email?.endsWith("@uni.pe")) {
         return false;
       }
