@@ -3,47 +3,81 @@ import prisma from "../../lib/prisma";
 
 export const getTeachersAndValorations = async () => {
   try {
-    const teachers = await prisma.teacher.findMany({
+    const courses = await prisma.course.findMany({
       select: {
         name: true,
-        slug:true,
-        valorations: {
+        teachers: {
           select: {
-            rating: true,
-            difficulty: true,
-            learning: true,
+            teacher: {
+              select: {
+                name: true,
+                slug: true,
+                valorations: {
+                  select: {
+                    rating: true,
+                    difficulty: true,
+                    learning: true,
+                  },
+                },
+              },
+            },
           },
         },
       },
     });
-
-    const valorationsProm = teachers.map((teacher) => ({
-      name: teacher.name,
-      valorations: 
-        {
+    const valorationsProm = courses.map((course) => ({
+      courseName: course.name,
+      teachers: course.teachers.map((teacher) => ({
+        teacherName: teacher.teacher.name,
+        teacherSlug: teacher.teacher.slug,
+        teacherUrl: `luc-uni.vercel.app/teacher/${teacher.teacher.slug}`,
+        valorations: {
           ratingProm: (
-            teacher.valorations.reduce(
+            teacher.teacher.valorations.reduce(
               (acc, valoration) => acc + valoration.rating,
               0
-            ) / teacher.valorations.length
+            ) / teacher.teacher.valorations.length
           ).toFixed(0),
           difficultyProm: (
-            teacher.valorations.reduce(
-              (acc, valoration) => acc + valoration.rating,
+            teacher.teacher.valorations.reduce(
+              (acc, valoration) => acc + valoration.difficulty,
               0
-            ) / teacher.valorations.length
+            ) / teacher.teacher.valorations.length
           ).toFixed(0),
           learningProm: (
-            teacher.valorations.reduce(
+            teacher.teacher.valorations.reduce(
               (acc, valoration) => acc + valoration.learning,
               0
-            ) / teacher.valorations.length
+            ) / teacher.teacher.valorations.length
           ).toFixed(0),
-          urlTeacher: `luc-uni.vercel.app/teacher/${teacher.slug}`
         },
-      
+      })),
     }));
-    return valorationsProm;
+    // const valorationsProm = teachers.map((teacher) => ({
+    //   name: teacher.name,
+    //   valorations: {
+    //     ratingProm: (
+    //       teacher.valorations.reduce(
+    //         (acc, valoration) => acc + valoration.rating,
+    //         0
+    //       ) / teacher.valorations.length
+    //     ).toFixed(0),
+    //     difficultyProm: (
+    //       teacher.valorations.reduce(
+    //         (acc, valoration) => acc + valoration.rating,
+    //         0
+    //       ) / teacher.valorations.length
+    //     ).toFixed(0),
+    //     learningProm: (
+    //       teacher.valorations.reduce(
+    //         (acc, valoration) => acc + valoration.learning,
+    //         0
+    //       ) / teacher.valorations.length
+    //     ).toFixed(0),
+    //
+    //   },
+    // }));
+    return valorationsProm ;
   } catch (error) {
     console.log(error);
     return [];
