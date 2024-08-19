@@ -41,7 +41,7 @@ function SwiperComments({ commentsRecent }: Props) {
       breakpoints={{
         // when window width is >= 320px
         320: {
-          slidesPerView: 1.5,
+          slidesPerView: 1.4,
         },
         // when window width is >= 480px
         480: {
