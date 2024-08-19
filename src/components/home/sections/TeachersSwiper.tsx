@@ -70,7 +70,7 @@ function TeachersSwiper({teachers}: Props) {
           disableOnInteraction: false,
         }}
         loop={true}
-
+        
         breakpoints={{
           // when window width is >= 320px
           320: {

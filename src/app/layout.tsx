@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import Head from "next/head";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +23,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
   return (
     <html
       className="dark bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-850  font-sans text-off-white"
@@ -30,7 +30,10 @@ export default function RootLayout({
       lang="en"
     >
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <SpeedInsights />
+        </Providers>
       </body>
     </html>
   );
