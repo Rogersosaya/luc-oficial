@@ -29,6 +29,13 @@ export default function RootLayout({
       style={{ fontSize: "62.5%" }}
       lang="en"
     >
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8176473734031711"
+        crossOrigin="anonymous"
+      ></script>
+      <meta name="google-adsense-account" content="ca-pub-8176473734031711"></meta>
+
       <body>
         <Providers>
           {children}
