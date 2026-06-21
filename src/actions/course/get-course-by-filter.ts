@@ -1,5 +1,6 @@
-"use server ";
+"use server";
 import prisma from "../../lib/prisma";
+import { unstable_cache } from "next/cache";
 
 interface Props {
   faculty: string;
@@ -9,38 +10,26 @@ interface Props {
 
 export const getCoursesByFilter = async ({ faculty, career, cycle }: Props) => {
   try {
-    const courses = await prisma.course.findMany({
-      include: {
-        filters: {
-          include: {
-            career: {
-              include: {
-                faculty: true,
+    return await unstable_cache(
+      async () =>
+        prisma.course.findMany({
+          where: {
+            filters: {
+              some: {
+                career: {
+                  name: career || undefined,
+                  faculty: { name: faculty || undefined },
+                },
+                cycle: { name: cycle || undefined },
               },
             },
-            cycle: true,
           },
-        },
-      },
-      where: {
-        filters: {
-          some: {
-            career: {
-              faculty: {
-                name: faculty || {},
-              },
-              name: career || {},
-            },
-            cycle: {
-              name: cycle || {}
-            }
-          },
-        },
-      },
-    });
-
-    
-    return courses;
+          orderBy: { name: "asc" },
+          select: { id: true, name: true },
+        }),
+      ["courses-by-filter", faculty ?? "", career ?? "", cycle ?? ""],
+      { revalidate: 3600, tags: ["taxonomy"] }
+    )();
   } catch (error) {
     console.log(error);
     return [];

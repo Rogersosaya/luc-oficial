@@ -1,13 +1,14 @@
-import classNames from "classnames"
+import { cn } from "@/lib/utils";
+
 export default function Container({
- children,
- className,
+  children,
+  className,
 }: {
- children: React.ReactNode;
- className?:string
+  children: React.ReactNode;
+  className?: string;
 }) {
   return (
-    <div className={classNames('mx-auto max-w-[120rem] px-8', className)}>
+    <div className={cn("mx-auto w-full max-w-content px-5 sm:px-6 lg:px-8", className)}>
       {children}
     </div>
   );

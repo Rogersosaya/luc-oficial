@@ -1,18 +1,75 @@
-import { useTeacherStore } from "@/store/teacherStore";
+"use client";
+
+import { Star, Fire, BookOpen, ThumbsUp, ThumbsDown } from "@phosphor-icons/react";
 import { useValorationValuesStore } from "@/store/valorationValuesStore";
-import { Tab, Tabs } from "@nextui-org/react";
-import classNames from "classnames";
-import React, { useState } from "react";
-import {
-  AiFillFire,
-  AiOutlineFire,
-  AiOutlineLike,
-  AiOutlineDislike,
-} from "react-icons/ai";
-import { FaRegStar, FaStar } from "react-icons/fa6";
-import { IoBook, IoBookOutline } from "react-icons/io5";
+import { cn } from "@/lib/utils";
+
+const TAGS = [
+  "Prepárate para leer",
+  "Tiene vocación por el curso",
+  "Invita a participar",
+  "Zzzzzzz",
+  "Trabajos grupales",
+  "Learn English",
+  "Exposiciones",
+  "Muchas tareas",
+  "Se aprueba pero no se pondera",
+  "Da puntos extras",
+  "Ponderable",
+  "Pruebas pesadas, pedirás otro cuadernillo",
+  "Grosero",
+  "Muy exigente",
+  "Desorganizado",
+  "Llega tarde a las clases",
+  "Buena onda",
+  "Te cuenta su vida",
+  "Es importante que asistas a sus clases",
+];
+
+function IconScale({
+  label,
+  hint,
+  value,
+  onChange,
+  Icon,
+  color,
+}: {
+  label: string;
+  hint?: string;
+  value: number;
+  onChange: (v: number) => void;
+  Icon: React.ElementType;
+  color: string;
+}) {
+  return (
+    <div>
+      <div className="flex items-baseline justify-between">
+        <label className="text-sm font-semibold">
+          {label}
+          {hint && <span className="ml-1 font-normal text-muted-foreground">{hint}</span>}
+        </label>
+        <span className="tabular text-sm font-semibold">{value}</span>
+      </div>
+      <div className="mt-2 flex gap-1.5">
+        {[1, 2, 3, 4, 5].map((n) => (
+          <button
+            key={n}
+            type="button"
+            aria-label={`${label}: ${n}`}
+            aria-pressed={n <= value}
+            onClick={() => onChange(n)}
+            className="rounded-md p-1 transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            style={{ color: n <= value ? color : "hsl(var(--border))" }}
+          >
+            <Icon size={26} weight="fill" />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function ModalValorationBody() {
-  const { teacherId } = useTeacherStore();
   const {
     rating,
     setRating,
@@ -26,159 +83,95 @@ function ModalValorationBody() {
     setTags,
   } = useValorationValuesStore();
 
-  const array = [...Array(5)];
-  const toggleTag = (tag: string) => {
-    if (tags.includes(tag)) {
-      // Si la etiqueta ya está en el array, la eliminamos
-      setTags(tags.filter((t) => t !== tag));
-    } else {
-      // Si la etiqueta no está en el array, la agregamos
-      setTags([...tags, tag]);
-    }
-  };
-  const tagsData = [
-    "Prepárate para leer",
-    "Tiene vocación por el curso",
-    "Invita a participar",
-    "Zzzzzzz",
-    "Trabajos grupales",
-    "Learn English",
-    "Exposiciones",
-    "Muchas tareas",
-    "Se aprueba pero no se pondera",
-    "Da puntos extras",
-    "Ponderable",
-    "Pruebas pesadas, pedirás otro cuadernillo",
-    "Grosero",
-    "Muy exigente",
-    "Desorganizado",
-    "Llega tarde a las clases",
-    "Buena onda",
-    "Te cuenta su vida",
-    "Es importante que asistas a sus clases",
-  ];
+  const toggleTag = (tag: string) =>
+    setTags(tags.includes(tag) ? tags.filter((t) => t !== tag) : [...tags, tag]);
+
   return (
-    <>
-      <div className="mb-3">
-        <div className="text-sm font-bold">Valoración General</div>
-        <div className="flex  items-center">
-          {array.map((_, index) => {
-            const current = index + 1;
-            return (
-              <div key={index}>
-                {current <= rating ? (
-                  <FaStar
-                    className="text-yellow-400 cursor-pointer"
-                    
-                    size={20}
-                    onClick={() => setRating(current)}
-                  />
-                ) : (
-                  <FaRegStar
-                    className="text-yellow-400 cursor-pointer"
-                   
-                    size={20}
-                    onClick={() => setRating(current)}
-                  />
-                )}
-              </div>
-            );
-          })}
+    <div className="flex flex-col gap-5">
+      <IconScale
+        label="Valoración general"
+        value={rating}
+        onChange={setRating}
+        Icon={Star}
+        color="hsl(var(--metric-rating))"
+      />
+      <IconScale
+        label="Dificultad"
+        hint="(¿qué tan difícil fue aprobar?)"
+        value={difficulty}
+        onChange={setDifficulty}
+        Icon={Fire}
+        color="hsl(var(--metric-difficulty))"
+      />
+      <IconScale
+        label="Aprendizaje"
+        hint="(¿cuánto aprendiste?)"
+        value={learning}
+        onChange={setLearning}
+        Icon={BookOpen}
+        color="hsl(var(--metric-learning))"
+      />
 
-          <span className="ml-2 text-lg">{rating}</span>
-        </div>
-      </div>
-      <div className="mb-3">
-        <div className="text-sm font-bold">Dificultad <span className="font-normal text-gray-400"> ( ¿Que tan difícil te resulto aprobar su curso?)</span></div>
-        <div className="flex  items-center ">
-        {array.map((_, index) => {
-            const current = index + 1;
-            return (
-              <div key={index}>
-                {current <= difficulty ? (
-                  <AiFillFire
-                    className="text-red-500 cursor-pointer"
-                    size={20}
-                    onClick={() => setDifficulty(current)}
-                  />
-                ) : (
-                  <AiOutlineFire
-                    className="text-red-500 cursor-pointer"
-                    size={20}
-                    onClick={() => setDifficulty(current)}
-                  />
-                )}
-              </div>
-            );
-          })}
-          
-          <span className="ml-2 text-lg">{difficulty}</span>
-        </div>
-      </div>
-      <div className="mb-3">
-      <div className="text-sm font-bold">Aprendizaje<span className="font-normal text-gray-400"> ( ¿Que tanto aprendiste con este profe?)</span></div>
-        <div className="flex  items-center">
-        {array.map((_, index) => {
-            const current = index + 1;
-            return (
-              <div key={index}>
-                {current <= learning ? (
-                  <IoBook
-                    className="text-blue-600 cursor-pointer"
-                    
-                    size={20}
-                    onClick={() => setLearning(current)}
-                  />
-                ) : (
-                  <IoBookOutline
-                    className="text-blue-600 cursor-pointer"
-                    size={20}
-                    onClick={() => setLearning(current)}
-                  />
-                )}
-              </div>
-            );
-          })}
-         
-
-          <span className="ml-2 text-lg">{learning}</span>
-        </div>
-      </div>
-      <div className="mb-3">
-        <div className="text-sm font-bold">¿Lo volverías a llevar?</div>
-        <div className="flex">
-          <AiOutlineLike
-            className={`cursor-pointer ${repeat ? "text-primary" : ""}`}
+      <div>
+        <label className="text-sm font-semibold">¿Lo volverías a llevar?</label>
+        <div className="mt-2 flex gap-2">
+          <button
+            type="button"
             onClick={() => setRepeat(true)}
-            size={30}
-          />
-          <AiOutlineDislike
-            className={`cursor-pointer ml-4 ${!repeat ? "text-danger" : ""}`}
+            aria-pressed={repeat}
+            className={cn(
+              "inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-colors",
+              repeat
+                ? "border-transparent bg-[hsl(var(--metric-repeat)/0.15)] text-[hsl(var(--metric-repeat))]"
+                : "border-border text-muted-foreground hover:bg-muted"
+            )}
+          >
+            <ThumbsUp size={18} weight={repeat ? "fill" : "regular"} /> Sí
+          </button>
+          <button
+            type="button"
             onClick={() => setRepeat(false)}
-            size={30}
-          />
+            aria-pressed={!repeat}
+            className={cn(
+              "inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-colors",
+              !repeat
+                ? "border-transparent bg-destructive/10 text-destructive"
+                : "border-border text-muted-foreground hover:bg-muted"
+            )}
+          >
+            <ThumbsDown size={18} weight={!repeat ? "fill" : "regular"} /> No
+          </button>
         </div>
       </div>
-      <div className="mb-3">
-        <div className="text-sm font-bold mb-2">Etiquetas</div>
-        <div className="flex flex-wrap">
-          {tagsData.map((tagName) => {
+
+      <div>
+        <label className="text-sm font-semibold">Etiquetas</label>
+        <p className="text-xs text-muted-foreground">
+          Elige las que describan mejor su clase.
+        </p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {TAGS.map((tag) => {
+            const active = tags.includes(tag);
             return (
-              <div key={tagName} 
-                className={`bg-secondary rounded-lg  px-2 py-1 font-bold mr-2 mb-2 text-base flex items-center cursor-pointer select-none ${
-                  tags.includes(tagName)
-                    ? "bg-secondary"
-                    : "bg-slate-400 opacity-50"
-                }`}
-                onClick={() => toggleTag(tagName)}
+              <button
+                key={tag}
+                type="button"
+                aria-pressed={active}
+                onClick={() => toggleTag(tag)}
+                className={cn(
+                  "rounded-lg px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  active
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground hover:bg-muted/70"
+                )}
               >
-                {tagName}
-              </div>
+                {tag}
+              </button>
             );
           })}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

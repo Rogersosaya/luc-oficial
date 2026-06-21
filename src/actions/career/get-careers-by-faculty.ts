@@ -1,25 +1,21 @@
-
-'use server '
+"use server";
 import prisma from "../../lib/prisma";
+import { unstable_cache } from "next/cache";
 
-export const getCareersByFaculty = async ({faculty}: {faculty:string}) => {
+export const getCareersByFaculty = async ({ faculty }: { faculty: string }) => {
   try {
-    const careers = await prisma.career.findMany({
-      include: {
-        faculty:true
-      },
-      where: {
-        faculty: {
-          name: faculty || {}
-        }
-      }
-    }
-    );
-    
-    return careers;
+    return await unstable_cache(
+      async () =>
+        prisma.career.findMany({
+          where: { faculty: { name: faculty || undefined } },
+          orderBy: { name: "asc" },
+          include: { faculty: true },
+        }),
+      ["careers-by-faculty", faculty ?? ""],
+      { revalidate: 3600, tags: ["taxonomy"] }
+    )();
   } catch (error) {
     console.log(error);
     return [];
   }
 };
-

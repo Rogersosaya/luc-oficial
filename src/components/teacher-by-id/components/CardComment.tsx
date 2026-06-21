@@ -1,20 +1,15 @@
-import {
-  Avatar,
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Textarea,
-} from "@nextui-org/react";
-
-import DropdownDetails from "./DropdownDetails";
-import { User } from "@/interfaces/user.interface";
-import ButtonsReactions from "./ButtonsReactions";
+"use client";
 
 import { useState } from "react";
+import DropdownDetails from "./DropdownDetails";
+import ButtonsReactions from "./ButtonsReactions";
+import { User } from "@/interfaces/user.interface";
 import { ValueReaction } from "@/interfaces/reaction.interface";
 import { useCommentStore } from "@/store/commentStore";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/primitives/Avatar";
+import { initials } from "@/lib/utils";
+import { Textarea } from "@/components/ui/primitives/Field";
+import { Button } from "@/components/ui/primitives/Button";
 
 interface PropsReaction {
   user: User;
@@ -23,106 +18,75 @@ interface PropsReaction {
 interface CommentProps {
   id: string;
   value: string;
-  occult:boolean;
+  occult: boolean;
   user: User;
   reactions: PropsReaction[];
   editEnabled?: boolean;
 }
-interface Props {
-  comment: CommentProps;
-}
 
-function CardComment({ comment }: Props) {
-  const [value, setValue] = useState(comment.value);
-  const [disabledState, setdisabledState] = useState(true);
+function CardComment({ comment }: { comment: CommentProps }) {
+  const [draft, setDraft] = useState(comment.value);
   const { updateComment, editUnabledComment } = useCommentStore();
-  const HandleTextArea = (value: string) => {
-    setValue(value);
-    if (value.trim() == "") {
-      return setdisabledState(true);
-    }
+  const anon = comment.occult;
 
-    setdisabledState(false);
-  };
-  const sendComment = () => {
+  const save = () => {
+    if (draft.trim() === "") return;
     editUnabledComment(comment.id, false);
-    updateComment(comment.id, value);
+    updateComment(comment.id, draft.trim());
   };
+
   return (
-    <Card className="w-full bg-transparent border border-slate-600 mb-2">
-      <CardHeader className="justify-between">
-        {comment.occult ? (
-          <div className="flex gap-5">
-            <Avatar isBordered radius="full" size="md" />
-            <div className="flex flex-col gap-1 items-start justify-center">
-              <h4 className="text-small font-semibold leading-none text-default-600">
-                Anónimo
-              </h4>
-
-              <h5 className="text-small tracking-tight text-default-400">
-                ********************@uni.pe
-              </h5>
-            </div>
+    <article className="rounded-2xl border border-border bg-card p-5">
+      <header className="flex items-start justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <Avatar className="size-10">
+            {!anon && comment.user?.image && (
+              <AvatarImage src={comment.user.image} alt="" />
+            )}
+            <AvatarFallback>
+              {anon ? "?" : initials(comment.user?.name)}
+            </AvatarFallback>
+          </Avatar>
+          <div className="min-w-0">
+            <p className="text-sm font-semibold leading-tight">
+              {anon ? "Anónimo" : comment.user?.name}
+            </p>
+            <p className="truncate text-xs text-muted-foreground">
+              {anon ? "Estudiante de la UNI" : comment.user?.email}
+            </p>
           </div>
-        ) : (
-          <div className="flex gap-5">
-            <Avatar
-              isBordered
-              radius="full"
-              size="md"
-              src={comment.user.image!}
-            />
-            <div className="flex flex-col gap-1 items-start justify-center">
-              <h4 className="text-small font-semibold leading-none text-default-600">
-                {comment.user.name}
-              </h4>
-
-              <h5 className="text-small tracking-tight text-default-400">
-                {comment.user.email}
-              </h5>
-            </div>
-          </div>
-        )}
-
+        </div>
         <DropdownDetails comment={comment} />
-      </CardHeader>
-      <CardBody className="px-3 py-0 text-small text-default-600 overflow-hidden">
+      </header>
+
+      <div className="mt-3">
         {comment.editEnabled ? (
-          <>
-            <Textarea
-              size="lg"
-              variant="bordered"
-              className="w-full mb-2"
-              onValueChange={HandleTextArea}
-              value={value}
-            />
-            <div className="flex justify-end">
+          <div className="flex flex-col gap-2">
+            <Textarea value={draft} onChange={(e) => setDraft(e.target.value)} />
+            <div className="flex justify-end gap-2">
               <Button
-                color="default"
-                variant="bordered"
-                className="mr-3"
+                variant="ghost"
+                size="sm"
                 onClick={() => editUnabledComment(comment.id, false)}
               >
                 Cancelar
               </Button>
-              <Button
-                onClick={() => sendComment()}
-                isDisabled={disabledState}
-                color="primary"
-                variant="solid"
-              >
-                Editar
+              <Button size="sm" onClick={save} disabled={draft.trim() === ""}>
+                Guardar
               </Button>
             </div>
-          </>
+          </div>
         ) : (
-          <p className="text-xs md:text-base">{comment.value}</p>
+          <p className="whitespace-pre-line text-sm leading-relaxed text-foreground/90">
+            {comment.value}
+          </p>
         )}
-      </CardBody>
-      <CardFooter className="gap-3">
+      </div>
+
+      <footer className="mt-4">
         <ButtonsReactions comment={comment} />
-      </CardFooter>
-    </Card>
+      </footer>
+    </article>
   );
 }
 

@@ -1,182 +1,88 @@
-import Image from "next/image";
-import React from "react";
-
-import { FaStar } from "react-icons/fa6";
-import { FaUser } from "react-icons/fa";
-import { FaCrown } from "react-icons/fa";
-import { getTopTeachers } from "@/actions/teacher/get-top-teachers";
+import Link from "next/link";
+import { Trophy, ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { getTopTeachers, type TopTeacher } from "@/actions/teacher/get-top-teachers";
 import Container from "@/components/container/Container";
-import Line from "@/components/ui/line/Line";
+import { StarRating } from "@/components/ui/primitives/StarRating";
+import { cn, initials } from "@/lib/utils";
+
+const rankStyles = [
+  "text-[hsl(var(--metric-rating))]",
+  "text-muted-foreground",
+  "text-[hsl(var(--metric-difficulty))]",
+];
+
+function PodiumCard({ teacher, rank }: { teacher: TopTeacher; rank: number }) {
+  const featured = rank === 0;
+  return (
+    <Link
+      href={`/teacher/${teacher.slug}`}
+      className={cn(
+        "group relative flex flex-col items-center rounded-2xl border bg-card p-6 text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        featured ? "border-primary/40 shadow-md sm:-mt-4 sm:pb-8" : "border-border"
+      )}
+    >
+      <div className="absolute left-4 top-4 flex items-center gap-1">
+        <Trophy size={18} weight="fill" className={rankStyles[rank]} />
+        <span className="text-sm font-bold tabular text-muted-foreground">#{rank + 1}</span>
+      </div>
+
+      <span
+        aria-hidden
+        className={cn(
+          "mt-2 flex items-center justify-center rounded-2xl bg-primary-soft font-display font-bold text-primary",
+          featured ? "size-20 text-2xl" : "size-16 text-xl"
+        )}
+      >
+        {initials(teacher.name)}
+      </span>
+
+      <h3 className="mt-4 line-clamp-2 font-semibold leading-snug">{teacher.name}</h3>
+
+      <div className="mt-3 flex items-center gap-2">
+        <span className="font-display text-xl font-bold tabular">
+          {teacher.stats.avgRating.toFixed(1)}
+        </span>
+        <StarRating value={teacher.stats.avgRating} size={15} />
+      </div>
+      <p className="mt-1 text-xs text-muted-foreground">
+        {teacher.stats.count} valoraciones
+      </p>
+
+      <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary transition-transform group-hover:translate-x-0.5">
+        Ver perfil <ArrowRight size={14} weight="bold" />
+      </span>
+    </Link>
+  );
+}
 
 async function Podium() {
-  const topTeachers = await getTopTeachers();
-  const top1 = topTeachers[0];
-  const top2 = topTeachers[1];
-  const top3 = topTeachers[2];
+  const topTeachers = await getTopTeachers(3);
+  if (topTeachers.length === 0) return null;
 
-  const array = [...Array(5)];
+  // Visual podium order: 2nd, 1st, 3rd on desktop; natural order on mobile.
+  const desktopOrder = [topTeachers[1], topTeachers[0], topTeachers[2]].filter(Boolean);
+  const rankOf = (t: TopTeacher) => topTeachers.findIndex((x) => x.slug === t.slug);
+
   return (
-    <>
+    <section className="py-20">
       <Container>
-        <div className="text-center">
-          <h2 className="mb-4 text-4xl md:mb-7 md:text-7xl">
-            Los mejores profesores
-            <br className="hidden md:inline-block" />
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
+            Los mejores valorados
           </h2>
-
-          <Line />
-          <p className="mx-auto mb-12 max-w-[68rem] text-lg text-primary-text md:mb-7 md:text-xl">
-            Estos son los 3 mejores profesores según las valoraciones hechas por
-            los alumnos, este podio se armó promediando el puntaje de la
-            valoración general, sólo se tienen en cuenta profesores que cuenten
-            con más de 7 valoraciones
+          <p className="mt-3 text-muted-foreground">
+            Profesores con la calificación general más alta entre quienes superan
+            las 7 valoraciones.
           </p>
         </div>
 
-        <div className="mb-12 ">
-          <FaCrown className="mx-auto text-[#FFCE3C]  text-6xl md:text-8xl" />
-          <div className="flex justify-center">
-            <div className="text-center mt-16 md:-mr-9 -mr-4 flex flex-col items-center">
-              <div className="relative ">
-                <div className="rounded-full overflow-hidden border-5 border-primary relative text-center h-52 md:h-96 w-52 md:w-96">
-                  <Image
-                    src="/teacher.png"
-                    alt="imagen"
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                </div>
-                <div className="rounded-full absolute text-3xl bg-primary text-white bottom-0 left-1/2 transform -translate-x-1/2 -mb-3 w-10 h-10 text-center font-bold">
-                  2
-                </div>
-              </div>
-              <div className="mt-6 font-normal text-sm  md:text-xl text-slate-300 relative z-3 text leading-7 md:leading-10 mb-4 w-36  md:w-80 text-center">
-                {top2 ? <>{top2.name}</> : <>*********</>}
-              </div>
-              <div className="flex justify-center items-center">
-                {
-                  top2 ?<>{array.map((_, index) => {
-                    const currentRating = index + 1;
-  
-                    return (
-                      <FaStar
-                        className={
-                          currentRating <= top2.averageRating ? "text-[#FFCE3C]" : ""
-                        }
-                        key={index}
-                        size={18}
-                      />
-                    );
-                  })}</> : <>*********</>
-                }
-                
-                {
-                  top2 &&  <span className="ml-2 text-lg">{top2.averageRating.toFixed(1)}</span>
-                }
-               
-              </div>
-              <div className="flex justify-center mt-3 items-center">
-                <FaUser size={20} />
-                {
-                  top2 && <span className="ml-2 text-lg">{top2.valorations.length}</span>
-                }
-                
-              </div>
-            </div>
-            <div className="text-center z-1 flex flex-col items-center">
-              <div className="relative">
-                <div className="rounded-full overflow-hidden border-5 border-[#FFCE3C] relative text-center h-52 md:h-96 w-52 md:w-96">
-                  <Image
-                    src="/teacher.png"
-                    alt=""
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                </div>
-                <div className="rounded-full absolute text-3xl bg-[#FFCE3C]  text-white bottom-0 left-1/2 transform -translate-x-1/2 -mb-3 w-10 h-10 text-center font-bold">
-                  1
-                </div>
-              </div>
-              <div className="mt-6 font-normal text-sm  md:text-xl text-slate-300 relative z-3 text leading-7 md:leading-10 mb-4 w-36  md:w-80  text-center">
-              {top1 ? <>{top1.name}</> : <>*********</>}
-              </div>
-              <div className="flex justify-center items-center">
-              {
-                  top1 ?<>{array.map((_, index) => {
-                    const currentRating = index + 1;
-                    return (
-                      <FaStar
-                        className={
-                          currentRating <= top1.averageRating ? "text-[#FFCE3C]" : ""
-                        }
-                        key={index}
-                        size={18}
-                      />
-                    );
-                  })}</> : <>*********</>
-                }
-                {
-                  top1 &&  <span className="ml-2 text-lg">{top1.averageRating.toFixed(1)}</span>
-                }
-                
-              </div>
-              <div className="flex justify-center mt-3 items-center">
-                <FaUser size={20} />
-                {
-                  top1 && <span className="ml-2 text-lg">{top1.valorations.length}</span>
-                }
-                
-              </div>
-            </div>
-            <div className="text-center mt-28  md:-ml-9 -ml-4 flex flex-col items-center">
-              <div className="relative">
-                <div className="rounded-full overflow-hidden border-5 border-secondary relative text-center h-52 md:h-96 w-52 md:w-96">
-                  <Image
-                    src="/teacher.png"
-                    alt=""
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                </div>
-                <div className="rounded-full absolute text-3xl bg-secondary text-white bottom-0 left-1/2 transform -translate-x-1/2 -mb-3 w-10 h-10 text-center font-bold">
-                  3
-                </div>
-              </div>
-              <div className="mt-6 font-normal text-sm  md:text-xl text-slate-300 relative z-3 text leading-7 md:leading-10 mb-4 w-36  md:w-80 text-center">
-              {top3 ? <>{top3.name}</> : <>*********</>}
-              </div>
-              <div className="flex justify-center items-center">
-              {
-                  top3 ?<>{array.map((_, index) => {
-                    const currentRating = index + 1;
-                    return (
-                      <FaStar
-                        className={
-                          currentRating <= top3.averageRating ? "text-[#FFCE3C]" : ""
-                        }
-                        key={index}
-                        size={18}
-                      />
-                    );
-                  })}</> : <>*********</>
-                }
-                {
-                  top3 &&  <span className="ml-2 text-lg">{top3.averageRating.toFixed(1)}</span>
-                }
-                
-              </div>
-              <div className="flex justify-center mt-3 items-center">
-                <FaUser size={20} />
-                {
-                  top3 && <span className="ml-2 text-lg">{top3.valorations.length}</span>
-                }
-                
-              </div>
-            </div>
-          </div>
+        <div className="mx-auto mt-12 grid max-w-4xl items-stretch gap-4 sm:grid-cols-3">
+          {desktopOrder.map((teacher) => (
+            <PodiumCard key={teacher.slug} teacher={teacher} rank={rankOf(teacher)} />
+          ))}
         </div>
       </Container>
-    </>
+    </section>
   );
 }
 

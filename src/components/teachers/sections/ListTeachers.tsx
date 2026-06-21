@@ -1,36 +1,28 @@
-import React from "react";
-import CardTeachers from "../../ui/CardTeachers";
+import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
+import CardTeachers, { type TeacherCardData } from "@/components/ui/CardTeachers";
 
-import { Course } from "@/interfaces/course.interface";
-
-interface Valoration {
-  rating: number;
-  difficulty: number;
-  learning: number;
-  repeat: boolean;
-}
-
-interface Teacher {
-  name: string;
-  slug: string;
-  url: string;
-  valorations: Valoration[];
-  courses: Course[];
-}
-interface Props {
-  teachers: Teacher[] ;
-}
-
-function ListTeachers({ teachers }: Props) {
-  return (
-    <>
-      <div className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:800ms] grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 md:gap-12 gap-3 mt-9 px-2">
-        {teachers?.map((teacher) => (
-          <CardTeachers key={teacher.slug} teacher={teacher}/>
-        ))}
+function ListTeachers({ teachers }: { teachers: TeacherCardData[] }) {
+  if (!teachers || teachers.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border py-20 text-center">
+        <span className="flex size-12 items-center justify-center rounded-full bg-muted text-muted-foreground">
+          <MagnifyingGlass size={22} />
+        </span>
+        <h3 className="mt-4 text-lg font-semibold">Sin resultados</h3>
+        <p className="mt-1 max-w-sm text-sm text-muted-foreground">
+          No encontramos profesores con esos filtros. Prueba con otra búsqueda o
+          limpia los filtros.
+        </p>
       </div>
-      <div></div>
-    </>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {teachers.map((teacher) => (
+        <CardTeachers key={teacher.slug} teacher={teacher} />
+      ))}
+    </div>
   );
 }
 

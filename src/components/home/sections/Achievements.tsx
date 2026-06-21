@@ -1,84 +1,40 @@
-"use client";
-import React from "react";
-import dynamic from "next/dynamic";
-import { FaRegUser } from "react-icons/fa";
-import { FaComments } from "react-icons/fa";
-import { GiTeacher } from "react-icons/gi";
-import { MdOutlineStarRate } from "react-icons/md";
+import { Users, ChatCircleText, Star, ChalkboardTeacher } from "@phosphor-icons/react/dist/ssr";
+import { CountUp } from "@/components/ui/primitives/CountUp";
 
-const AnimatedNumbers = dynamic(
-  () => {
-    return import("react-animated-numbers");
-  },
-  { ssr: false }
-);
-
-
-interface Props{
-  teachersTotal: number,
-  commentsTotal: number,
-  valorationsTotal: number,
-  usersTotal: number,
+interface Props {
+  teachersTotal: number;
+  commentsTotal: number;
+  valorationsTotal: number;
+  usersTotal: number;
 }
-const Achievements = ({teachersTotal, commentsTotal, valorationsTotal, usersTotal}: Props) => {
-  const achievementsList = [
-  
-    {
-      icon:<FaRegUser size={24} className="mr-2 text-primary"/>,
-      metric: "Usuarios",
-      value: usersTotal,
-    },
-    {
-      icon:<FaComments size={24} className="mr-2 text-primary"/>,
-      metric: "Comentarios",
-      value: commentsTotal,
-      
-    },
-    
-    {
-      icon:<MdOutlineStarRate size={24} className="mr-2 text-primary"/>,
-      metric: "Valoraciones",
-      value: valorationsTotal,
-    },
-    {
-      icon:<GiTeacher size={24} className="mr-2 text-primary"/>,
-      metric: "Profesores",
-      value: teachersTotal,
-    },
+
+const Achievements = ({
+  teachersTotal,
+  commentsTotal,
+  valorationsTotal,
+  usersTotal,
+}: Props) => {
+  const items = [
+    { icon: <ChalkboardTeacher size={22} weight="fill" />, label: "Profesores", value: teachersTotal },
+    { icon: <Star size={22} weight="fill" />, label: "Valoraciones", value: valorationsTotal },
+    { icon: <ChatCircleText size={22} weight="fill" />, label: "Reseñas", value: commentsTotal },
+    { icon: <Users size={22} weight="fill" />, label: "Estudiantes", value: usersTotal },
   ];
+
   return (
-    <div className="py-8 px-4 xl:gap-16 sm:py-16 xl:px-16">
-      <div className="box py-8 px-16 flex flex-col sm:flex-row items-center justify-between">
-        {achievementsList.map((achievement, index) => {
-          return (
-            <div
-              key={index}
-              className="flex flex-col items-center justify-center mx-4 my-4 sm:my-0"
-            >
-              <h2 className="text-white text-4xl font-bold flex flex-row">
-                
-                
-                <AnimatedNumbers
-                  includeComma
-                  className="text-white text-4xl font-bold"
-                  transitions={(index) => ({
-                    type: "spring",
-                    duration: index + 2,
-                  })}
-                  animateToNumber={(achievement.value)}
-                  
-                />
-                
-              </h2>
-              <div className="flex items-center mt-3">
-                {achievement.icon}
-              <p className="text-white text-xl">  {achievement.metric}</p>
-              </div>
-            </div>
-          );
-        })}
+    <section className="border-b border-border">
+      <div className="mx-auto grid max-w-content grid-cols-2 divide-x divide-y divide-border border-x border-border sm:grid-cols-4 sm:divide-y-0">
+        {items.map((item) => (
+          <div key={item.label} className="flex flex-col items-center gap-1.5 px-4 py-10">
+            <span className="text-primary">{item.icon}</span>
+            <span className="font-display text-3xl font-bold tabular sm:text-4xl">
+              <CountUp value={item.value} />
+            </span>
+            <span className="text-sm text-muted-foreground">{item.label}</span>
+          </div>
+        ))}
       </div>
-    </div>
+    </section>
   );
 };
 

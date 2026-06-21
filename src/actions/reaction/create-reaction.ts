@@ -13,72 +13,36 @@ export const createReaction = async ({ commentId, value }: Props) => {
   try {
     const session = await getServerSession();
     const userEmail = session?.user?.email;
-    const userCurrent = await prisma.user.findUnique({
-      where: {
-        email: userEmail!,
-      },
-    });
-    
-   
-    const reactionExist = await prisma.reaction.findFirst({
-      where: {
-        commentId: commentId,
-        userId: userCurrent?.id,
-       
-      },
-    });
-    const reactionLikeExist = await prisma.reaction.findFirst({
-      where: {
-        commentId: commentId,
-        userId: userCurrent?.id,
-        value: "like",
-      },
-    });
-    const reactionDislikeExist = await prisma.reaction.findFirst({
-      where: {
-        commentId: commentId,
-        userId: userCurrent?.id,
-        value: "dislike",
-      },
-    });
-    // if(!!reactionExist) return false
-    if (!!reactionLikeExist && value === "like") return reactionLikeExist;
-    if (!!reactionDislikeExist && value === "dislike") return reactionDislikeExist;
+    if (!userEmail) return;
 
-    if (!!reactionLikeExist && value === "dislike") {
-      const newReaction = await prisma.reaction.update({
-        where: {
-          id: reactionExist?.id,
-        },
-        data: {
-          value: "dislike",
-        },
-      });
-      revalidatePath('/')
-      return newReaction;
-    }
-    if (!!reactionDislikeExist && value === "like") {
-      const newReaction =await prisma.reaction.update({
-        where: {
-          id: reactionExist?.id,
-        },
-        data: {
-          value: "like",
-        },
-      });
-      revalidatePath('/')
-      return newReaction;
-    }
-   
-    const newReaction = await prisma.reaction.create({
-      data: {
-        value: value,
-        commentId: commentId,
-        userId: userCurrent!.id,
-      },
+    const userCurrent = await prisma.user.findUnique({
+      where: { email: userEmail },
+      select: { id: true },
     });
-    revalidatePath('/')
-    return newReaction;
+    if (!userCurrent) return;
+
+    // Single lookup for any existing reaction by this user on this comment.
+    const existing = await prisma.reaction.findFirst({
+      where: { commentId, userId: userCurrent.id },
+      select: { id: true, value: true },
+    });
+
+    if (existing) {
+      // Same reaction already set: nothing to change.
+      if (existing.value === value) return existing;
+      const updated = await prisma.reaction.update({
+        where: { id: existing.id },
+        data: { value },
+      });
+      revalidatePath("/");
+      return updated;
+    }
+
+    const created = await prisma.reaction.create({
+      data: { value, commentId, userId: userCurrent.id },
+    });
+    revalidatePath("/");
+    return created;
   } catch (error) {
     console.log(error);
   }

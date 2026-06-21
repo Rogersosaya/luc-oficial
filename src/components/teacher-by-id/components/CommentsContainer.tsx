@@ -1,58 +1,60 @@
-'use client'
-import { FaRegComments } from "react-icons/fa";
+"use client";
+
+import { useEffect } from "react";
+import { ChatCircleText } from "@phosphor-icons/react";
 import CardComment from "./CardComment";
 import TextAreaComment from "./TextAreaComment";
-import { User } from "@/interfaces/user.interface";
 import { useCommentStore } from "@/store/commentStore";
-import { useEffect, useState } from "react";
 import { useTeacherStore } from "@/store/teacherStore";
 
-interface PropsTeacher {
+interface TeacherProp {
   id: string;
   name: string;
   slug: string;
-  url: string;
 }
-interface PropsComment{
-  id: string;
-  value: string;
-  occult:boolean;
-  user: User ;
-}
-interface Props {
-  teacher: PropsTeacher | null;
-  comments: PropsComment[];
-}
-function CommentsContainer({ teacher, comments }: Props) {
-  const { comments:storedComments,getComments }=useCommentStore()
-  const {updateTeacher, teacherId}=  useTeacherStore()
-  useEffect(() => {
-    getComments(teacher!.id)
-    updateTeacher(teacher!.id)
-  }, [getComments,updateTeacher,teacher])
-  
-  
 
-  
+function CommentsContainer({
+  teacher,
+  comments,
+}: {
+  teacher: TeacherProp;
+  comments: any[];
+}) {
+  const { comments: storedComments, setComments } = useCommentStore();
+  const { updateTeacher } = useTeacherStore();
+
+  // Seed the store with server-rendered comments (no client refetch).
+  useEffect(() => {
+    setComments(comments);
+    updateTeacher(teacher.id);
+  }, [comments, teacher.id, setComments, updateTeacher]);
+
   return (
-    <>
-      <div className="text-md font-bold mb-1 flex items-center">
-        <FaRegComments className="mr-2 text-primary" />
-        <div>Comentarios</div> 
+    <section>
+      <div className="flex items-center gap-2">
+        <ChatCircleText size={20} weight="fill" className="text-primary" />
+        <h2 className="text-lg font-semibold">Reseñas de estudiantes</h2>
       </div>
-      <span className=" mb-5 text-slate-400 text-xs leading-5">(Recuerda comentar siempre con respeto)</span>
-      <div>
-        <TextAreaComment  />
-        
-        {storedComments.map((comment) => {
-          return (
-          
-          
-          <CardComment key={comment.id} comment={comment} />);
-        })}
-        
+      <p className="mt-1 text-sm text-muted-foreground">
+        Comparte tu experiencia siempre con respeto.
+      </p>
+
+      <div className="mt-5">
+        <TextAreaComment />
       </div>
-    </>
+
+      <div className="mt-6 flex flex-col gap-4">
+        {storedComments.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
+            Aún no hay reseñas. Sé el primero en compartir tu experiencia.
+          </div>
+        ) : (
+          storedComments.map((comment) => (
+            <CardComment key={comment.id} comment={comment} />
+          ))
+        )}
+      </div>
+    </section>
   );
 }
 

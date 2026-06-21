@@ -1,78 +1,64 @@
 "use client";
-import { FaUser } from "react-icons/fa6";
-import { FaTags } from "react-icons/fa";
-import { Teacher } from "@/interfaces/teacher.interface";
-import { useValorationsStore } from "@/store/valorationsStore";
-import { useEffect } from "react";
-interface PropsTeacher {
-  id: string;
-  name: string;
-  slug: string;
-  url: string;
-}
-interface Props {
-  teacher: PropsTeacher | null;
-}
+
 interface Tag {
   id: string;
   name: string;
 }
-function Tags({ teacher }: Props) {
-  const { getValorations, valorations } = useValorationsStore();
-  useEffect(() => {
-    getValorations(teacher!.id);
-  }, [getValorations,teacher]);
 
-  const tags = valorations.map((item) => item.tags);
-
-  function contarTags(
-    arrayDeArrays: Tag[][]
-  ): { name: string; cant: number }[] {
-    // Crear un mapa para almacenar las ocurrencias de cada tag
-    let tagsCount: { [key: string]: number } = {};
-
-    // Recorrer cada subarray
-    arrayDeArrays.forEach((subArray) => {
-      // Recorrer cada objeto dentro del subarray
-      subArray.forEach((tag) => {
-        // Si el tag ya existe en el mapa, incrementar su contador
-        if (tagsCount[tag.name]) {
-          tagsCount[tag.name]++;
-        } else {
-          // Si el tag no existe, inicializar su contador en 1
-          tagsCount[tag.name] = 1;
-        }
-      });
-    });
-
-    // Convertir el mapa en un array de objetos con el formato deseado
-    let result: { name: string; cant: number }[] = [];
-    for (let tagName in tagsCount) {
-      result.push({ name: tagName, cant: tagsCount[tagName] });
+function Tags({ valorations }: { valorations: { tags: Tag[] }[] }) {
+  const counts = new Map<string, number>();
+  for (const v of valorations) {
+    for (const tag of v.tags) {
+      counts.set(tag.name, (counts.get(tag.name) ?? 0) + 1);
     }
-    result.sort((a, b) => b.cant - a.cant);
-    return result;
   }
-  const result = contarTags(tags);
-  return (
-    <>
-      <div className="text-md font-bold mb-2 flex items-center ">
-        <FaTags className="mr-2 text-primary" />
-        Etiquetas
-      </div>
-      <div className="flex flex-wrap ">
-        {result.map((tag) => {
-          return (
-            <div key={tag.name} className="bg-secondary rounded-lg  px-2 py-1 font-bold mx-2  mb-2 text-base flex items-center">
-              {tag.name}
-              <FaUser className="ml-2 mr-0.5" />
+  const ranked = Array.from(counts.entries())
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count);
 
-              <div className="flex font-bold text-xs">{tag.cant}</div>
-            </div>
+  const max = ranked[0]?.count ?? 1;
+
+  if (ranked.length === 0) {
+    return (
+      <div className="rounded-2xl border border-border bg-card p-6">
+        <h2 className="text-lg font-semibold">Etiquetas</h2>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Todavía no hay etiquetas. Aparecerán cuando los estudiantes valoren.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-2xl border border-border bg-card p-6">
+      <h2 className="text-lg font-semibold">Lo que más se repite</h2>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {ranked.map((tag) => {
+          const strong = tag.count >= Math.max(2, max * 0.6);
+          return (
+            <span
+              key={tag.name}
+              className={
+                "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium " +
+                (strong
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted text-foreground")
+              }
+            >
+              {tag.name}
+              <span
+                className={
+                  "tabular rounded-full px-1.5 text-xs " +
+                  (strong ? "bg-primary-foreground/20" : "bg-background/70 text-muted-foreground")
+                }
+              >
+                {tag.count}
+              </span>
+            </span>
           );
         })}
       </div>
-    </>
+    </div>
   );
 }
 

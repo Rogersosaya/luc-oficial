@@ -1,76 +1,55 @@
 "use client";
-import React, { useEffect } from "react";
-import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
-import Velocimeter from "./Velocimeter";
-import { MdReviews } from "react-icons/md";
-import { useValorationsStore } from "@/store/valorationsStore";
-interface PropsTeacher {
-  id: string;
-  name: string;
-  slug: string;
-  url: string;
-}
-interface Props {
-  teacher: PropsTeacher | null;
-}
-function Resenia({ teacher }: Props) {
-  const { getValorations, valorations } = useValorationsStore();
-  useEffect(() => {
-    getValorations(teacher!.id);
-  }, [getValorations,teacher]);
-  const difficulties = valorations.map((item) => item.difficulty);
-  const learnings = valorations.map((item) => item.learning);
-  let averageDifficulty =
-  Number((difficulties.reduce((acc, val) => acc + val, 0) / difficulties.length).toFixed(1));
-  let averageLearning =
-    Number((learnings.reduce((acc, val) => acc + val, 0) / learnings.length).toFixed(1));
-    
-  averageDifficulty = Number.isNaN(averageDifficulty) ? 1 : averageDifficulty;
-  averageLearning = (Number.isNaN(averageLearning) ? 1 : averageLearning);
 
-  const rapeats = valorations.map((item) => item.repeat);
-  let falsesPercentage = Number(((rapeats.filter((rapeat) => rapeat === false).length / rapeats.length) * 100).toFixed(1));
-  let truesPercentage = Number(((rapeats.filter((rapeat) => rapeat === true).length / rapeats.length) * 100).toFixed(1));
-  falsesPercentage = (Number.isNaN(falsesPercentage) ? 0 : falsesPercentage);
-  truesPercentage = (Number.isNaN(truesPercentage) ? 0 : truesPercentage);
+import { Fire, BookOpen, ArrowClockwise } from "@phosphor-icons/react";
+import { MetricMeter } from "@/components/ui/primitives/MetricMeter";
+import { safeAverage } from "@/lib/utils";
+
+interface Valoration {
+  difficulty: number;
+  learning: number;
+  repeat: boolean;
+}
+
+function Resenia({ valorations }: { valorations: Valoration[] }) {
+  const total = valorations.length;
+  const avgDifficulty = safeAverage(valorations.map((v) => v.difficulty));
+  const avgLearning = safeAverage(valorations.map((v) => v.learning));
+  const repeatPct =
+    total === 0
+      ? 0
+      : Math.round(
+          (valorations.filter((v) => v.repeat).length / total) * 100
+        );
+
   return (
-    <>
-      <div className="text-md font-bold mb-2 flex items-center">
-        <MdReviews className="mr-2 text-primary" />
-        Reseña de estudiantes
+    <div className="rounded-2xl border border-border bg-card p-6">
+      <h2 className="text-lg font-semibold">Cómo lo viven los estudiantes</h2>
+      <div className="mt-5 flex flex-col gap-5">
+        <MetricMeter
+          label="Dificultad"
+          value={avgDifficulty}
+          color="hsl(var(--metric-difficulty))"
+          icon={<Fire size={18} weight="fill" />}
+          hint="Qué tan difícil resulta aprobar el curso."
+        />
+        <MetricMeter
+          label="Aprendizaje"
+          value={avgLearning}
+          color="hsl(var(--metric-learning))"
+          icon={<BookOpen size={18} weight="fill" />}
+          hint="Cuánto sienten los estudiantes que aprenden."
+        />
+        <MetricMeter
+          label="Lo volvería a llevar"
+          value={repeatPct}
+          max={100}
+          display={`${repeatPct}%`}
+          color="hsl(var(--metric-repeat))"
+          icon={<ArrowClockwise size={18} weight="bold" />}
+          hint="Porcentaje que repetiría con este profesor."
+        />
       </div>
-      <div className="flex flex-wrap justify-center">
-        <div className="flex flex-col items-center">
-          <Velocimeter value={averageDifficulty} />
-          <div className="text-sm mt-2">Dificultad </div>
-        </div>
-        <div className="flex flex-col items-center">
-          <Velocimeter value={averageLearning} />
-          <div className="text-sm mt-2">Aprendizaje</div>
-        </div>
-        <div className="flex flex-col justify-center items-center">
-          <div className="flex">
-            <div className="flex flex-col items-center">
-              <div>
-                <AiOutlineLike size={100} className="text-primary" />
-              </div>
-              <div className="text-xl">{truesPercentage}%</div>
-            </div>
-            <div className="flex flex-col items-center">
-              <div>
-                <AiOutlineDislike
-                  size={100}
-                  className="text-red-500"
-                  style={{ transform: "scaleX(-1)" }}
-                />
-              </div>
-              <div className="text-xl">{falsesPercentage}%</div>
-            </div>
-          </div>
-          <div className="text-lg">¿Lo volvería a llevar?</div>
-        </div>
-      </div>
-    </>
+    </div>
   );
 }
 

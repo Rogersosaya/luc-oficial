@@ -1,214 +1,146 @@
-import React from "react";
-import Image from "next/image";
-import { Button } from "@nextui-org/react";
-import { FaLinkedinIn } from "react-icons/fa";
-
-import Resenia from "../components/Resenia";
-import Valuation from "../components/Valuation";
-import Tags from "../components/Tags";
-import { IoIosContact } from "react-icons/io";
-import { CiCircleMore } from "react-icons/ci";
+import { Info, Fire, BookOpen, ArrowClockwise } from "@phosphor-icons/react/dist/ssr";
+import Container from "@/components/container/Container";
+import { StarRating } from "@/components/ui/primitives/StarRating";
+import { Badge } from "@/components/ui/primitives/Badge";
+import { initials } from "@/lib/utils";
 import ButtonAddValoration from "../components/ButtonAddValoration";
-import { getValorationBoolean } from "@/actions/valoration/get-valoration-boolean";
-import { Course } from "@/interfaces/course.interface";
-import ButtonAnimate from "@/components/ui/button-animate/ButtonAnimate";
-interface CourseProps {
-  course: Course;
-}
-interface PropsTeacher {
+import TeacherInsights from "../components/TeacherInsights";
+import type { TeacherStats } from "@/actions/teacher/get-teacher-stats";
+
+interface TeacherProp {
   id: string;
   name: string;
   slug: string;
   url: string;
-  courses: CourseProps[];
+  courses: { course: { name: string } }[];
 }
+
 interface Props {
-  teacher: PropsTeacher | null;
+  teacher: TeacherProp;
+  stats: TeacherStats;
 }
-function GridPerfil({ teacher }: Props) {
-  const result = {
-    ...teacher,
-    courses: teacher!.courses.map((course) => course.course),
-  };
+
+function HeaderMetric({
+  icon,
+  label,
+  value,
+  color,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+  color: string;
+}) {
   return (
-    <>
-      <div className="px-1 md:px-11">
-        <div
-          className="flex items-center p-4 mb-4 text-sm text-blue-800 border border-blue-300 rounded-lg   dark:text-blue-400 dark:border-blue-800 "
-          role="alert"
-        >
-          <svg
-            className="flex-shrink-0 inline w-4 h-4 me-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-          </svg>
-          <span className="sr-only">Info</span>
-          <div>
-            <span className="font-medium">Ten presente!</span> Si no has tomado
-            clases con este profesor, por favor abstente de dejar comentarios o
-            valoraciones. Es importante mantener la transparencia
-          </div>
-        </div>
+    <div className="flex flex-col items-center gap-1 rounded-xl bg-muted/60 p-3">
+      <span style={{ color }}>{icon}</span>
+      <span className="tabular text-base font-bold leading-none">{value}</span>
+      <span className="text-[0.7rem] uppercase tracking-wide text-muted-foreground">
+        {label}
+      </span>
+    </div>
+  );
+}
+
+function GridPerfil({ teacher, stats }: Props) {
+  const courses = teacher.courses.map((c) => c.course.name);
+  const hasReviews = stats.count > 0;
+
+  return (
+    <Container className="pt-8">
+      <div
+        role="note"
+        className="mb-6 flex items-start gap-3 rounded-xl border border-border bg-primary-soft/50 p-4 text-sm"
+      >
+        <Info size={18} weight="fill" className="mt-0.5 shrink-0 text-primary" />
+        <p className="text-foreground/80">
+          <span className="font-semibold">Ten presente:</span> si no llevaste
+          clases con este profesor, abstente de dejar reseñas o valoraciones. La
+          transparencia es lo que hace útil a Cátedra.
+        </p>
       </div>
 
-      <div className="grid grid-cols-12    text-white gap-4 px-1 md:px-11 translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms]">
-        <div className="col-span-12 md:col-span-3 flex flex-col rounded-lg">
-          <div className="border-slate-500 border px-2 py-3 flex justify-center rounded-lg">
-            <Image src="/teacher.png" width={280} height={280} alt="foto" />
-          </div>
-          <div className="border-slate-500 border px-4 py-3 rounded-lg my-2 text-center ">
-            <ButtonAddValoration teacherId={teacher!.id} teacher={teacher!} />
-          </div>
-          {/* <div className="border-slate-500 border px-4 py-3 rounded-lg my-2">
-            <div className="text-md font-bold mb-2 flex items-center">
-              <IoIosContact className="mr-2 text-secondary" />
-              Contacto 
+      <div className="grid gap-6 lg:grid-cols-3">
+        {/* Sidebar */}
+        <aside className="lg:col-span-1">
+          <div className="lg:sticky lg:top-24 flex flex-col gap-5 rounded-2xl border border-border bg-card p-6">
+            <div className="flex items-center gap-4">
+              <span
+                aria-hidden
+                className="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-primary-soft font-display text-xl font-bold text-primary"
+              >
+                {initials(teacher.name)}
+              </span>
+              <div className="min-w-0">
+                <h1 className="text-xl font-bold leading-tight">{teacher.name}</h1>
+                <p className="mt-0.5 text-sm text-muted-foreground">Profesor · UNI</p>
+              </div>
             </div>
-            <div className="flex  flex-wrap">
-              <Button size="lg" className="bg-blue-900 text-sm mr-4">
-                Linked
-                <FaLinkedinIn className="bg-white text-blue-900 -ml-2" />
-              </Button>
-              <Button size="lg" className="bg-red-600 text-sm">
-                <svg
-                  className="-mr-1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  x="0px"
-                  y="0px"
-                  width="100"
-                  height="100"
-                  viewBox="0 0 48 48"
-                >
-                  <linearGradient
-                    id="6769YB8EDCGhMGPdL9zwWa_ho8QlOYvMuG3_gr1"
-                    x1="15.072"
-                    x2="24.111"
-                    y1="13.624"
-                    y2="24.129"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop offset="0" stopColor="#e3e3e3"></stop>
-                    <stop offset="1" stopColor="#e2e2e2"></stop>
-                  </linearGradient>
-                  <path
-                    fill="url(#6769YB8EDCGhMGPdL9zwWa_ho8QlOYvMuG3_gr1)"
-                    d="M42.485,40H5.515C4.126,40,3,38.874,3,37.485V10.515C3,9.126,4.126,8,5.515,8h36.969	C43.874,8,45,9.126,45,10.515v26.969C45,38.874,43.874,40,42.485,40z"
-                  ></path>
-                  <linearGradient
-                    id="6769YB8EDCGhMGPdL9zwWb_ho8QlOYvMuG3_gr2"
-                    x1="26.453"
-                    x2="36.17"
-                    y1="25.441"
-                    y2="37.643"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop offset="0" stopColor="#f5f5f5"></stop>
-                    <stop offset=".03" stopColor="#eee"></stop>
-                    <stop offset="1" stopColor="#eee"></stop>
-                  </linearGradient>
-                  <path
-                    fill="url(#6769YB8EDCGhMGPdL9zwWb_ho8QlOYvMuG3_gr2)"
-                    d="M42.485,40H8l37-29v26.485C45,38.874,43.874,40,42.485,40z"
-                  ></path>
-                  <linearGradient
-                    id="6769YB8EDCGhMGPdL9zwWc_ho8QlOYvMuG3_gr3"
-                    x1="3"
-                    x2="45"
-                    y1="24"
-                    y2="24"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop offset="0" stopColor="#d74a39"></stop>
-                    <stop offset="1" stopColor="#c73d28"></stop>
-                  </linearGradient>
-                  <path
-                    fill="url(#6769YB8EDCGhMGPdL9zwWc_ho8QlOYvMuG3_gr3)"
-                    d="M5.515,8H8v32H5.515C4.126,40,3,38.874,3,37.485V10.515C3,9.126,4.126,8,5.515,8z M42.485,8	H40v32h2.485C43.874,40,45,38.874,45,37.485V10.515C45,9.126,43.874,8,42.485,8z"
-                  ></path>
-                  <linearGradient
-                    id="6769YB8EDCGhMGPdL9zwWd_ho8QlOYvMuG3_gr4"
-                    x1="24"
-                    x2="24"
-                    y1="8"
-                    y2="38.181"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop offset="0" stopOpacity=".15"></stop>
-                    <stop offset="1" stopOpacity=".03"></stop>
-                  </linearGradient>
-                  <path
-                    fill="url(#6769YB8EDCGhMGPdL9zwWd_ho8QlOYvMuG3_gr4)"
-                    d="M42.485,40H30.515L3,11.485v-0.969C3,9.126,4.126,8,5.515,8h36.969	C43.874,8,45,9.126,45,10.515v26.969C45,38.874,43.874,40,42.485,40z"
-                  ></path>
-                  <linearGradient
-                    id="6769YB8EDCGhMGPdL9zwWe_ho8QlOYvMuG3_gr5"
-                    x1="3"
-                    x2="45"
-                    y1="17.73"
-                    y2="17.73"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop offset="0" stopColor="#f5f5f5"></stop>
-                    <stop offset="1" stopColor="#f5f5f5"></stop>
-                  </linearGradient>
-                  <path
-                    fill="url(#6769YB8EDCGhMGPdL9zwWe_ho8QlOYvMuG3_gr5)"
-                    d="M43.822,13.101L24,27.459L4.178,13.101C3.438,12.565,3,11.707,3,10.793v-0.278	C3,9.126,4.126,8,5.515,8h36.969C43.874,8,45,9.126,45,10.515v0.278C45,11.707,44.562,12.565,43.822,13.101z"
-                  ></path>
-                  <linearGradient
-                    id="6769YB8EDCGhMGPdL9zwWf_ho8QlOYvMuG3_gr6"
-                    x1="24"
-                    x2="24"
-                    y1="8.446"
-                    y2="27.811"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop offset="0" stopColor="#e05141"></stop>
-                    <stop offset="1" stopColor="#de4735"></stop>
-                  </linearGradient>
-                  <path
-                    fill="url(#6769YB8EDCGhMGPdL9zwWf_ho8QlOYvMuG3_gr6)"
-                    d="M42.485,8h-0.3L24,21.172L5.815,8h-0.3C4.126,8,3,9.126,3,10.515v0.278	c0,0.914,0.438,1.772,1.178,2.308L24,27.459l19.822-14.358C44.562,12.565,45,11.707,45,10.793v-0.278C45,9.126,43.874,8,42.485,8z"
-                  ></path>
-                </svg>
-                Gmail
-              </Button>
-            </div>
-          </div> */}
-          <div className="border-slate-500 border px-4 py-3 flex-auto rounded-lg">
-            <div className="text-md font-bold mb-2 flex items-center">
-              <CiCircleMore className="mr-2 text-primary" />
-              Cursos
-            </div>
-            <div className="flex md:block flex-wrap ">
-              {result.courses.map((course) => (
-                <div
-                  className="bg-secondary rounded-lg px-2 py-1 font-bold mx-2  mb-1.5 text-base  items-center"
-                  key={course.name}
-                >
-                  {course.name}
+
+            {hasReviews ? (
+              <div className="flex items-end gap-3 rounded-xl bg-muted/50 p-4">
+                <span className="font-display text-4xl font-bold leading-none tabular">
+                  {stats.avgRating.toFixed(1)}
+                </span>
+                <div className="pb-0.5">
+                  <StarRating value={stats.avgRating} size={16} />
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {stats.count} {stats.count === 1 ? "valoración" : "valoraciones"}
+                  </p>
                 </div>
-              ))}
-            </div>
+              </div>
+            ) : (
+              <div className="rounded-xl bg-muted/50 p-4 text-sm text-muted-foreground">
+                Aún no tiene valoraciones. Sé el primero en calificarlo.
+              </div>
+            )}
+
+            {hasReviews && (
+              <div className="grid grid-cols-3 gap-2">
+                <HeaderMetric
+                  icon={<Fire size={18} weight="fill" />}
+                  label="Dificultad"
+                  value={stats.avgDifficulty.toFixed(1)}
+                  color="hsl(var(--metric-difficulty))"
+                />
+                <HeaderMetric
+                  icon={<BookOpen size={18} weight="fill" />}
+                  label="Aprendes"
+                  value={stats.avgLearning.toFixed(1)}
+                  color="hsl(var(--metric-learning))"
+                />
+                <HeaderMetric
+                  icon={<ArrowClockwise size={18} weight="bold" />}
+                  label="Repetiría"
+                  value={`${stats.repeatPct}%`}
+                  color="hsl(var(--metric-repeat))"
+                />
+              </div>
+            )}
+
+            {courses.length > 0 && (
+              <div>
+                <h2 className="mb-2 text-sm font-semibold">Cursos</h2>
+                <div className="flex flex-wrap gap-2">
+                  {courses.map((course) => (
+                    <Badge key={course} variant="neutral">
+                      {course}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <ButtonAddValoration teacherId={teacher.id} teacherName={teacher.name} />
           </div>
-        </div>
-        <div className="col-span-12  md:col-span-9 flex flex-col">
-          <div className="border-slate-500 border text-center px-2 py-3 rounded-lg">
-            <Valuation teacher={teacher} />
-          </div>
-          <div className="border-slate-500 border px-4 py-3 rounded-lg my-2">
-            <Resenia teacher={teacher} />
-          </div>
-          <div className="border-slate-500 border px-4 py-3 rounded-lg flex-auto">
-            <Tags teacher={teacher} />
-          </div>
+        </aside>
+
+        {/* Insights */}
+        <div className="lg:col-span-2">
+          <TeacherInsights teacherId={teacher.id} />
         </div>
       </div>
-    </>
+    </Container>
   );
 }
 

@@ -1,179 +1,126 @@
-"use client";
-import React, { useState } from "react";
-import Image from "next/image";
-import { FaRegStar, FaStar, FaFire } from "react-icons/fa6";
-import { Button, Chip } from "@nextui-org/react";
-import { AiFillFire, AiOutlineFire } from "react-icons/ai";
-import { FaRepeat } from "react-icons/fa6";
-
-import { IoBook, IoBookOutline } from "react-icons/io5";
 import Link from "next/link";
+import { Fire, BookOpen, ArrowClockwise, ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { StarRating } from "@/components/ui/primitives/StarRating";
+import type { TeacherStats } from "@/actions/teacher/get-teacher-stats";
+import { cn, initials } from "@/lib/utils";
 
-import { Course } from "@/interfaces/course.interface";
-import { FaUser } from "react-icons/fa";
-interface Valoration {
-  rating: number;
-  difficulty: number;
-  learning: number;
-  repeat: boolean;
-}
-
-interface Teacher {
+export interface TeacherCardData {
+  id?: string;
   name: string;
   slug: string;
-  url: string;
-  valorations: Valoration[];
-  courses: Course[];
+  url?: string;
+  courses: { name: string }[];
+  stats: TeacherStats;
 }
-interface Props {
-  teacher: Teacher;
-}
-const CardDisplayTrue = ({ teacher }: Props) => (
-  <div className=" rounded-[20px] pt-1 px-2 min-h-[260px] md:min-h-[280px] flex justify items-center flex-col ">
-    <Image
-      src='/teacher.png'
-      width={130}
-      height={130}
-      alt="web-development"
-      className="object-contain rounded-lg w-48 h-48 md:w-60 md:h-60"
-      priority={false}
-    />
 
-    <h3 className="text-white text-xs md:text-xs font-bold text-center mt-1">
-      {teacher.name}
-    </h3>
-
-    <div className="flex flex-col mt-1 flex-wrap justify-center">
-      {teacher.courses.map((course) => {
-        let courseValue = course.name || '';
-        if (courseValue.length > 20) {
-          courseValue = courseValue.slice(0, 20) + "...";
-        }
-        return (
-          <div className="bg-secondary rounded-lg text-white px-2 py-1 font-bold mx-2  mb-1.5 text-base  items-center" key={course.name}>
-            {courseValue}
-          </div>
-        );
-      })}
-    </div>
-  </div>
-);
-const CardDisplayFalse = ({ teacher }: Props) => {
-  const array = [...Array(5)];
-  const cantValorations = teacher.valorations.length
-  const ratings = teacher.valorations.map((item) => item.rating);
-  const difficulties = teacher.valorations.map((item) => item.difficulty);
-  const learnings = teacher.valorations.map((item) => item.learning);
-  const rapeats = teacher.valorations.map((item) => item.repeat);
-  let averageRating = Number(
-    (ratings.reduce((acc, val) => acc + val, 0) / ratings.length).toFixed(1)
-  );
-  averageRating = Number.isNaN(averageRating) ? 0 : averageRating;
-
-  let averageDifficulty = Number(
-    (
-      difficulties.reduce((acc, val) => acc + val, 0) / difficulties.length
-    ).toFixed(1)
-  );
-  averageDifficulty = Number.isNaN(averageDifficulty) ? 0 : averageDifficulty;
-
-  let averageLearning = Number(
-    (learnings.reduce((acc, val) => acc + val, 0) / learnings.length).toFixed(1)
-  );
-  averageLearning = Number.isNaN(averageLearning) ? 0 : averageLearning;
-
-  // Repeat
-  
-  let truesPercentage = Number(((rapeats.filter((rapeat) => rapeat === true).length / rapeats.length) * 100).toFixed(1));
-  
-  truesPercentage = (Number.isNaN(truesPercentage) ? 0 : truesPercentage);
+function MiniStat({
+  icon,
+  label,
+  value,
+  color,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+  color: string;
+}) {
   return (
-    <div className=" rounded-[20px] p-2 px-2  flex justify-center items-center flex-col">
-      <div className="flex justify-center items-center mt-7 mb-2">
-        {array.map((_, index) => {
-          const currentRating = index + 1;
-          return (
-            <div key={index}>
-              {currentRating <= averageRating ? (
-                <FaStar className="text-yellow-400"  size={18} />
-              ) : (
-                <FaRegStar className="text-yellow-400"  size={18} />
-              )}
-            </div>
-          );
-        })}
-        <span className="ml-2 text-lg">{averageRating}</span>
-      </div>
-      <div className="flex justify-center items-center mb-2">
-        {array.map((_, index) => {
-          const currentDifficulty = index + 1;
-          return (
-            <div key={index}>
-              {currentDifficulty <= averageDifficulty ? (
-                <AiFillFire className="text-red-500"  size={18} />
-              ) : (
-                <AiOutlineFire className="text-red-500"  size={18} />
-              )}
-            </div>
-          );
-        })}
-
-        <span className="ml-2 text-lg">{averageDifficulty}</span>
-      </div>
-      <div className="flex justify-center items-center mb-2">
-      {array.map((_, index) => {
-          const currentLearning = index + 1;
-          return (
-            <div key={index}>
-              {currentLearning <= averageLearning ? (
-                <IoBook className="text-blue-600" size={18} />
-              ) : (
-                <IoBookOutline className="text-blue-600"  size={18} />
-              )}
-            </div>
-          );
-        })}
-       
-        <span className="ml-2 text-lg">{averageLearning}</span>
-      </div>
-      <div className="flex justify-center items-center mb-4">
-        <FaRepeat className="text-green-500" size={20} />
-        <span className="ml-2 text-lg">{truesPercentage}%</span>
-      </div>
-      <div className="flex justify-center items-center mb-5">
-        <FaUser className="" size={20} />
-        <span className="ml-2 text-lg">{cantValorations}</span>
-      </div>
-      <div className="flex justify-center items-center my-1">
-        <Link href={`/teacher/${teacher.slug}`}>
-          <Button
-            size="lg"
-            color="primary"
-            className=" text-md px-5 py-5 font-bold bg-gradient-to-r to-primary from-secondary "
-          >
-            Ver más
-          </Button>
-        </Link>
-      </div>
+    <div className="flex flex-col items-center gap-1 rounded-lg bg-muted/60 py-2">
+      <span style={{ color }} className="flex items-center">
+        {icon}
+      </span>
+      <span className="tabular text-sm font-semibold leading-none">{value}</span>
+      <span className="text-[0.65rem] uppercase tracking-wide text-muted-foreground">
+        {label}
+      </span>
     </div>
   );
-};
+}
 
-function CardTeachers({ teacher }: Props) {
-  const [displayDiv, setDisplayDiv] = useState(true);
+function CardTeachers({ teacher }: { teacher: TeacherCardData }) {
+  const { stats } = teacher;
+  const hasReviews = stats.count > 0;
+  const primaryCourse = teacher.courses[0]?.name;
+  const extraCourses = teacher.courses.length - 1;
 
   return (
-    <div
-      onMouseEnter={() => setDisplayDiv(false)}
-      onMouseLeave={() => setDisplayDiv(true)}
-      className="h-[320px] w-[200px]  p-[1px] box mx-auto mb-2 "
+    <Link
+      href={`/teacher/${teacher.slug}`}
+      className="group flex h-full flex-col rounded-2xl border border-border bg-card p-5 transition-all duration-200 hover:-translate-y-1 hover:border-foreground/15 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
-      {displayDiv ? (
-        <CardDisplayTrue teacher={teacher} />
+      <div className="flex items-start gap-3.5">
+        <span
+          aria-hidden
+          className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary-soft font-display text-base font-semibold text-primary"
+        >
+          {initials(teacher.name)}
+        </span>
+        <div className="min-w-0 flex-1">
+          <h3 className="truncate font-semibold leading-snug" title={teacher.name}>
+            {teacher.name}
+          </h3>
+          {primaryCourse && (
+            <p className="mt-0.5 truncate text-sm text-muted-foreground" title={primaryCourse}>
+              {primaryCourse}
+              {extraCourses > 0 && (
+                <span className="text-muted-foreground/70"> +{extraCourses}</span>
+              )}
+            </p>
+          )}
+        </div>
+      </div>
+
+      {hasReviews ? (
+        <>
+          <div className="mt-4 flex items-center gap-2.5">
+            <span className="font-display text-2xl font-bold leading-none tabular">
+              {stats.avgRating.toFixed(1)}
+            </span>
+            <div className="flex flex-col">
+              <StarRating value={stats.avgRating} size={15} />
+              <span className="mt-0.5 text-xs text-muted-foreground">
+                {stats.count} {stats.count === 1 ? "reseña" : "reseñas"}
+              </span>
+            </div>
+          </div>
+
+          <div className="mt-4 grid grid-cols-3 gap-2">
+            <MiniStat
+              icon={<Fire size={16} weight="fill" />}
+              label="Dificultad"
+              value={stats.avgDifficulty.toFixed(1)}
+              color="hsl(var(--metric-difficulty))"
+            />
+            <MiniStat
+              icon={<BookOpen size={16} weight="fill" />}
+              label="Aprendes"
+              value={stats.avgLearning.toFixed(1)}
+              color="hsl(var(--metric-learning))"
+            />
+            <MiniStat
+              icon={<ArrowClockwise size={16} weight="bold" />}
+              label="Repetiría"
+              value={`${stats.repeatPct}%`}
+              color="hsl(var(--metric-repeat))"
+            />
+          </div>
+        </>
       ) : (
-        <CardDisplayFalse teacher={teacher} />
+        <div className="mt-4 flex flex-1 flex-col items-start justify-center rounded-xl bg-muted/50 p-4">
+          <p className="text-sm font-medium">Sin reseñas aún</p>
+          <p className="text-xs text-muted-foreground">Sé el primero en calificarlo.</p>
+        </div>
       )}
-    </div>
+
+      <span
+        className={cn(
+          "mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary",
+          "transition-transform group-hover:translate-x-0.5"
+        )}
+      >
+        Ver perfil <ArrowRight size={15} weight="bold" />
+      </span>
+    </Link>
   );
 }
 

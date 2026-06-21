@@ -1,7 +1,6 @@
 "use server";
 import { getServerSession } from "next-auth";
 import prisma from "../../lib/prisma";
-import { Tag } from "@/interfaces/tag-interface";
 import { revalidatePath } from "next/cache";
 
 interface ValorationProps {
@@ -24,65 +23,51 @@ export const createValoration = async ({
   try {
     const session = await getServerSession();
     const userEmail = session?.user?.email;
+    if (!userEmail) return;
+
     const userCurrent = await prisma.user.findUnique({
-      where: {
-        email: userEmail!,
-      },
+      where: { email: userEmail },
+      select: { id: true },
     });
-    const newValoration = await prisma.valoration.create({
-      data: {
-        rating: rating,
-        difficulty: difficulty,
-        learning: learning,
-        repeat: repeat,
-        teacherId: teacherId,
-        userId: userCurrent!.id,
-      },
-    });
-    const tagsDBPromises = tags.map(async (tag) => {
-      return await prisma.tag.findUnique({
-        where: {
-          name: tag,
-        },
-      });
-    });
-    const tagsDB = await Promise.all(tagsDBPromises);
+    if (!userCurrent) return;
 
-    const valorationOnTagsDBPromises = tagsDB.map(async (tag) => {
-      return await prisma.valorationOnTag.create({
+    // Resolve all selected tags in a single query (was N queries).
+    const tagsDB = tags.length
+      ? await prisma.tag.findMany({
+          where: { name: { in: tags } },
+          select: { id: true, name: true },
+        })
+      : [];
+
+    // Create the valoration and its tag links atomically.
+    const newValoration = await prisma.$transaction(async (tx) => {
+      const created = await tx.valoration.create({
         data: {
-          tagId: tag!.id,
-          valorationId: newValoration.id,
+          rating,
+          difficulty,
+          learning,
+          repeat,
+          teacherId,
+          userId: userCurrent.id,
         },
       });
-    });
-    await Promise.all(valorationOnTagsDBPromises);
 
-    const newValorationWithId = await prisma.valoration.findUnique({
-      include: {
-        tags: {
-          include: {
-            tag: true,
-          },
-        },
-      },
-      where: {
-        id: newValoration.id,
-      },
-    });
-    if (newValorationWithId !== null) {
-      const newValorationData = {
-        ...newValorationWithId,
-        tags: newValorationWithId.tags.map((tag) => tag!.tag),
-      };
-      revalidatePath("/");
+      if (tagsDB.length) {
+        await tx.valorationOnTag.createMany({
+          data: tagsDB.map((tag) => ({
+            tagId: tag.id,
+            valorationId: created.id,
+          })),
+        });
+      }
 
-      return newValorationData;
-    }
+      return created;
+    });
 
     revalidatePath("/");
 
-    return;
+    // Shape matches getValorationsByTeacher items (tags flattened).
+    return { ...newValoration, tags: tagsDB };
   } catch (error) {
     console.log(error);
   }

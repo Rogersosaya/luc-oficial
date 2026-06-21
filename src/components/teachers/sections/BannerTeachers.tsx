@@ -1,57 +1,19 @@
-"use client";
-import { BannerElement } from "@/components/home/components/BannerElement";
-import { BannerSubtitle } from "@/components/home/components/BannerSubtitle";
-import { BannerTitle } from "@/components/home/components/BannerTitle";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { useDebouncedCallback } from 'use-debounce';
+import { formatNumber } from "@/lib/utils";
 
-import { BiSearch } from "react-icons/bi";
-
-import { RxCrossCircled } from "react-icons/rx";
-
-function BannerTeachers() {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
-  const handleSearch = useDebouncedCallback((termSearch?: string)=> {
-    const params = new URLSearchParams(searchParams);
-    params.delete("page");
-    if (termSearch) {
-      params.set("query", termSearch);
-    } else {
-      params.delete("query");
-    }
-    replace(`${pathname}?${params.toString()}`);
-  }, 300);
-
+function BannerTeachers({ totalCount }: { totalCount: number }) {
   return (
-    <BannerElement>
-      <BannerTitle className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms]">
-        Profesores
-        <br className="block" />
-        de la UNI
-      </BannerTitle>
-      <BannerSubtitle className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:400ms]">
-        Profesores y cursos de la FIIS registrados de la última carga horaria
-        <br className="hidden md:block" />
-      </BannerSubtitle>
-
-      <div className="translate-y-[-1rem] animate-fade-in opacity-0 px-4 [--animation-delay:600ms] h-12 md:w-[50rem] mx-auto rounded-full bg-zinc-800 text-sm pl-8 ">
-        <button
-          type="button"
-          className="absolute top-1/2 -translate-y-1/2 left-0 text-xl p-3"
-        >
-          <BiSearch className="cursor-auto	" />
-        </button>
-        <input
-          placeholder="Buscar Profesor..."
-          defaultValue={searchParams.get("query")?.toString()}
-          onChange={(e) => handleSearch(e.target.value)}
-          className="h-full bg-transparent w-full  px-4 text-sm outline-none"
-        />
-        
+    <div className="border-b border-border bg-surface">
+      <div className="mx-auto max-w-content px-5 py-12 sm:px-6 lg:px-8">
+        <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
+          Profesores de la UNI
+        </h1>
+        <p className="mt-3 max-w-prose text-muted-foreground">
+          {formatNumber(totalCount)} profesores registrados de la Facultad de
+          Ingeniería Industrial y de Sistemas. Filtra y compara antes de
+          matricularte.
+        </p>
       </div>
-    </BannerElement>
+    </div>
   );
 }
 

@@ -1,157 +1,156 @@
 "use client";
-import Container from "@/components/container/Container";
-import { Logo } from "@/components/icons/logo";
-import classNames from "classnames";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-// import { Button } from "../button/Button";
-import { HamburgerIcon } from "@/components/icons/hamburguer";
-import { Avatar, Button } from "@nextui-org/react";
 
+import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { signIn, signOut, useSession } from "next-auth/react";
-// import { logout } from "@/actions/auth/logout";
+import { List, X, SignOut, User } from "@phosphor-icons/react";
+
+import Container from "@/components/container/Container";
+import { Brand } from "@/components/ui/Brand";
+import { Button } from "@/components/ui/primitives/Button";
+import { ThemeToggle } from "@/components/ui/primitives/ThemeToggle";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/primitives/Avatar";
+import { initials } from "@/lib/utils";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/primitives/DropdownMenu";
+import { cn } from "@/lib/utils";
+
+const pages = [
+  { title: "Inicio", route: "/" },
+  { title: "Profesores", route: "/teachers" },
+  { title: "Nosotros", route: "/about" },
+];
 
 function NavBar() {
-  const { data: session } = useSession();
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoaded(true);
-    }, 100);
+  const { data: session, status } = useSession();
+  const pathname = usePathname();
+  const [open, setOpen] = React.useState(false);
 
-    return () => clearTimeout(timer);
-  }, []);
+  React.useEffect(() => {
+    document.documentElement.classList.toggle("overflow-hidden", open);
+  }, [open]);
 
-  const [hamburgerMenuIsOpen, setHamburgerMenuIsOpen] = useState(false);
-  useEffect(() => {
-    const html = document.querySelector("html");
-    if (html) html.classList.toggle("overflow-hidden", hamburgerMenuIsOpen);
-  }, [hamburgerMenuIsOpen]);
-
-  useEffect(() => {
-    const closeHamburgerNavigation = () => setHamburgerMenuIsOpen(false);
-
-    window.addEventListener("orientationchange", closeHamburgerNavigation);
-    window.addEventListener("resize", closeHamburgerNavigation);
-
-    return () => {
-      window.removeEventListener("orientationchange", closeHamburgerNavigation);
-      window.removeEventListener("resize", closeHamburgerNavigation);
-    };
-  }, [setHamburgerMenuIsOpen]);
-  const pages = [
-    {
-      title: "Inicio",
-      route: "/",
-    },
-    {
-      title: "Profesores",
-      route: "/teachers",
-    },
-    {
-      title: "Sobre Nosotros",
-      route: "/about",
-    },
-  ];
+  const isActive = (route: string) =>
+    route === "/" ? pathname === "/" : pathname.startsWith(route);
 
   return (
-    <header className="fixed top-0 left-0 z-10 w-full border-b border-transparent-white backdrop-blur-[12px] bg-[#1b1a19]">
-      <Container className="flex h-navigation-height">
-        <Logo className="h-13" />
-        <Link className="flex items-center text-md" href="/">
-          LUC
-        </Link>
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
+      <Container className="flex h-navigation-height items-center gap-4">
+        <Brand />
 
-        <div
-          className={classNames(
-            "transition-[visibility] md:visible",
-            hamburgerMenuIsOpen ? "visible" : "delay-500 invisible"
-          )}
-        >
-          <nav
-            className={classNames(
-              "z-50 fixed top-navigation-height left-0 h-[calc(100vh_-_var(--navigation-height))] w-full overflow-auto bg-background transition-opacity duration-500 md:relative md:top-0 md:block md:h-auto md:w-auto md:translate-x-0 md:overflow-hidden md:bg-transparent md:opacity-100 md:transition-none",
-              hamburgerMenuIsOpen
-                ? "translate-x-0 opacity-100"
-                : "translate-x-[-100vw] opacity-0"
-            )}
-          >
-            <ul
-              className={classNames(
-                "z-50 flex h-full flex-col md:flex-row md:items-center [&_li]:ml-6 [&_li]:border-b [&_li]:border-grey-dark md:[&_li]:border-none",
-                "ease-in [&_a:hover]:text-grey [&_a]:flex [&_a]:h-navigation-height [&_a]:w-full [&_a]:translate-y-8 [&_a]:items-center [&_a]:text-lg [&_a]:transition-[color,transform] [&_a]:duration-300 md:[&_a]:translate-y-0 md:[&_a]:text-sm [&_a]:md:transition-colors ",
-                hamburgerMenuIsOpen && "[&_a]:translate-y-0"
+        <nav className="ml-4 hidden items-center gap-1 md:flex">
+          {pages.map((page) => (
+            <Link
+              key={page.route}
+              href={page.route}
+              aria-current={isActive(page.route) ? "page" : undefined}
+              className={cn(
+                "rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                isActive(page.route)
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
               )}
             >
-              {pages.map((page) => (
-                <li key={page.title}>
-                  <Link
-                    onClick={() => setHamburgerMenuIsOpen(false)}
-                    href={page.route}
-                  >
-                    {page.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
+              {page.title}
+            </Link>
+          ))}
+        </nav>
 
-        <div className="ml-auto flex h-full items-center">
-          {loaded &&
-            (session?.user ? (
-              <div className="flex gap-5 items-center">
-                <div className="flex flex-col gap-1 items-start justify-center">
-                  <h4 className="hidden md:block text-small font-semibold leading-none text-default-600">
-                    {session.user.name}
-                  </h4>
-                  <h5 className="hidden md:block text-small tracking-tight text-default-400">
-                    {session.user.email}
-                  </h5>
-                </div>
-                <Avatar
-                  isBordered
-                  radius="full"
-                  size="sm"
-                  src={session.user.image ?? "/teachers/icono.png"}
-                />
+        <div className="ml-auto flex items-center gap-2">
+          <ThemeToggle className="hidden sm:inline-flex" />
 
-                <Button
-                  size="lg"
-                  className=" font-bold "
-                  onClick={() => {
-                    signOut();
-                  }}
-                >
-                  Cerrar Sesión
-                </Button>
-              </div>
-            ) : (
-              <div className="bg-gradient-to-r to-primary from-secondary rounded-xl p-[2px] ">
+          {status === "authenticated" && session?.user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
                 <button
-                  
-                  className="  font-bold py-3 px-4 bg-[#1b1a19] rounded-xl"
-                  onClick={() => signIn()}
+                  className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  aria-label="Menú de cuenta"
                 >
-                  INICIAR SESIÓN
+                  <Avatar className="size-9 ring-1 ring-border">
+                    {session.user.image && (
+                      <AvatarImage src={session.user.image} alt={session.user.name ?? ""} />
+                    )}
+                    <AvatarFallback>{initials(session.user.name)}</AvatarFallback>
+                  </Avatar>
                 </button>
-              </div>
-            ))}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-60">
+                <div className="px-2.5 py-2">
+                  <p className="truncate text-sm font-semibold">{session.user.name}</p>
+                  <p className="truncate text-xs text-muted-foreground">
+                    {session.user.email}
+                  </p>
+                </div>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem destructive onSelect={() => signOut()}>
+                  <SignOut />
+                  Cerrar sesión
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button
+              size="sm"
+              className="hidden sm:inline-flex"
+              onClick={() => signIn("google")}
+            >
+              <User weight="bold" />
+              Iniciar sesión
+            </Button>
+          )}
 
-          {/* <Link className="mr-6 text-sm" href="/auth/login">
-            Iniciar sesión
-          </Link>
-          <Button href="/auth/new-account">Registrarse</Button> */}
+          <button
+            className="inline-flex size-10 items-center justify-center rounded-lg text-foreground md:hidden"
+            onClick={() => setOpen((o) => !o)}
+            aria-label={open ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={open}
+          >
+            {open ? <X size={22} /> : <List size={22} />}
+          </button>
         </div>
-
-        <button
-          className="ml-6 md:hidden"
-          onClick={() => setHamburgerMenuIsOpen((open) => !open)}
-        >
-          <span className="sr-only">Toggle menu</span>
-          <HamburgerIcon />
-        </button>
       </Container>
+
+      {/* Mobile panel */}
+      <div
+        className={cn(
+          "md:hidden",
+          open ? "block" : "hidden"
+        )}
+      >
+        <Container className="flex flex-col gap-1 border-t border-border py-4">
+          {pages.map((page) => (
+            <Link
+              key={page.route}
+              href={page.route}
+              onClick={() => setOpen(false)}
+              aria-current={isActive(page.route) ? "page" : undefined}
+              className={cn(
+                "rounded-lg px-3 py-2.5 text-base font-medium transition-colors",
+                isActive(page.route)
+                  ? "bg-muted text-foreground"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              )}
+            >
+              {page.title}
+            </Link>
+          ))}
+          <div className="mt-2 flex items-center gap-2">
+            <ThemeToggle />
+            {status !== "authenticated" && (
+              <Button className="flex-1" onClick={() => signIn("google")}>
+                <User weight="bold" />
+                Iniciar sesión
+              </Button>
+            )}
+          </div>
+        </Container>
+      </div>
     </header>
   );
 }

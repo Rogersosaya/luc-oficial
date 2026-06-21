@@ -4,141 +4,141 @@
 
 @layer base {
   :root {
-    --navigation-height: 4.8rem;
-    --primary: #025caa;
-    --secondary: #222b91;
+    --background: 210 33% 99%;
+    --foreground: 222 32% 12%;
+    --surface: 210 30% 96.5%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 32% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 32% 12%;
+
+    --primary: 211 92% 30%;
+    --primary-foreground: 0 0% 100%;
+    --primary-soft: 211 90% 95%;
+
+    --muted: 210 24% 95%;
+    --muted-foreground: 215 16% 42%;
+
+    --border: 214 22% 88%;
+    --input: 214 22% 88%;
+    --ring: 211 92% 38%;
+
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --metric-rating: 38 92% 46%;
+    --metric-difficulty: 8 78% 52%;
+    --metric-learning: 187 75% 34%;
+    --metric-repeat: 152 56% 38%;
+
+    --shadow-color: 215 45% 28%;
+    --radius: 0.7rem;
+  }
+
+  .dark {
+    --background: 222 30% 8%;
+    --foreground: 210 24% 92%;
+    --surface: 222 26% 11%;
+    --card: 222 25% 12%;
+    --card-foreground: 210 24% 92%;
+    --popover: 222 25% 12%;
+    --popover-foreground: 210 24% 92%;
+
+    --primary: 209 90% 60%;
+    --primary-foreground: 222 47% 10%;
+    --primary-soft: 212 52% 18%;
+
+    --muted: 220 18% 18%;
+    --muted-foreground: 216 16% 65%;
+
+    --border: 218 16% 22%;
+    --input: 218 16% 24%;
+    --ring: 209 90% 58%;
+
+    --destructive: 0 72% 58%;
+    --destructive-foreground: 0 0% 100%;
+
+    --metric-rating: 40 95% 58%;
+    --metric-difficulty: 8 82% 64%;
+    --metric-learning: 186 68% 52%;
+    --metric-repeat: 152 54% 52%;
+
+    --shadow-color: 222 65% 2%;
+  }
+
+  * {
+    @apply border-border;
   }
 
   html {
-    font-size: 62.5%;
-    /* background-image: linear-gradient(to right top, #000e22, #000c20, #010a1e, #00081c, #00061a); */
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
 
-  .highlighted-keys .active rect:first-child {
-    fill-opacity: 0.4;
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv11", "ss01";
+    text-rendering: optimizeLegibility;
   }
 
-  .highlighted-keys .active rect:not(:first-child) {
-    stroke-opacity: 1;
+  ::selection {
+    background-color: hsl(var(--primary) / 0.2);
   }
 
-  .highlighted-keys .active path {
-    fill-opacity: 1;
+  /* Visible focus ring only for keyboard users */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight text-balance;
   }
 }
 
 @layer utilities {
-  .text-shadow {
-    text-shadow: rgb(0 0 0 / 56%) 0px 3px 12px;
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
   }
 
-  .text-gradient {
-    background: linear-gradient(
-      to right bottom,
-      rgb(255, 255, 255) 30%,
-      rgba(255, 255, 255, 0.38)
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Edge-fade mask for horizontal scrollers and marquees */
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 6%,
+      black 94%,
+      transparent
     );
-    background-clip: text;
-    color: transparent;
-  }
-
-  .mask-radial-faded {
-    mask-image: radial-gradient(
-      circle at center center,
-      black,
-      transparent 80%
-    );
-  }
-
-  .mask-linear-faded {
-    mask-image: linear-gradient(black, transparent 70%);
-  }
-
-  .mask-keyboard {
-    mask-image: linear-gradient(
-      transparent 0%,
-      rgba(0, 0, 0, 0.57) 33.98%,
-      black 100%
-    );
-  }
-
-  .mask-shortcutkeys {
     mask-image: linear-gradient(
       to right,
       transparent,
-      black 40%,
-      black calc(60%),
-      transparent 100%
+      black 6%,
+      black 94%,
+      transparent
     );
   }
-  .green-pink-gradient {
-    background: "#00cea8";
-    background: linear-gradient(90.13deg, var(--secondary) 1.9%, var(--primary) 97.5%);
-    background: -webkit-linear-gradient(-90.13deg, var(--secondary) 1.9%, var(--primary) 97.5%);
+
+  .shadow-tinted {
+    box-shadow: 0 12px 32px -12px hsl(var(--shadow-color) / 0.22);
   }
 }
-@property --angle {
-  syntax: '<angle>';
-  initial-value: 90deg;
-  inherits: true;
-}
 
-@property --gradX {
-  syntax: '<percentage>';
-  initial-value: 50%;
-  inherits: true;
-}
-
-@property --gradY {
-  syntax: '<percentage>';
-  initial-value: 0%;
-  inherits: true;
-}
-
-.box {
-	--d: 2500ms;
-	--angle: 90deg;
-	--gradX: 100%;
-	--gradY: 50%;
-	--c1: var(--secondary);
-	--c2: var(--primary);
-	
-	border: 0.35rem solid;
-	border-radius: 205px;
-	border-image: conic-gradient(from var(--angle), var(--c2), var(--c1) 0.1turn, var(--c1) 0.15turn, var(--c2) 0.25turn) 30;
-	animation: borderRotate var(--d) linear infinite forwards;
-}
-
-.box:nth-child(2) {
-	border-image: radial-gradient(ellipse at var(--gradX) var(--gradY), var(--c1), var(--c1) 10%, var(--c2) 40%) 30;
-	animation: borderRadial var(--d) linear infinite forwards;
-}
-
-@keyframes borderRotate {
-	100% {
-		--angle: 420deg;
-	}
-}
-
-@keyframes borderRadial {
-	20% {
-		--gradX: 100%;
-		--gradY: 50%;
-	}
-	40% {
-		--gradX: 100%;
-		--gradY: 100%;
-	}
-	60% {
-		--gradX: 50%;
-		--gradY: 100%;
-	}
-	80% {
-		--gradX: 0%;
-		--gradY: 50%;
-	}
-	100% {
-		--gradX: 50%;
-		--gradY: 0%;
-	}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

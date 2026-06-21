@@ -1,153 +1,48 @@
 "use client";
-import { getValorationsByTeacher } from "@/actions/valoration/get-valorations";
-import { Teacher } from "@/interfaces/teacher.interface";
-import { useValorationsStore } from "@/store/valorationsStore";
-import { Progress } from "@nextui-org/react";
-import React, { useEffect } from "react";
-import { FaRegStar, FaStar, FaUser } from "react-icons/fa6";
-interface PropsTeacher {
-  id: string;
-  name: string;
-  slug: string;
-  url: string;
-}
-interface Props {
-  teacher: PropsTeacher | null;
-}
-function Valuation({ teacher }: Props) {
-  const { getValorations, valorations } = useValorationsStore();
-  useEffect(() => {
-    getValorations(teacher!.id);
-  }, [getValorations,teacher]);
-  const ratings = valorations.map((item) => item.rating);
 
-  let rating1 =
-  Number(((ratings.filter((rating) => rating === 1).length / ratings.length) * 100).toFixed(1));
-  let rating2 =
-  Number(((ratings.filter((rating) => rating === 2).length / ratings.length) * 100).toFixed(1));
-  let rating3 =
-  Number(((ratings.filter((rating) => rating === 3).length / ratings.length) * 100).toFixed(1));
-  let rating4 =
-  Number(((ratings.filter((rating) => rating === 4).length / ratings.length) * 100).toFixed(1));
-  let rating5 =
-  Number(((ratings.filter((rating) => rating === 5).length / ratings.length) * 100).toFixed(1));
-  let averageRating =
-  Number((ratings.reduce((acc, val) => acc + val, 0) / ratings.length).toFixed(1));
+import { Star } from "@phosphor-icons/react";
+import { Progress } from "@/components/ui/primitives/Progress";
 
-  rating1 = Number.isNaN(rating1) ? 0 : rating1;
-  rating2 = Number.isNaN(rating2) ? 0 : rating2;
-  rating3 = Number.isNaN(rating3) ? 0 : rating3;
-  rating4 = Number.isNaN(rating4) ? 0 : rating4;
-  rating5 = Number.isNaN(rating5) ? 0 : rating5;
-  averageRating = Number.isNaN(averageRating) ? 0 : averageRating;
-  const array = [...Array(5)];
+interface Valoration {
+  rating: number;
+}
+
+function Valuation({ valorations }: { valorations: Valoration[] }) {
+  const total = valorations.length;
+  const pctFor = (n: number) =>
+    total === 0
+      ? 0
+      : Number(
+          (
+            (valorations.filter((v) => v.rating === n).length / total) *
+            100
+          ).toFixed(0)
+        );
+
+  const rows = [5, 4, 3, 2, 1].map((star) => ({ star, pct: pctFor(star) }));
 
   return (
-    <>
-      <div className="text-lg font-bold">{teacher?.name}</div>
-      <div className="grid grid-cols-12 w-full">
-        <div className="p-3 flex flex-col items-center justify-center col-span-12 md:col-span-5">
-          <div className="text-lg ">Valoración</div>
-          <div className="text-2xl font-bold">{averageRating}</div>
-          <div className="flex">
-          {array.map((_, index) => {
-          const currentRating = index + 1;
-          return (
-            <div key={index}>
-              {currentRating <= averageRating ? (
-                <FaStar className="text-yellow-400" size={18} />
-              ) : (
-                <FaRegStar className="text-yellow-400"  size={18} />
-              )}
-            </div>
-          );
-        })}
-            
-          </div>
-          <div className="flex justify-center mt-3 items-center">
-          <FaUser  className="" size={20} />
-            <span className="ml-2 text-lg">{valorations.length}</span>
-          </div>
-        </div>
-        <div className="flex flex-col justify-center items-center w-full col-span-12  md:col-span-7 px-5 md:px-10 ">
-          <div className="flex items-center w-full">
-            <span className="text-md mr-1">5</span>
-            <FaStar className="text-yellow-400" size={20} />
+    <div className="rounded-2xl border border-border bg-card p-6">
+      <h2 className="text-lg font-semibold">Distribución de calificaciones</h2>
+      <div className="mt-4 flex flex-col gap-2.5">
+        {rows.map(({ star, pct }) => (
+          <div key={star} className="flex items-center gap-3">
+            <span className="flex w-10 items-center gap-1 text-sm text-muted-foreground tabular">
+              {star}
+              <Star size={13} weight="fill" className="text-[hsl(var(--metric-rating))]" />
+            </span>
             <Progress
-              className="ml-1 mr-2 max-w-80 md:max-w-80"
-              size="md"
-              radius="sm"
-              aria-label="1"
-              classNames={{
-                indicator: "bg-gradient-to-r from-primary to-secondary",
-              }}
-              value={rating5}
+              value={pct}
+              color="hsl(var(--metric-rating))"
+              className="flex-1"
             />
-            <span className="text-md">%{rating5}</span>
+            <span className="w-10 text-right text-sm text-muted-foreground tabular">
+              {pct}%
+            </span>
           </div>
-          <div className="flex items-center w-full">
-            <span className="text-md mr-1">4</span>
-            <FaStar className="text-yellow-400" size={20} />
-            <Progress
-              className="ml-1 mr-2 max-w-80  md:max-w-80"
-              size="md"
-              radius="sm"
-              aria-label="1"
-              classNames={{
-                indicator: "bg-gradient-to-r from-primary to-secondary",
-              }}
-              value={rating4}
-            />
-            <span className="text-md">%{rating4}</span>
-          </div>
-          <div className="flex items-center w-full">
-            <span className="text-md mr-1">3</span>
-            <FaStar className="text-yellow-400" size={20} />
-            <Progress
-              className="ml-1 mr-2 max-w-80  md:max-w-80"
-              size="md"
-              radius="sm"
-              aria-label="1"
-              classNames={{
-                indicator: "bg-gradient-to-r from-primary to-secondary",
-              }}
-              value={rating3}
-            />
-            <span className="text-md">%{rating3}</span>
-          </div>
-          <div className="flex items-center w-full">
-            <span className="text-md mr-1">2</span>
-            <FaStar className="text-yellow-400" size={20} />
-            <Progress
-              className="ml-1 mr-2 max-w-80  md:max-w-80"
-              size="md"
-              radius="sm"
-              aria-label="1"
-              classNames={{
-                indicator: "bg-gradient-to-r from-primary to-secondary",
-              }}
-              value={rating2}
-            />
-            <span className="text-md">%{rating2}</span>
-          </div>
-          <div className="flex items-center w-full">
-            <span className="text-md mr-1">1</span>
-            <FaStar className="text-yellow-400" size={20} />
-            <Progress
-              className="ml-1 mr-2 max-w-80  md:max-w-80"
-              size="md"
-              radius="sm"
-              aria-label="1"
-              classNames={{
-                indicator: "bg-gradient-to-r from-primary to-secondary",
-              }}
-              value={rating1}
-            />
-            <span className="text-md">%{rating1}</span>
-          </div>
-        </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 }
 

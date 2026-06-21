@@ -1,41 +1,32 @@
-import Container from "@/components/container/Container";
-import React from "react";
-import Banner from "../../components/home/sections/Banner";
+import Banner from "@/components/home/sections/Banner";
 import Achievements from "@/components/home/sections/Achievements";
-import CommentsFast from "../../components/home/sections/CommentsFast";
-import Podium from "../../components/home/sections/Podium";
 import TeachersSwiper from "@/components/home/sections/TeachersSwiper";
+import Podium from "@/components/home/sections/Podium";
+import { HowItWorks } from "@/components/home/sections/HowItWorks";
+import CommentsFast from "@/components/home/sections/CommentsFast";
 
-import { getTotal } from "../../actions/total/get-info-total";
+import { getTotal } from "@/actions/total/get-info-total";
 import { getTeachersRecent } from "@/actions/teacher/get-teachers-recent";
 
+export const revalidate = 300;
+
 async function GeneralPage() {
-  const teachers = await getTeachersRecent();
-  const { teachersTotal, commentsTotal, valorationsTotal, usersTotal } =
-    await getTotal();
+  const [teachers, { teachersTotal, commentsTotal, valorationsTotal, usersTotal }] =
+    await Promise.all([getTeachersRecent(8), getTotal()]);
+
   return (
     <>
-      <div className="overflow-hidden pb-[16.4rem] md:pb-[19.6rem]">
-        <Container className="pt-[6.4rem]">
-          <Banner />
-        </Container>
-      </div>
-      <Container>
-        <Achievements
-          teachersTotal={teachersTotal!}
-          commentsTotal={commentsTotal!}
-          valorationsTotal={valorationsTotal!}
-          usersTotal={usersTotal!}
-        />
-      </Container>
-      <Container>
-      <CommentsFast />
-
-      </Container>
+      <Banner teachersTotal={teachersTotal} valorationsTotal={valorationsTotal} />
+      <Achievements
+        teachersTotal={teachersTotal}
+        commentsTotal={commentsTotal}
+        valorationsTotal={valorationsTotal}
+        usersTotal={usersTotal}
+      />
+      <TeachersSwiper teachers={teachers} />
       <Podium />
-      <Container>
-        <TeachersSwiper teachers={teachers} />
-      </Container>
+      <HowItWorks />
+      <CommentsFast />
     </>
   );
 }

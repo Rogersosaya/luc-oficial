@@ -1,74 +1,70 @@
 import Link from "next/link";
-import { Logo } from "../../icons/logo";
-// import { SlackIcon } from "./icons/slack";
-import { FaTwitter } from "react-icons/fa";
-import Container from '../../container/Container';
+import Container from "@/components/container/Container";
+import { Brand } from "@/components/ui/Brand";
 
-const footerLinks = [
-  {
-    title: "Redes sociales",
-    links: [
-      { title: "Facebook", href: "https://www.facebook.com/TeamLUC1/" },
-      { title: "Tik Tok", href: "https://www.tiktok.com/@luc.oficial?_t=8kdb4AbYjqw&_r=1" },
-      { title: "Instagram", href: "https://www.instagram.com/teamluc_123/" },
-      { title: "Youtube", href: "https://www.youtube.com/@LUC12321_" },
-      
-    ],
-  },
-  
-  // {
-  //   title: "Resources",
-  //   links: [
-  //     { title: "Community", href: "#" },
-  //     { title: "Contact", href: "#" },
-  //     { title: "DPA", href: "#" },
-  //     { title: "Terms of service", href: "#" },
-  //   ],
-  // },
-  // {
-  //   title: "Developers",
-  //   links: [
-  //     { title: "API", href: "#" },
-  //     { title: "Status", href: "#" },
-  //     { title: "GitHub", href: "#" },
-  //   ],
-  // },
+const socials = [
+  { title: "Facebook", href: "https://www.facebook.com/TeamLUC1/" },
+  { title: "TikTok", href: "https://www.tiktok.com/@luc.oficial" },
+  { title: "Instagram", href: "https://www.instagram.com/teamluc_123/" },
+  { title: "YouTube", href: "https://www.youtube.com/@LUC12321_" },
+];
+
+const product = [
+  { title: "Inicio", href: "/" },
+  { title: "Profesores", href: "/teachers" },
+  { title: "Nosotros", href: "/about" },
 ];
 
 export const Footer = () => (
-  <footer className="mt-12 border-t border-transparent-white py-[5.6rem] text-sm">
-    <Container className="flex flex-col justify-between lg:flex-row">
-      <div>
-        <div className="flex h-full flex-row justify-between lg:flex-col">
-          <div className="flex items-center text-grey">
-
-            <Logo className="mr-4 h-11 w-11 flex items-center" /> LUC - ¡Un grupo que lo cambia todo!
-          </div>
-         
+  <footer className="mt-24 border-t border-border bg-surface">
+    <Container className="py-14">
+      <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr]">
+        <div className="max-w-prose">
+          <Brand />
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+            Reseñas reales de estudiantes sobre profesores de la Universidad
+            Nacional de Ingeniería. Elige mejor tus cursos cada ciclo.
+          </p>
         </div>
+
+        <nav aria-label="Producto">
+          <h3 className="text-sm font-semibold">Producto</h3>
+          <ul className="mt-4 space-y-2.5">
+            {product.map((link) => (
+              <li key={link.title}>
+                <Link
+                  href={link.href}
+                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {link.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <nav aria-label="Redes sociales">
+          <h3 className="text-sm font-semibold">Comunidad</h3>
+          <ul className="mt-4 space-y-2.5">
+            {socials.map((link) => (
+              <li key={link.title}>
+                <Link
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {link.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
-      <div className="flex flex-wrap">
-        {footerLinks.map((column) => (
-          <div
-            key={column.title}
-            className="mt-10 min-w-[50%] lg:mt-0 lg:min-w-[18rem]"
-          >
-            <h3 className="mb-3 font-medium">{column.title}</h3>
-            <ul>
-              {column.links.map((link) => (
-                <li key={link.title} className="[&_a]:last:mb-0">
-                  <Link
-                    className="mb-3 block text-grey transition-colors hover:text-off-white"
-                    target="_blank"
-                    href={link.href}
-                  >
-                    {link.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+
+      <div className="mt-12 flex flex-col gap-2 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+        <p>© {new Date().getFullYear()} Cátedra. Hecho por estudiantes, para estudiantes.</p>
+        <p>No afiliado oficialmente a la UNI.</p>
       </div>
     </Container>
   </footer>

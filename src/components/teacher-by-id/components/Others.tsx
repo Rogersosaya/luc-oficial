@@ -1,40 +1,21 @@
-import React from "react";
-import { PiUsersThreeFill } from "react-icons/pi";
-import CardTeachers from "../../ui/CardTeachers";
-import { Course } from "@/interfaces/course.interface";
-interface Valoration {
-  rating:number,
-  difficulty: number,
-  learning: number,
-  repeat: boolean,
+import { UsersThree } from "@phosphor-icons/react/dist/ssr";
+import CardTeachers, { type TeacherCardData } from "@/components/ui/CardTeachers";
 
-}
-interface CourseProps {
-  course:Course,
-}
-interface Teacher {
-  name: string,
-  slug:string,
-  url:string,
-  valorations: Valoration[];
-  courses: Course[];
-}
-interface Props {
-  teachers: Teacher[]
-}
-function Others({ teachers }: Props) {
+function Others({ teachers }: { teachers: TeacherCardData[] }) {
+  if (teachers.length === 0) return null;
+
   return (
-    <>
-      <div className="text-md font-bold mb-5 flex items-center">
-        <PiUsersThreeFill className="mr-2 text-secondary" />
+    <div className="lg:sticky lg:top-24">
+      <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold">
+        <UsersThree size={20} weight="fill" className="text-primary" />
         Otros profesores
+      </h2>
+      <div className="flex flex-col gap-4">
+        {teachers.map((teacher) => (
+          <CardTeachers key={teacher.slug} teacher={teacher} />
+        ))}
       </div>
-      {teachers.map((teacher) => (
-        <div key={teacher.slug} className="px-6 mb-6">
-          <CardTeachers teacher={teacher} />
-        </div>
-      ))}
-    </>
+    </div>
   );
 }
 

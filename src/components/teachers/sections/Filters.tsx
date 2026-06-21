@@ -1,133 +1,166 @@
 "use client";
-import { Career } from "@/interfaces/career.interface";
-import { Course } from "@/interfaces/course.interface";
-import { Cycle } from "@/interfaces/cycle.interface";
-import { Faculty } from "@/interfaces/faculty.interface";
-import { Button, Select, SelectItem } from "@nextui-org/react";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
-import React, { useEffect, useState } from "react";
+import * as React from "react";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
+import { MagnifyingGlass, X } from "@phosphor-icons/react";
+
+import type { Career } from "@/interfaces/career.interface";
+import type { Cycle } from "@/interfaces/cycle.interface";
+import type { Faculty } from "@/interfaces/faculty.interface";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/primitives/Select";
+import { Button } from "@/components/ui/primitives/Button";
+
+interface CourseOption {
+  name: string;
+}
 
 interface Props {
   faculties: Faculty[];
   careers: Career[];
   cycles: Cycle[];
-  courses: Course[];
+  courses: CourseOption[];
+}
+
+const ALL = "__all__";
+
+function FilterSelect({
+  label,
+  value,
+  options,
+  onChange,
+  disabled,
+}: {
+  label: string;
+  value?: string;
+  options: { key: string; label: string }[];
+  onChange: (value: string) => void;
+  disabled?: boolean;
+}) {
+  return (
+    <label className="flex w-full flex-col gap-1.5">
+      <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        {label}
+      </span>
+      <Select
+        value={value ?? ALL}
+        onValueChange={(v) => onChange(v === ALL ? "" : v)}
+        disabled={disabled}
+      >
+        <SelectTrigger aria-label={label}>
+          <SelectValue placeholder={`Todas`} />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value={ALL}>Todas</SelectItem>
+          {options.map((o) => (
+            <SelectItem key={o.key} value={o.key}>
+              {o.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </label>
+  );
 }
 
 function Filters({ faculties, careers, cycles, courses }: Props) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
- 
-  function handleSelect(term: string, nameQuery?: string) {
-    const params = new URLSearchParams(searchParams);
-    params.delete('page')
-    if (nameQuery === "faculty") {
-      params.delete(`career`);
-      params.delete(`course`);
-    }
-    if (nameQuery === "career") {
-      params.delete(`course`);
-    }
-    if (nameQuery === "cycle") {
-      params.delete(`course`);
-    }
 
-    if (term) {
-      params.set(`${nameQuery}`, term);
-    } else {
-      params.delete(`${nameQuery}`);
+  const get = (key: string) => searchParams.get(key)?.toString() || undefined;
+
+  function setParam(name: string, value: string) {
+    const params = new URLSearchParams(searchParams);
+    params.delete("page");
+    // Cascade resets
+    if (name === "faculty") {
+      params.delete("career");
+      params.delete("course");
     }
+    if (name === "career" || name === "cycle") params.delete("course");
+
+    if (value) params.set(name, value);
+    else params.delete(name);
     replace(`${pathname}?${params.toString()}`);
   }
-  const defaultFaculty = searchParams.get("faculty")?.toString();
-  const defaultSelectedFacultyKeys = defaultFaculty
-    ? [defaultFaculty]
-    : undefined;
 
-  const defaultCareer = searchParams.get("career")?.toString();
-  const defaultSelectedCareerKeys = defaultCareer ? [defaultCareer] : undefined;
+  const onSearch = useDebouncedCallback((value: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.delete("page");
+    if (value) params.set("query", value);
+    else params.delete("query");
+    replace(`${pathname}?${params.toString()}`);
+  }, 350);
 
-  const defaultCycle = searchParams.get("cycle")?.toString();
-  const defaultSelectedCycleKeys = defaultCycle ? [defaultCycle] : undefined;
+  const hasFilters = ["query", "faculty", "career", "cycle", "course"].some((k) =>
+    searchParams.get(k)
+  );
 
-  const defaultCourse = searchParams.get("course")?.toString();
-  const defaultSelectedCourseKeys = defaultCourse ? [defaultCourse] : undefined;
   return (
-    <>
-      <div className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:600ms] flex mx-2 md:mx-9 flex-wrap md:flex-nowrap gap-4  py-3 px-3 justify-center mt-5 rounded-lg md:rounded-xl">
-        <Select
-          size={"md"}
-          color={"default"}
-          label="FACULTAD"
-          className="w-full  md:max-w-xs "
-          defaultSelectedKeys={defaultSelectedFacultyKeys}
-          onChange={(e) => {
-            handleSelect(e.target.value, "faculty");
-          }}
-        >
-          {faculties.map((faculty) => (
-            <SelectItem
-              className="text-2xl"
-              key={faculty.name}
-              value={faculty.name}
-            >
-              {faculty.name}
-            </SelectItem>
-          ))}
-        </Select>
-        <Select
-          size={"md"}
-          color={"default"}
-          label="CARRERA"
-          className="w-full  md:max-w-xs "
-          defaultSelectedKeys={defaultSelectedCareerKeys}
-          onChange={(e) => {
-            handleSelect(e.target.value, "career");
-          }}
-        >
-          {careers.map((career) => (
-            <SelectItem color={"primary"} key={career.name} value={career.name}>
-              {career.name}
-            </SelectItem>
-          ))}
-        </Select>
-        <Select
-          size={"md"}
-          color={"default"}
-          label="CICLO"
-          className="w-full  md:max-w-xs "
-          defaultSelectedKeys={defaultSelectedCycleKeys}
-          onChange={(e) => {
-            handleSelect(e.target.value, "cycle");
-          }}
-        >
-          {cycles.map((cycle) => (
-            <SelectItem color={"primary"} key={cycle.name} value={cycle.name}>
-              {cycle.name}
-            </SelectItem>
-          ))}
-        </Select>
-        <Select
-          size={"md"}
-          color={"default"}
-          label="CURSO"
-          className="  md:max-w-xs"
-          defaultSelectedKeys={defaultSelectedCourseKeys}
-          onChange={(e) => {
-            handleSelect(e.target.value, "course");
-          }}
-        >
-          {courses.map((course) => (
-            <SelectItem color={"primary"} key={course.name} value={course.name}>
-              {course.name}
-            </SelectItem>
-          ))}
-        </Select>
+    <div className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-4 sm:p-5">
+      <div className="relative">
+        <MagnifyingGlass
+          size={18}
+          className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground"
+        />
+        <input
+          type="search"
+          defaultValue={get("query") ?? ""}
+          onChange={(e) => onSearch(e.target.value)}
+          placeholder="Busca por nombre del profesor…"
+          aria-label="Buscar profesor"
+          className="h-11 w-full rounded-lg border border-border bg-background pl-10 pr-3 text-sm outline-none transition-colors focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        />
       </div>
-      {/* <Button onClick={()=>handleReset()} className="h-auto ">Reset</Button> */}
-    </>
+
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <FilterSelect
+          label="Facultad"
+          value={get("faculty")}
+          onChange={(v) => setParam("faculty", v)}
+          options={faculties.map((f) => ({ key: f.name, label: f.name }))}
+        />
+        <FilterSelect
+          label="Carrera"
+          value={get("career")}
+          onChange={(v) => setParam("career", v)}
+          options={careers.map((c) => ({ key: c.name, label: c.name }))}
+        />
+        <FilterSelect
+          label="Ciclo"
+          value={get("cycle")}
+          onChange={(v) => setParam("cycle", v)}
+          options={cycles.map((c) => ({ key: c.name, label: c.name }))}
+        />
+        <FilterSelect
+          label="Curso"
+          value={get("course")}
+          onChange={(v) => setParam("course", v)}
+          options={courses.map((c) => ({ key: c.name, label: c.name }))}
+        />
+      </div>
+
+      {hasFilters && (
+        <div className="flex justify-end">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => replace(pathname)}
+            className="text-muted-foreground"
+          >
+            <X size={15} weight="bold" />
+            Limpiar filtros
+          </Button>
+        </div>
+      )}
+    </div>
   );
 }
 
